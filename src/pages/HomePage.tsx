@@ -7,6 +7,7 @@ import { VEDAS_DATA } from '../data/vedas';
 import { ACHARYAS_DATA } from '../data/acharyas';
 import { Diya } from '../components/common/Diya';
 import { CitationBadge } from '../components/common/CitationBadge';
+import { DailyShloka } from '../components/home/DailyShloka';
 import {
   BookOpen,
   Sparkles,
@@ -151,105 +152,56 @@ export const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* Today's Panchang & Featured Shloka */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Panchang Widget */}
-          <div className="bg-amber-100/50 dark:bg-stone-900/80 border border-amber-800/20 rounded-2xl p-6 shadow-md space-y-4">
-            <div className="flex items-center justify-between border-b border-amber-900/10 pb-3">
-              <span className="text-xs font-bold uppercase tracking-wider text-amber-900 dark:text-amber-300 flex items-center gap-1.5">
-                <Sun className="w-4 h-4 text-amber-600" /> Today's Panchang (पञ्चाङ्गम्)
-              </span>
-              <span className="text-[11px] font-semibold text-amber-700 dark:text-amber-400">
-                {panchang.dateString}
-              </span>
+      {/* Today's Panchang & Comprehensive Daily Shloka / Mantra Hub */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        {/* Panchang Bar */}
+        <div className="bg-amber-100/50 dark:bg-stone-900/80 border border-amber-800/20 rounded-2xl p-5 shadow-md">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="flex items-center gap-2">
+              <Sun className="w-5 h-5 text-amber-600" />
+              <div>
+                <span className="text-xs font-bold uppercase tracking-wider text-amber-900 dark:text-amber-300 font-serif block">
+                  Panchang Snapshot (पञ्चाङ्गम्)
+                </span>
+                <span className="text-xs font-semibold text-amber-800 dark:text-amber-400">
+                  {panchang.dateString}
+                </span>
+              </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-3 text-xs">
-              <div className="p-2.5 rounded-lg bg-amber-500/10 border border-amber-500/10">
-                <span className="text-stone-500 block text-[10px]">TITHI</span>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-serif">
+              <div className="px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/10">
+                <span className="text-stone-500 block text-[9px]">TITHI</span>
                 <span className="font-bold text-amber-950 dark:text-amber-100">
-                  {panchang.tithi.name} ({panchang.tithi.paksha} Paksha)
+                  {panchang.tithi.name} ({panchang.tithi.paksha})
                 </span>
               </div>
-              <div className="p-2.5 rounded-lg bg-amber-500/10 border border-amber-500/10">
-                <span className="text-stone-500 block text-[10px]">NAKSHATRA</span>
+              <div className="px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/10">
+                <span className="text-stone-500 block text-[9px]">NAKSHATRA</span>
                 <span className="font-bold text-amber-950 dark:text-amber-100">
-                  {panchang.nakshatra.name} ({panchang.nakshatra.rashi})
+                  {panchang.nakshatra.name}
                 </span>
               </div>
-              <div className="p-2.5 rounded-lg bg-amber-500/10 border border-amber-500/10">
-                <span className="text-stone-500 block text-[10px]">YOGA</span>
+              <div className="px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/10">
+                <span className="text-stone-500 block text-[9px]">YOGA</span>
                 <span className="font-bold text-amber-950 dark:text-amber-100">{panchang.yoga}</span>
               </div>
-              <div className="p-2.5 rounded-lg bg-amber-500/10 border border-amber-500/10">
-                <span className="text-stone-500 block text-[10px]">RAHUKAAL</span>
+              <div className="px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/10">
+                <span className="text-stone-500 block text-[9px]">RAHUKAAL</span>
                 <span className="font-bold text-amber-950 dark:text-amber-100">{panchang.rahukaal}</span>
               </div>
             </div>
 
             {panchang.festivalToday && (
-              <div className="p-3 bg-gradient-to-r from-amber-600 to-amber-800 text-white rounded-xl text-xs flex items-center justify-between shadow-sm">
-                <span className="font-bold">Today's Observance:</span>
-                <span>{panchang.festivalToday}</span>
-              </div>
-            )}
-          </div>
-
-          {/* Shloka of the Day */}
-          <div className="lg:col-span-2 bg-gradient-to-br from-amber-100/80 to-amber-200/50 dark:from-stone-900 dark:to-stone-950 border border-amber-800/30 rounded-2xl p-6 shadow-md space-y-4 flex flex-col justify-between">
-            <div>
-              <div className="flex items-center justify-between border-b border-amber-900/10 pb-3 mb-4">
-                <span className="text-xs font-bold uppercase tracking-wider text-amber-900 dark:text-amber-300 flex items-center gap-1.5">
-                  <Sparkles className="w-4 h-4 text-amber-600" /> Today's Featured Shloka (दैनिकं श्लोकम्)
-                </span>
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={handleSpeakShloka}
-                    title="Recite Sanskrit Shloka"
-                    className="p-1.5 rounded-full bg-amber-500/20 text-amber-900 dark:text-amber-200 hover:bg-amber-500/30"
-                  >
-                    <Volume2 className="w-3.5 h-3.5" />
-                  </button>
-                  <button
-                    onClick={() =>
-                      toggleBookmark({
-                        id: dailyVerse.id,
-                        itemId: dailyVerse.id,
-                        itemType: 'gita',
-                        title: `Shloka ${dailyVerse.verseNumber}`,
-                        subtitle: dailyVerse.translation
-                      })
-                    }
-                    className="p-1.5 rounded-full bg-amber-500/20 text-amber-900 dark:text-amber-200 hover:bg-amber-500/30"
-                  >
-                    <Bookmark className={`w-3.5 h-3.5 ${isBookmarked(dailyVerse.id) ? 'fill-current text-amber-600' : ''}`} />
-                  </button>
-                </div>
-              </div>
-
-              {/* Sanskrit Verse Box */}
-              <div className="p-4 bg-amber-50/80 dark:bg-stone-900/90 rounded-xl border border-amber-800/20 text-center space-y-2">
-                <p className="font-serif text-lg sm:text-xl font-bold text-amber-950 dark:text-amber-100 sanskrit-font whitespace-pre-line leading-relaxed">
-                  {dailyVerse.sanskrit}
-                </p>
-                <p className="text-xs text-amber-800 dark:text-amber-300 italic font-serif">
-                  {dailyVerse.transliteration}
-                </p>
-              </div>
-
-              <p className="text-xs sm:text-sm text-stone-800 dark:text-stone-200 mt-4 leading-relaxed font-serif">
-                <span className="font-bold">Translation:</span> "{dailyVerse.translation}"
-              </p>
-            </div>
-
-            {dailyVerse.lifeLessons && dailyVerse.lifeLessons.length > 0 && (
-              <div className="pt-3 border-t border-amber-900/10 text-xs text-amber-900 dark:text-amber-300">
-                <span className="font-bold">Life Application:</span> {dailyVerse.lifeLessons[0]}
+              <div className="px-3 py-1.5 bg-gradient-to-r from-amber-600 to-amber-800 text-white rounded-xl text-xs font-serif font-bold text-center shadow-sm">
+                {panchang.festivalToday}
               </div>
             )}
           </div>
         </div>
+
+        {/* Daily Shloka & Gods-Goddesses Mantra Treasury Component */}
+        <DailyShloka />
       </section>
 
       {/* Main Knowledge Hub Modules Grid */}
