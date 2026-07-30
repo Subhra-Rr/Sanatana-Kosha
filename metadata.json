@@ -1,0 +1,6 @@
+{
+  "name": "Sanatana Kosha",
+  "description": "The Eternal Knowledge Treasury — World's most comprehensive digital platform for Hindu philosophy, Vedic literature, scriptures, traditions, and spiritual heritage.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

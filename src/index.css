@@ -1,0 +1,116 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-main: #FAF6EE;
+    --bg-card: #F2E9DB;
+    --bg-accent: #E8D7C0;
+    --text-primary: #2C1810;
+    --text-secondary: #5C4033;
+    --border-color: #D4AF37;
+    --saffron-gold: #E05A10;
+    --temple-accent: #8B4513;
+  }
+
+  /* Temple Night (Oil Lamp Theme) */
+  .theme-lamp-night {
+    --bg-main: #120D0A;
+    --bg-card: #1C140E;
+    --bg-accent: #2A1D15;
+    --text-primary: #F3E5AB;
+    --text-secondary: #C8B28B;
+    --border-color: #9A7B38;
+    --saffron-gold: #F39C12;
+    --temple-accent: #D4AF37;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+  }
+
+  /* Sandstone Theme */
+  .theme-sandstone {
+    --bg-main: #FAF6EE;
+    --bg-card: #F2E8D9;
+    --bg-accent: #E5D5BF;
+    --text-primary: #2C1810;
+    --text-secondary: #583E2E;
+    --border-color: #C5A880;
+    --saffron-gold: #D9531E;
+    --temple-accent: #8B4513;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+  }
+
+  /* Copper Gold Theme */
+  .theme-copper-gold {
+    --bg-main: #1F120B;
+    --bg-card: #2B1A10;
+    --bg-accent: #3A2518;
+    --text-primary: #F2C94C;
+    --text-secondary: #D4AF37;
+    --border-color: #B87333;
+    --saffron-gold: #E67E22;
+    --temple-accent: #B87333;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+  }
+
+  /* Morning Sunrise Theme */
+  .theme-morning {
+    --bg-main: #FFFDF9;
+    --bg-card: #FFF8EE;
+    --bg-accent: #FDEED9;
+    --text-primary: #331A00;
+    --text-secondary: #663300;
+    --border-color: #E05A10;
+    --saffron-gold: #E05A10;
+    --temple-accent: #D4AF37;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+  }
+}
+
+/* Custom Scrollbar for Temple Library feel */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-card);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--saffron-gold);
+}
+
+/* Mandala Background Pattern */
+.bg-mandala {
+  background-image: radial-gradient(circle, rgba(212, 175, 55, 0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.bg-copper-plate {
+  background: linear-gradient(135deg, rgba(184, 115, 51, 0.15) 0%, rgba(212, 175, 55, 0.05) 100%);
+  border: 1px solid rgba(184, 115, 51, 0.3);
+}
+
+.temple-border {
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 20px -2px rgba(44, 24, 16, 0.08);
+}
+
+.sanskrit-font {
+  font-family: 'Georgia', 'Garamond', 'Noto Serif Devanagari', serif;
+}
+
+/* Diya Flicker Animation */
+@keyframes diyaFlicker {
+  0%, 100% { opacity: 0.9; transform: scale(1); filter: drop-shadow(0 0 6px #F39C12); }
+  50% { opacity: 1; transform: scale(1.08); filter: drop-shadow(0 0 12px #E67E22); }
+}
+
+.diya-flame {
+  animation: diyaFlicker 2.5s infinite ease-in-out;
+}
