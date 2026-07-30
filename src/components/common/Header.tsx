@@ -5,8 +5,6 @@ import { Diya } from './Diya';
 import {
   Search,
   BookOpen,
-  Volume2,
-  Bell,
   Sparkles,
   Menu,
   X,
@@ -15,24 +13,14 @@ import {
   Calendar,
   Layers,
   GraduationCap,
-  History,
-  Bookmark,
-  Moon,
-  Sun,
-  Palette
+  History
 } from 'lucide-react';
 
 export const Header: React.FC = () => {
   const {
-    theme,
-    setTheme,
     setIsSearchOpen,
     setIsAiAssistantOpen,
-    isDroneActive,
-    toggleDrone,
-    playBell,
-    playConch,
-    bookmarks
+    playConch
   } = useApp();
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -84,84 +72,8 @@ export const Header: React.FC = () => {
           </kbd>
         </button>
 
-        {/* Audio & Theme Controls */}
+        {/* Utility Controls */}
         <div className="flex items-center gap-1.5 sm:gap-2">
-          {/* Temple Bell */}
-          <button
-            onClick={playBell}
-            title="Ring Temple Bell"
-            className="p-2 rounded-full hover:bg-amber-500/10 text-amber-800 dark:text-amber-300 transition-colors"
-          >
-            <Bell className="w-4 h-4" />
-          </button>
-
-          {/* Tanpura Drone Toggle */}
-          <button
-            onClick={toggleDrone}
-            title={isDroneActive ? 'Stop Tanpura Drone' : 'Start Tanpura Drone Hum'}
-            className={`p-2 rounded-full transition-colors ${
-              isDroneActive
-                ? 'bg-amber-600 text-white shadow-md shadow-amber-600/30 animate-pulse'
-                : 'hover:bg-amber-500/10 text-amber-800 dark:text-amber-300'
-            }`}
-          >
-            <Volume2 className="w-4 h-4" />
-          </button>
-
-          {/* Theme Selector */}
-          <div className="relative group">
-            <button
-              title="Change Theme Mode"
-              className="p-2 rounded-full hover:bg-amber-500/10 text-amber-800 dark:text-amber-300 transition-colors"
-            >
-              <Palette className="w-4 h-4" />
-            </button>
-            <div className="absolute right-0 mt-1 w-44 hidden group-hover:block bg-stone-100 dark:bg-stone-900 border border-amber-800/20 rounded-xl shadow-xl p-1.5 text-xs z-50">
-              <button
-                onClick={() => setTheme('sandstone')}
-                className={`w-full text-left px-3 py-1.5 rounded flex items-center justify-between ${theme === 'sandstone' ? 'bg-amber-500/20 font-bold' : 'hover:bg-stone-200 dark:hover:bg-stone-800'}`}
-              >
-                <span>Sandstone Temple</span>
-                <span className="w-2.5 h-2.5 rounded-full bg-[#E8D7C0] border border-stone-400" />
-              </button>
-              <button
-                onClick={() => setTheme('lamp-night')}
-                className={`w-full text-left px-3 py-1.5 rounded flex items-center justify-between ${theme === 'lamp-night' ? 'bg-amber-500/20 font-bold' : 'hover:bg-stone-200 dark:hover:bg-stone-800'}`}
-              >
-                <span>Oil Lamp Night</span>
-                <span className="w-2.5 h-2.5 rounded-full bg-[#120D0A] border border-amber-500" />
-              </button>
-              <button
-                onClick={() => setTheme('copper-gold')}
-                className={`w-full text-left px-3 py-1.5 rounded flex items-center justify-between ${theme === 'copper-gold' ? 'bg-amber-500/20 font-bold' : 'hover:bg-stone-200 dark:hover:bg-stone-800'}`}
-              >
-                <span>Copper Gold</span>
-                <span className="w-2.5 h-2.5 rounded-full bg-[#B87333]" />
-              </button>
-              <button
-                onClick={() => setTheme('morning')}
-                className={`w-full text-left px-3 py-1.5 rounded flex items-center justify-between ${theme === 'morning' ? 'bg-amber-500/20 font-bold' : 'hover:bg-stone-200 dark:hover:bg-stone-800'}`}
-              >
-                <span>Temple Morning</span>
-                <span className="w-2.5 h-2.5 rounded-full bg-[#FFFDF9] border border-amber-400" />
-              </button>
-            </div>
-          </div>
-
-          {/* Personal Library / Bookmarks */}
-          <Link
-            to="/my-library"
-            title="My Personal Library"
-            className="p-2 rounded-full hover:bg-amber-500/10 text-amber-800 dark:text-amber-300 relative transition-colors"
-          >
-            <Bookmark className="w-4 h-4" />
-            {bookmarks.length > 0 && (
-              <span className="absolute top-0 right-0 w-3.5 h-3.5 bg-amber-600 text-white text-[9px] font-bold rounded-full flex items-center justify-center">
-                {bookmarks.length}
-              </span>
-            )}
-          </Link>
-
           {/* AI Spiritual Assistant Trigger */}
           <button
             onClick={() => setIsAiAssistantOpen(true)}
