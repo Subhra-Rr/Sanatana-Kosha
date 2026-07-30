@@ -10,7 +10,6 @@ import {
   Bookmark,
   Copy,
   Check,
-  RefreshCw,
   Search,
   BookOpen,
   ChevronDown,
@@ -34,8 +33,8 @@ export const DailyShloka: React.FC = () => {
   // Tabs: 'daily' | 'mantras'
   const [activeTab, setActiveTab] = useState<'daily' | 'mantras'>('daily');
 
-  // Featured Daily Shloka state (can be replaced by AI generated shloka)
-  const [currentShloka, setCurrentShloka] = useState<CustomShloka>({
+  // Featured Daily Shloka state
+  const [currentShloka] = useState<CustomShloka>({
     title: `Verse ${todayDefaultVerse.verseNumber}`,
     sanskrit: todayDefaultVerse.sanskrit,
     transliteration: todayDefaultVerse.transliteration,
@@ -44,7 +43,6 @@ export const DailyShloka: React.FC = () => {
     sourceScripture: 'Bhagavad Gita / Vedic Scriptures'
   });
 
-  const [isAiLoading, setIsAiLoading] = useState(false);
   const [copied, setCopied] = useState(false);
 
   // Mantras tab state
@@ -60,70 +58,6 @@ export const DailyShloka: React.FC = () => {
     navigator.clipboard.writeText(text);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
-  };
-
-  // Fetch a new inspirational Shloka via AI
-  const handleFetchAiShloka = async () => {
-    setIsAiLoading(true);
-    try {
-      const response = await fetch('/api/ai-assistant', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          prompt: `Select and provide one inspiring, authentic, deep Sanskrit Shloka from the Upanishads, Bhagavad Gita, or Rigveda.
-Format your output exactly as JSON:
-{
-  "title": "Title/Verse Reference",
-  "sanskrit": "Devanagari Sanskrit text",
-  "transliteration": "IAST Transliteration",
-  "translation": "Clear English translation",
-  "significance": "Philosophical significance and practical life application",
-  "sourceScripture": "Primary Scripture Name and verse reference"
-}`
-        })
-      });
-
-      const data = await response.json();
-      if (data.reply) {
-        try {
-          // Attempt JSON parse
-          const jsonMatch = data.reply.match(/\{[\s\S]*\}/);
-          if (jsonMatch) {
-            const parsed = JSON.parse(jsonMatch[0]);
-            setCurrentShloka({
-              title: parsed.title || 'Inspirational Vedic Shloka',
-              sanskrit: parsed.sanskrit,
-              transliteration: parsed.transliteration || '',
-              translation: parsed.translation,
-              significance: parsed.significance || '',
-              sourceScripture: parsed.sourceScripture || 'Sacred Sanskrit Scripture'
-            });
-          } else {
-            setCurrentShloka({
-              title: 'Inspired Sacred Shloka',
-              sanskrit: data.reply,
-              transliteration: '',
-              translation: 'Inspired by sacred scriptures',
-              significance: 'Spiritual contemplation and inner peace',
-              sourceScripture: 'Vedic Literature'
-            });
-          }
-        } catch {
-          setCurrentShloka({
-            title: 'Inspired Sacred Shloka',
-            sanskrit: data.reply,
-            transliteration: '',
-            translation: 'Sacred Vedic teaching',
-            significance: 'Spiritual wisdom for modern living',
-            sourceScripture: 'Sanatana Kosha AI Assistant'
-          });
-        }
-      }
-    } catch (err) {
-      console.error('Failed to fetch AI shloka:', err);
-    } finally {
-      setIsAiLoading(false);
-    }
   };
 
   // Filter mantras for Treasury tab
@@ -231,16 +165,6 @@ Format your output exactly as JSON:
                       isBookmarked(`daily-shloka-${currentShloka.title}`) ? 'fill-current text-amber-600' : ''
                     }`}
                   />
-                </button>
-
-                <button
-                  onClick={handleFetchAiShloka}
-                  disabled={isAiLoading}
-                  title="Fetch a new Shloka via AI Assistant"
-                  className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-700 to-amber-900 text-white font-serif text-xs font-semibold hover:from-amber-800 hover:to-amber-950 flex items-center gap-1.5 shadow-sm transition-all disabled:opacity-50"
-                >
-                  <RefreshCw className={`w-3.5 h-3.5 ${isAiLoading ? 'animate-spin' : ''}`} />
-                  <span>{isAiLoading ? 'Inspiring...' : 'Inspire New Shloka'}</span>
                 </button>
               </div>
             </div>
