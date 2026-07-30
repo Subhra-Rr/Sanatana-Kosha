@@ -238,7 +238,7 @@ export interface TempleItem {
   id: string;
   name: string;
   sanskritName: string;
-  category: 'Jyotirlinga' | 'Shakti Peetha' | 'Char Dham' | 'Divya Desam' | 'Sapta Puri' | 'Ancient Temple';
+  category: string;
   deity: string;
   location: string;
   state: string;

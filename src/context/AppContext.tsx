@@ -29,7 +29,7 @@ interface AppContextType {
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [theme, setThemeState] = useState<ThemeMode>('sandstone');
+  const [theme, setThemeState] = useState<ThemeMode>('lamp-night');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isAiAssistantOpen, setIsAiAssistantOpen] = useState(false);
   const [activeTopicModal, setActiveTopicModal] = useState<string | TopicKnowledgeItem | null>(null);
@@ -38,6 +38,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [readingProgress, setReadingProgress] = useState<Record<string, UserReadingProgress>>({});
 
   useEffect(() => {
+    // Apply default Oil Lamp Theme attributes and dark mode class
+    document.documentElement.className = `theme-${theme} ${theme === 'lamp-night' || theme === 'copper-gold' ? 'dark' : ''}`;
+    document.documentElement.setAttribute('data-theme', theme);
+
     // Load initial storage data
     storageService.getBookmarks().then(setBookmarks);
     storageService.getReadingProgress().then(setReadingProgress);
@@ -55,6 +59,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const setTheme = (newTheme: ThemeMode) => {
     setThemeState(newTheme);
+    document.documentElement.className = `theme-${newTheme} ${newTheme === 'lamp-night' || newTheme === 'copper-gold' ? 'dark' : ''}`;
     document.documentElement.setAttribute('data-theme', newTheme);
   };
 
