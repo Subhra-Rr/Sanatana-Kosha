@@ -19,13 +19,20 @@ async function startServer() {
         return res.status(500).json({ error: 'GEMINI_API_KEY environment variable is missing.' });
       }
 
-      const ai = new GoogleGenAI({ apiKey });
+      const ai = new GoogleGenAI({
+        apiKey,
+        httpOptions: {
+          headers: {
+            'User-Agent': 'aistudio-build',
+          }
+        }
+      });
       const systemInstruction = `You are the Sanatana Kosha AI Knowledge Assistant, an expert in Hindu scriptures, Sanskrit philology, Vedic literature, Upanishads, Bhagavad Gita, Puranas, 6 Classical Darshanas, and Acharya commentaries.
 Provide accurate, reverent, scholarly, and non-sectarian explanations.
 Always cite primary scripture names, chapter numbers, and verse references when answering.`;
 
       const response = await ai.models.generateContent({
-        model: 'gemini-2.5-flash',
+        model: 'gemini-3.6-flash',
         contents: prompt,
         config: {
           systemInstruction
