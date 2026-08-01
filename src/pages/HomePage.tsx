@@ -8,6 +8,7 @@ import { ACHARYAS_DATA } from '../data/acharyas';
 import { Diya } from '../components/common/Diya';
 import { CitationBadge } from '../components/common/CitationBadge';
 import { DailyShloka } from '../components/home/DailyShloka';
+import { KnowledgeGraph } from '../components/common/KnowledgeGraph';
 import {
   BookOpen,
   Sparkles,
@@ -309,6 +310,11 @@ export const HomePage: React.FC = () => {
             </Link>
           ))}
         </div>
+      </section>
+
+      {/* Recursive Knowledge Graph Relationship Map */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <KnowledgeGraph />
       </section>
 
       {/* Interactive Popular Topics Knowledge Grid */}
