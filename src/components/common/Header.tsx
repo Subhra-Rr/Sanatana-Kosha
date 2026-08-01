@@ -77,16 +77,17 @@ export const Header: React.FC = () => {
           {/* AI Spiritual Assistant Trigger */}
           <button
             onClick={() => setIsAiAssistantOpen(true)}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-amber-700 to-amber-900 text-amber-100 hover:from-amber-600 hover:to-amber-800 text-xs font-medium shadow-md transition-all border border-amber-400/30"
+            className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full bg-gradient-to-r from-amber-700 to-amber-900 text-amber-100 hover:from-amber-600 hover:to-amber-800 text-xs font-medium shadow-md transition-all border border-amber-400/30 active:scale-95 min-h-[38px]"
           >
             <Sparkles className="w-3.5 h-3.5 text-amber-300 animate-spin" style={{ animationDuration: '6s' }} />
-            <span className="hidden sm:inline">Ask Knowledge AI</span>
+            <span className="inline">Ask AI</span>
           </button>
 
           {/* Mobile Search Button */}
           <button
             onClick={() => setIsSearchOpen(true)}
-            className="md:hidden p-2 rounded-full text-amber-800 dark:text-amber-300 hover:bg-amber-500/10"
+            aria-label="Search"
+            className="md:hidden p-2 rounded-full text-amber-800 dark:text-amber-300 hover:bg-amber-500/10 active:scale-95 min-w-[40px] min-h-[40px] flex items-center justify-center"
           >
             <Search className="w-4 h-4" />
           </button>
@@ -94,7 +95,8 @@ export const Header: React.FC = () => {
           {/* Mobile Menu Toggle */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 rounded-full text-amber-800 dark:text-amber-300 hover:bg-amber-500/10"
+            aria-label="Toggle menu"
+            className="lg:hidden p-2 rounded-full text-amber-800 dark:text-amber-300 hover:bg-amber-500/10 active:scale-95 min-w-[40px] min-h-[40px] flex items-center justify-center"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -127,7 +129,7 @@ export const Header: React.FC = () => {
 
           <button
             onClick={playConch}
-            className="text-[11px] font-serif text-amber-800 dark:text-amber-300 hover:underline flex items-center gap-1"
+            className="text-[11px] font-serif text-amber-800 dark:text-amber-300 hover:underline flex items-center gap-1 py-1"
           >
             <span>🪔 Sound Conch</span>
           </button>
@@ -136,17 +138,34 @@ export const Header: React.FC = () => {
 
       {/* Mobile Navigation Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-amber-50 dark:bg-stone-950 border-b border-amber-900/20 p-4 space-y-2">
+        <div className="lg:hidden bg-amber-50/98 dark:bg-stone-950/98 backdrop-blur-lg border-b border-amber-900/20 p-4 space-y-1 animate-fade-in shadow-xl max-h-[80vh] overflow-y-auto">
+          <div className="flex items-center justify-between pb-2 mb-2 border-b border-amber-900/10 dark:border-amber-500/10">
+            <span className="text-xs font-serif font-bold text-amber-900 dark:text-amber-300 uppercase tracking-widest">
+              Navigation Treasury
+            </span>
+            <button
+              onClick={playConch}
+              className="text-xs font-serif text-amber-800 dark:text-amber-300 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center gap-1"
+            >
+              <span>🪔 Sound Conch</span>
+            </button>
+          </div>
+
           {navLinks.map((link) => {
             const Icon = link.icon;
+            const isActive = location.pathname === link.path || (link.path !== '/' && location.pathname.startsWith(link.path));
             return (
               <Link
                 key={link.path}
                 to={link.path}
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-stone-800 dark:text-stone-200 hover:bg-amber-500/10"
+                className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                  isActive
+                    ? 'bg-amber-700 text-white font-semibold shadow-sm'
+                    : 'text-stone-800 dark:text-stone-200 hover:bg-amber-500/10 active:bg-amber-500/20'
+                }`}
               >
-                <Icon className="w-4 h-4 text-amber-700 dark:text-amber-400" />
+                <Icon className={`w-4 h-4 ${isActive ? 'text-amber-200' : 'text-amber-700 dark:text-amber-400'}`} />
                 <span>{link.label}</span>
               </Link>
             );
