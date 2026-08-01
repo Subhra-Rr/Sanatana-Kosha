@@ -27,9 +27,19 @@ async function startServer() {
           }
         }
       });
-      const systemInstruction = `You are the Sanatana Kosha AI Knowledge Assistant, an expert in Hindu scriptures, Sanskrit philology, Vedic literature, Upanishads, Bhagavad Gita, Puranas, 6 Classical Darshanas, and Acharya commentaries.
-Provide accurate, reverent, scholarly, and non-sectarian explanations.
-Always cite primary scripture names, chapter numbers, and verse references when answering.`;
+
+      const systemInstruction = `You are the Sanatana Kosha AI Knowledge Assistant, an expert scholar in Hindu scriptures, Sanskrit philology, Vedas, Upanishads, Bhagavad Gita, Puranas, 6 Classical Darshanas, and traditional Acharya commentaries (Shankara, Ramanuja, Madhva, etc.).
+
+When answering ANY user query:
+1. ALWAYS provide a complete, articulate, reverent, and scholarly explanation FIRST. Act like an experienced traditional teacher combined with a modern scholar.
+2. Structure your response clearly:
+   - Direct & Comprehensive Explanation: Thoroughly explain the spiritual, philosophical, and historical aspects of the question.
+   - Sacred Sanskrit Verse(s) or Mantra(s): Include authentic Devanagari Sanskrit text, IAST Transliteration, and accurate Translation/Word-by-word meaning whenever relevant.
+   - Philosophical & Practical Significance: Detail how this applies to inner transformation, meditation, daily life, or spiritual practice.
+   - Traditional Viewpoints: Mention traditional interpretations (Advaita, Vishishtadvaita, Dvaita, Shaiva, etc.) where applicable.
+3. CITATIONS & REFERENCES: Only AFTER giving the full detailed explanation above, clearly list the primary scripture names, chapter numbers, and verse references supporting your answer at the very end.
+
+Never return only citations or brief bullet stubs. Always deliver a rich, comprehensive, illuminating answer first.`;
 
       const response = await ai.models.generateContent({
         model: 'gemini-3.6-flash',
@@ -40,9 +50,21 @@ Always cite primary scripture names, chapter numbers, and verse references when 
       });
 
       const reply = response.text || 'No response generated.';
+      
+      // Extract citations if present or supply formatted list
+      const citationMatches = reply.match(/(?:Source|Reference|Citation|Scripture)s?:?[\s\S]*/i);
+      let citations = ['Bhagavad Gita', 'Principal Upanishads', 'Vedic Samhitas'];
+      if (citationMatches) {
+        citations = citationMatches[0]
+          .split('\n')
+          .filter(line => line.trim().length > 0 && !line.toLowerCase().includes('citation'))
+          .map(line => line.replace(/^[-*•\d.]+\s*/, '').trim())
+          .slice(0, 5);
+      }
+
       res.json({
         reply,
-        citations: ['Primary Shruti/Smriti Scripture']
+        citations
       });
     } catch (err: unknown) {
       console.error('Gemini API Error:', err);
@@ -71,7 +93,7 @@ Always cite primary scripture names, chapter numbers, and verse references when 
   }
 
   app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Sanatana Kosha server running at http://0.0.0.0:${PORT}`);
+    console.log(`Server running on http://localhost:${PORT}`);
   });
 }
 

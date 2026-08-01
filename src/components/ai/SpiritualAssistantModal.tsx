@@ -111,7 +111,9 @@ export const SpiritualAssistantModal: React.FC = () => {
                     : 'bg-stone-100 dark:bg-stone-800 text-stone-900 dark:text-stone-100 border border-amber-900/10 rounded-bl-none'
                 }`}
               >
-                <p>{m.text}</p>
+                <div className="whitespace-pre-line font-serif leading-relaxed text-stone-800 dark:text-stone-100">
+                  {m.text}
+                </div>
 
                 {m.citations && m.citations.length > 0 && (
                   <div className="mt-3 pt-2 border-t border-amber-900/10 dark:border-amber-500/20 text-[11px] text-amber-800 dark:text-amber-300">
