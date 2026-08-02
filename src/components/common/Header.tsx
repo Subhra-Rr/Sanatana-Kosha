@@ -20,8 +20,7 @@ import {
 export const Header: React.FC = () => {
   const {
     setIsSearchOpen,
-    setIsAiAssistantOpen,
-    playConch
+    setIsAiAssistantOpen
   } = useApp();
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -128,13 +127,6 @@ export const Header: React.FC = () => {
               );
             })}
           </div>
-
-          <button
-            onClick={playConch}
-            className="text-[11px] font-serif text-amber-800 dark:text-amber-300 hover:underline flex items-center gap-1 py-1"
-          >
-            <span>🪔 Sound Conch</span>
-          </button>
         </div>
       </nav>
 
@@ -145,12 +137,6 @@ export const Header: React.FC = () => {
             <span className="text-xs font-serif font-bold text-amber-900 dark:text-amber-300 uppercase tracking-widest">
               Navigation Treasury
             </span>
-            <button
-              onClick={playConch}
-              className="text-xs font-serif text-amber-800 dark:text-amber-300 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center gap-1"
-            >
-              <span>🪔 Sound Conch</span>
-            </button>
           </div>
 
           {navLinks.map((link) => {

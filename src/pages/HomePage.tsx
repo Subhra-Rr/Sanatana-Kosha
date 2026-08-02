@@ -12,7 +12,6 @@ import { KnowledgeGraph } from '../components/common/KnowledgeGraph';
 import {
   BookOpen,
   Sparkles,
-  Volume2,
   Calendar,
   Sun,
   Compass,
@@ -26,7 +25,7 @@ import {
 } from 'lucide-react';
 
 export const HomePage: React.FC = () => {
-  const { playBell, playConch, toggleBookmark, isBookmarked, openTopicModal } = useApp();
+  const { playBell, toggleBookmark, isBookmarked, openTopicModal } = useApp();
   const panchang = panchangService.getTodayPanchang();
   const dailyVerse = panchang.dailyShloka;
 
@@ -135,13 +134,6 @@ export const HomePage: React.FC = () => {
               <BookOpen className="w-4 h-4" />
               <span>Read Bhagavad Gita</span>
             </Link>
-            <button
-              onClick={playConch}
-              className="px-5 py-3 rounded-xl bg-amber-100 dark:bg-stone-800 text-stone-800 dark:text-stone-200 border border-amber-800/20 hover:border-amber-600 font-serif font-medium text-sm transition-all flex items-center gap-2 shadow-sm"
-            >
-              <Volume2 className="w-4 h-4 text-amber-700" />
-              <span>Sound Conch Shell</span>
-            </button>
             <Link
               to="/geography"
               className="px-5 py-3 rounded-xl bg-amber-100 dark:bg-stone-800 text-stone-800 dark:text-stone-200 border border-amber-800/20 hover:border-amber-600 font-serif font-medium text-sm transition-all flex items-center gap-2 shadow-sm"
