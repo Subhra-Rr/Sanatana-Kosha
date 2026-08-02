@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
 import { TEMPLES_DATA } from '../data/temples';
 import { useApp } from '../context/AppContext';
-import { MapPin, Compass, ExternalLink, Bookmark, Sparkles, Building2 } from 'lucide-react';
-
-const FALLBACK_TEMPLE_IMAGE = 'https://images.unsplash.com/photo-1609946782701-7299a4c519d0?auto=format&fit=crop&w=1200&q=80';
+import { MapPin, Compass, ExternalLink, Bookmark, Sparkles } from 'lucide-react';
 
 export const TemplesGeographyPage: React.FC = () => {
   const { openTopicModal, toggleBookmark, isBookmarked } = useApp();
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedTempleId, setSelectedTempleId] = useState<string>(TEMPLES_DATA[0].id);
-  const [imageErrorMap, setImageErrorMap] = useState<Record<string, boolean>>({});
 
   const filteredTemples = TEMPLES_DATA.filter(t =>
     selectedCategory === 'all' || t.category.toLowerCase().includes(selectedCategory)
@@ -28,10 +25,6 @@ export const TemplesGeographyPage: React.FC = () => {
       title: activeTemple.name,
       subtitle: `${activeTemple.location}, ${activeTemple.state} • Deity: ${activeTemple.deity}`
     });
-  };
-
-  const handleImageError = (id: string) => {
-    setImageErrorMap(prev => ({ ...prev, [id]: true }));
   };
 
   return (
@@ -142,34 +135,6 @@ export const TemplesGeographyPage: React.FC = () => {
                     </span>
                   )}
                 </div>
-              </div>
-            </div>
-
-            {/* Temple Image with Fallback */}
-            <div className="relative rounded-2xl overflow-hidden border border-amber-800/20 bg-stone-900 max-h-72 aspect-video flex items-center justify-center">
-              <img
-                src={
-                  imageErrorMap[activeTemple.id]
-                    ? FALLBACK_TEMPLE_IMAGE
-                    : (activeTemple.imageUrl || FALLBACK_TEMPLE_IMAGE)
-                }
-                alt={activeTemple.name}
-                onError={() => handleImageError(activeTemple.id)}
-                className="w-full h-full object-cover transition-opacity duration-300"
-                loading="lazy"
-                referrerPolicy="no-referrer"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-stone-950/70 via-transparent to-transparent pointer-events-none" />
-              
-              <div className="absolute bottom-2 left-3 right-3 flex items-center justify-between text-[10px] text-stone-200 font-sans">
-                <span className="flex items-center gap-1 bg-stone-950/80 px-2.5 py-1 rounded-md backdrop-blur-sm border border-stone-800">
-                  <Building2 className="w-3 h-3 text-amber-400" /> {activeTemple.name} Sanctuary
-                </span>
-                {activeTemple.imageSource && (
-                  <span className="bg-stone-950/80 px-2 py-0.5 rounded text-stone-300">
-                    Source: {activeTemple.imageSource}
-                  </span>
-                )}
               </div>
             </div>
 
