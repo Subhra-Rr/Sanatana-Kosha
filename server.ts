@@ -8,6 +8,7 @@ async function startServer() {
   const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
 
   app.use(express.json());
+  app.use(express.static(path.join(process.cwd(), 'public')));
 
   // API Route for AI Spiritual Assistant with Gemini
   app.post('/api/ai-assistant', async (req, res) => {
