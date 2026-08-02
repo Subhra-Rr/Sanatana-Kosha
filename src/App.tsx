@@ -55,6 +55,8 @@ export default function App() {
                 <Route path="/timelines" element={<TimelinesPage />} />
                 <Route path="/genealogy" element={<GenealogyPage />} />
                 <Route path="/my-library" element={<MyLibraryPage />} />
+                <Route path="/library/my-library" element={<MyLibraryPage />} />
+                <Route path="*" element={<HomePage />} />
               </Routes>
             </Suspense>
           </main>
