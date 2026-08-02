@@ -5,6 +5,7 @@ import { Diya } from './Diya';
 import {
   Search,
   BookOpen,
+  Bookmark,
   Sparkles,
   Menu,
   X,
@@ -28,6 +29,7 @@ export const Header: React.FC = () => {
 
   const navLinks = [
     { label: 'Home', path: '/', icon: BookOpen },
+    { label: 'My Library', path: '/library/my-library', icon: Bookmark },
     { label: 'Library', path: '/library/vedas', icon: Layers },
     { label: 'Philosophies', path: '/philosophy', icon: Compass },
     { label: 'Acharyas', path: '/acharyas', icon: Landmark },

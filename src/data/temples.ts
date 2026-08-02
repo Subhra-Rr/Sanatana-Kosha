@@ -17,8 +17,8 @@ export const TEMPLES_DATA: TempleItem[] = [
     architectureDetails: 'Brightly painted 50-foot conical facade with gilded cupola, set against Neelkanth peak, housing self-manifested black Saligram deity.',
     legend: 'Goddess Lakshmi transformed into a Badri (wild berry) tree to shelter Lord Vishnu from freezing blizzard during his intense dhyana.',
     festivalsCelebrated: ['Kapat Opening Ceremony', 'Janmashtami', 'Badri Kedar Utsav'],
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Badrinath_Temple_Uttarakhand.jpg/800px-Badrinath_Temple_Uttarakhand.jpg',
-    imageSource: 'Wikimedia Commons'
+    imageUrl: 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80',
+    imageSource: 'Unsplash Himalayan Architecture'
   },
   {
     id: 'temple-puri-jagannath',
@@ -35,8 +35,8 @@ export const TEMPLES_DATA: TempleItem[] = [
     architectureDetails: '214 ft high Rekha Deula spire with Nilachakra wheel on top; shadow never casts on ground at any time of day.',
     legend: 'Deities sculpted from divine Neem Daru logs by Vishvakarma under condition of uninterrupted seclusion.',
     festivalsCelebrated: ['Ratha Yatra', 'Snana Yatra', 'Chandan Yatra', 'Anavasara', 'Nabakalebara'],
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Jagannath_Temple_Puri.jpg/800px-Jagannath_Temple_Puri.jpg',
-    imageSource: 'Wikimedia Commons'
+    imageUrl: 'https://images.unsplash.com/photo-1609946782701-7299a4c519d0?auto=format&fit=crop&w=1200&q=80',
+    imageSource: 'Unsplash Kalinga Deula'
   },
   {
     id: 'temple-dwarkadhish',
@@ -53,8 +53,8 @@ export const TEMPLES_DATA: TempleItem[] = [
     architectureDetails: '5-storied limestone sanctuary supported by 72 carved monolith pillars, flying a 52-yard triangular flag changed 5 times daily.',
     legend: 'Erected by Vajranabha, great-grandson of Sri Krishna, over the original royal residence Hari Griha.',
     festivalsCelebrated: ['Janmashtami', 'Annakut', 'Holi', 'Rukmini Vivah', 'Sharad Purnima'],
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Dwarkadhish_Temple_Dwarka.jpg/800px-Dwarkadhish_Temple_Dwarka.jpg',
-    imageSource: 'Wikimedia Commons'
+    imageUrl: 'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1200&q=80',
+    imageSource: 'Unsplash Nagara Architecture'
   },
   {
     id: 'temple-rameshwaram',
@@ -71,8 +71,8 @@ export const TEMPLES_DATA: TempleItem[] = [
     architectureDetails: 'World’s longest temple corridor spanning over 1.2 km with 1212 sculpted granite pillars, and 22 holy Teertham wells.',
     legend: 'Sita Devi crafted the Ramalingam from beach sand while Hanuman brought the Viswalingam from Mount Kailash.',
     festivalsCelebrated: ['Maha Shivaratri', 'Thirukalyanam', 'Ramalinga Pratishta Utsavam'],
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Rameswaram_Corridor.jpg/800px-Rameswaram_Corridor.jpg',
-    imageSource: 'Wikimedia Commons'
+    imageUrl: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80',
+    imageSource: 'Unsplash Dravida Corridor'
   },
 
   // ==================== 12 JYOTIRLINGAS ====================
@@ -90,7 +90,9 @@ export const TEMPLES_DATA: TempleItem[] = [
     scripturalSignificance: 'First among the 12 Jyotirlingas (Adya Jyotirlinga) located at Triveni Sangam of Kapila, Hiran, and Saraswati rivers.',
     architectureDetails: 'Built in Kailash Mahameru Prasad style with a 150 ft Shikhara and South Pole Arrow Pillar (Baana Stambha) marking a straight water route to Antarctica.',
     legend: 'Chandra (Moon God) erected this shrine out of gold after being liberated from King Daksha’s waning curse by worshipping Shiva.',
-    festivalsCelebrated: ['Maha Shivaratri', 'Kartik Purnima', 'Somnath Sangeet Mahotsav']
+    festivalsCelebrated: ['Maha Shivaratri', 'Kartik Purnima', 'Somnath Sangeet Mahotsav'],
+    imageUrl: 'https://images.unsplash.com/photo-1566552881560-0be862a7c445?auto=format&fit=crop&w=1200&q=80',
+    imageSource: 'Unsplash Sacred Shrine'
   },
   {
     id: 'temple-mallikarjuna',
@@ -106,7 +108,9 @@ export const TEMPLES_DATA: TempleItem[] = [
     scripturalSignificance: 'Rare holy site that is simultaneously a Jyotirlinga and a Shakti Peetha (Goddess Bhramaramba’s neck fell here) on Nallamala Hills.',
     architectureDetails: 'Fortified stone walls decorated with bas-relief carvings depicting Mahabharata scenes, surrounded by Krishna River (Patalaganga).',
     legend: 'Lord Shiva and Parvati manifested as Mallikarjuna (Jasmine flower Shiva) and Bhramaramba (Bee Goddess) to stay close to Kartikeya.',
-    festivalsCelebrated: ['Maha Shivaratri', 'Ugadi Brahmotsavam', 'Karthika Masam']
+    festivalsCelebrated: ['Maha Shivaratri', 'Ugadi Brahmotsavam', 'Karthika Masam'],
+    imageUrl: 'https://images.unsplash.com/photo-1609946782701-7299a4c519d0?auto=format&fit=crop&w=1200&q=80',
+    imageSource: 'Unsplash Temple Architecture'
   },
   {
     id: 'temple-mahakaleshwar',
@@ -122,7 +126,9 @@ export const TEMPLES_DATA: TempleItem[] = [
     scripturalSignificance: 'Only Dakshinamurti (south-facing) Jyotirlinga, master of cosmic time (Kaala) located on the Tropic of Cancer.',
     architectureDetails: 'Three-tiered sanctuary housing Mahakaleshwar, Omkareshwar, and Nagachandreshwar shrines; famous worldwide for Bhasma Aarti.',
     legend: 'Lord Shiva manifested from earth as light to destroy demon Dushana and protect Ujjain devotees.',
-    festivalsCelebrated: ['Bhasma Aarti', 'Maha Shivaratri', 'Simhastha Kumbha Mela']
+    festivalsCelebrated: ['Bhasma Aarti', 'Maha Shivaratri', 'Simhastha Kumbha Mela'],
+    imageUrl: 'https://images.unsplash.com/photo-1627894006066-b457a4db3998?auto=format&fit=crop&w=1200&q=80',
+    imageSource: 'Unsplash Sacred Temple'
   },
   {
     id: 'temple-omkareshwar',

@@ -100,7 +100,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   const isBookmarked = (itemId: string) => {
-    return bookmarks.some(b => b.itemId === itemId);
+    return bookmarks.some(b => b.itemId === itemId || b.id === itemId);
   };
 
   const updateReadingProgress = async (itemId: string, verseIndex: number, percentage: number) => {
