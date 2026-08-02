@@ -40,20 +40,22 @@ export const TemplesGeographyPage: React.FC = () => {
       </div>
 
       {/* Filter Category Bar */}
-      <div className="flex items-center justify-center gap-1.5 sm:gap-2 flex-wrap border-b border-amber-900/15 pb-4 text-xs font-serif px-1">
-        {['all', 'char dham', 'jyotirlinga', 'shakti peetha', 'ancient temple'].map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setSelectedCategory(cat)}
-            className={`px-3 sm:px-4 py-2 rounded-xl capitalize transition-all min-h-[44px] flex items-center justify-center ${
-              selectedCategory === cat
-                ? 'bg-amber-700 text-white font-bold shadow-md'
-                : 'bg-amber-100/60 dark:bg-stone-900 text-stone-800 dark:text-stone-200 hover:bg-amber-200'
-            }`}
-          >
-            {cat}
-          </button>
-        ))}
+      <div className="max-w-3xl mx-auto bg-amber-100/60 dark:bg-stone-900/80 border border-amber-800/20 rounded-2xl p-3.5 sm:p-4 shadow-xl backdrop-blur-sm">
+        <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 text-xs font-serif">
+          {['all', 'char dham', 'jyotirlinga', 'shakti peetha', 'ancient temple'].map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setSelectedCategory(cat)}
+              className={`px-3.5 sm:px-4 py-2 rounded-xl capitalize transition-all min-h-[40px] flex items-center justify-center ${
+                selectedCategory === cat
+                  ? 'bg-amber-700 text-white font-bold shadow-md'
+                  : 'bg-stone-200/60 dark:bg-stone-800 text-stone-800 dark:text-stone-200 hover:bg-stone-300 dark:hover:bg-stone-700'
+              }`}
+            >
+              {cat === 'all' ? 'All Temples' : cat}
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Interactive Map & Detail View Split */}

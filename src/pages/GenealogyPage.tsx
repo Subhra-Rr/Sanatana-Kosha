@@ -22,20 +22,22 @@ export const GenealogyPage: React.FC = () => {
       </div>
 
       {/* Dynasty Selector */}
-      <div className="flex items-center justify-center gap-2 border-b border-amber-900/15 pb-4 font-serif text-xs">
-        {['Surya Vansha', 'Chandra Vansha'].map((lin) => (
-          <button
-            key={lin}
-            onClick={() => setSelectedLineage(lin)}
-            className={`px-5 py-2.5 rounded-xl transition-all ${
-              selectedLineage === lin
-                ? 'bg-amber-700 text-white font-bold shadow-md'
-                : 'bg-amber-100/60 dark:bg-stone-900 text-stone-800 dark:text-stone-200 hover:bg-amber-200'
-            }`}
-          >
-            {lin} (Dynasty Tree)
-          </button>
-        ))}
+      <div className="max-w-2xl mx-auto bg-amber-100/60 dark:bg-stone-900/80 border border-amber-800/20 rounded-2xl p-3.5 sm:p-4 shadow-xl backdrop-blur-sm">
+        <div className="flex flex-wrap items-center justify-center gap-2 font-serif text-xs">
+          {['Surya Vansha', 'Chandra Vansha'].map((lin) => (
+            <button
+              key={lin}
+              onClick={() => setSelectedLineage(lin)}
+              className={`px-4 sm:px-5 py-2.5 rounded-xl transition-all min-h-[42px] flex items-center justify-center ${
+                selectedLineage === lin
+                  ? 'bg-amber-700 text-white font-bold shadow-md'
+                  : 'bg-stone-200/60 dark:bg-stone-800 text-stone-800 dark:text-stone-200 hover:bg-stone-300 dark:hover:bg-stone-700'
+              }`}
+            >
+              {lin} (Dynasty Tree)
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Lineage Tree Grid */}
