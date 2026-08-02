@@ -316,7 +316,7 @@ export const KnowledgeGraph: React.FC = () => {
   ];
 
   return (
-    <div className="p-6 sm:p-8 rounded-3xl bg-amber-100/50 dark:bg-stone-900 border border-amber-800/20 shadow-xl space-y-6">
+    <div className="p-3 sm:p-8 rounded-2xl sm:rounded-3xl bg-amber-100/50 dark:bg-stone-900 border border-amber-800/20 shadow-xl space-y-6">
       {/* Header Banner */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-amber-900/15 pb-6">
         <div className="space-y-1">

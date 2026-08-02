@@ -235,14 +235,14 @@ export const DailyShloka: React.FC = () => {
             </div>
 
             {/* Search Input */}
-            <div className="relative min-w-[200px]">
+            <div className="relative w-full sm:w-auto min-w-0 sm:min-w-[200px]">
               <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" />
               <input
                 type="text"
                 value={mantraSearch}
                 onChange={e => setMantraSearch(e.target.value)}
                 placeholder="Search deity or mantra..."
-                className="w-full pl-8 pr-3 py-1.5 bg-white dark:bg-stone-800 border border-amber-800/20 rounded-xl text-xs text-stone-800 dark:text-stone-200 focus:outline-none focus:ring-1 focus:ring-amber-600"
+                className="w-full pl-8 pr-3 py-2 bg-white dark:bg-stone-800 border border-amber-800/20 rounded-xl text-xs text-stone-800 dark:text-stone-200 focus:outline-none focus:ring-1 focus:ring-amber-600 min-h-[38px]"
               />
             </div>
           </div>

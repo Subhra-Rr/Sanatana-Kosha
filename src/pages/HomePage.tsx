@@ -75,17 +75,17 @@ export const HomePage: React.FC = () => {
           </div>
 
           {/* Rotating Vedas Selector Card */}
-          <div className="max-w-3xl mx-auto bg-amber-100/60 dark:bg-stone-900/80 border border-amber-800/20 rounded-2xl p-6 shadow-xl backdrop-blur-sm text-left">
-            <div className="flex items-center justify-between mb-4 border-b border-amber-900/10 pb-3">
+          <div className="max-w-3xl mx-auto bg-amber-100/60 dark:bg-stone-900/80 border border-amber-800/20 rounded-2xl p-4 sm:p-6 shadow-xl backdrop-blur-sm text-left">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4 border-b border-amber-900/10 pb-3">
               <span className="text-xs font-bold uppercase tracking-wider text-amber-900 dark:text-amber-300 flex items-center gap-1.5">
                 <Layers className="w-4 h-4 text-amber-600" /> The Four Vedas (चतुर्वेदाः)
               </span>
-              <div className="flex items-center gap-1 text-xs">
+              <div className="flex items-center gap-1.5 text-xs flex-wrap">
                 {VEDAS_DATA.map((veda, idx) => (
                   <button
                     key={veda.id}
                     onClick={() => setActiveVedaIdx(idx)}
-                    className={`px-3 py-1 rounded-lg font-serif transition-colors ${
+                    className={`px-3 py-1.5 rounded-lg font-serif transition-colors min-h-[38px] flex items-center justify-center ${
                       activeVedaIdx === idx
                         ? 'bg-amber-700 text-white font-bold shadow-sm'
                         : 'bg-stone-200/50 dark:bg-stone-800 text-stone-700 dark:text-stone-300 hover:bg-stone-300'
@@ -98,8 +98,8 @@ export const HomePage: React.FC = () => {
             </div>
 
             <div className="space-y-3">
-              <div className="flex items-baseline justify-between">
-                <h3 className="font-serif text-2xl font-bold text-amber-950 dark:text-amber-100">
+              <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
+                <h3 className="font-serif text-xl sm:text-2xl font-bold text-amber-950 dark:text-amber-100">
                   {currentVeda.title} ({currentVeda.sanskritTitle})
                 </h3>
                 <span className="text-xs text-amber-800 dark:text-amber-400 font-medium">
