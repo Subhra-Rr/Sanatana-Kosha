@@ -11,10 +11,12 @@ import {
   X,
   Compass,
   Landmark,
+  MapPin,
   Calendar,
   Layers,
   GraduationCap,
-  History
+  History,
+  GitBranch
 } from 'lucide-react';
 
 export const Header: React.FC = () => {
@@ -32,11 +34,11 @@ export const Header: React.FC = () => {
     { label: 'Library', path: '/library/vedas', icon: Layers },
     { label: 'Philosophies', path: '/philosophy', icon: Compass },
     { label: 'Acharyas', path: '/acharyas', icon: Landmark },
-    { label: 'Temples & Maps', path: '/geography', icon: Landmark },
+    { label: 'Temples & Maps', path: '/geography', icon: MapPin },
     { label: 'Festivals', path: '/festivals', icon: Calendar },
     { label: 'Sanskrit Hub', path: '/sanskrit', icon: GraduationCap },
     { label: 'Timelines', path: '/timelines', icon: History },
-    { label: 'Genealogy', path: '/genealogy', icon: History }
+    { label: 'Genealogy', path: '/genealogy', icon: GitBranch }
   ];
 
   return (
