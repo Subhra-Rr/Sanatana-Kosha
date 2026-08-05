@@ -29,7 +29,7 @@ interface AppContextType {
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [theme, setThemeState] = useState<ThemeMode>('lamp-night');
+  const [theme] = useState<ThemeMode>('lamp-night');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isAiAssistantOpen, setIsAiAssistantOpen] = useState(false);
   const [activeTopicModal, setActiveTopicModal] = useState<string | TopicKnowledgeItem | null>(null);
@@ -38,9 +38,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [readingProgress, setReadingProgress] = useState<Record<string, UserReadingProgress>>({});
 
   useEffect(() => {
-    // Apply default Oil Lamp Theme attributes and dark mode class
-    document.documentElement.className = `theme-${theme} ${theme === 'lamp-night' || theme === 'copper-gold' ? 'dark' : ''}`;
-    document.documentElement.setAttribute('data-theme', theme);
+    // Permanently enforce Dark Oil Lamp Theme attributes and dark class
+    document.documentElement.className = 'theme-lamp-night dark overflow-x-hidden';
+    document.documentElement.setAttribute('data-theme', 'lamp-night');
+    document.documentElement.style.colorScheme = 'dark';
 
     // Load initial storage data
     storageService.getBookmarks().then(setBookmarks);
@@ -57,10 +58,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  const setTheme = (newTheme: ThemeMode) => {
-    setThemeState(newTheme);
-    document.documentElement.className = `theme-${newTheme} ${newTheme === 'lamp-night' || newTheme === 'copper-gold' ? 'dark' : ''}`;
-    document.documentElement.setAttribute('data-theme', newTheme);
+  const setTheme = (_newTheme: ThemeMode) => {
+    // Theme locked permanently to Dark Oil Lamp (Deepam) Theme
+    document.documentElement.className = 'theme-lamp-night dark overflow-x-hidden';
+    document.documentElement.setAttribute('data-theme', 'lamp-night');
+    document.documentElement.style.colorScheme = 'dark';
   };
 
   const openTopicModal = (topic: string | TopicKnowledgeItem) => {
@@ -133,7 +135,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         updateReadingProgress
       }}
     >
-      <div className={`theme-${theme} min-h-screen text-stone-900 dark:text-stone-100 transition-colors duration-300 font-sans`}>
+      <div className="theme-lamp-night dark min-h-screen bg-stone-950 text-amber-100 font-sans">
         {children}
       </div>
     </AppContext.Provider>

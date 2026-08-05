@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AppProvider } from './context/AppContext';
 import { Header } from './components/common/Header';
 import { Footer } from './components/common/Footer';
-import { MobileBottomNav } from './components/common/MobileBottomNav';
 import { SearchModal } from './components/common/SearchModal';
 import { SpiritualAssistantModal } from './components/ai/SpiritualAssistantModal';
 import { TopicKnowledgeModal } from './components/common/TopicKnowledgeModal';
@@ -25,7 +24,7 @@ const GenealogyPage = lazy(() => import('./pages/GenealogyPage').then(m => ({ de
 const MyLibraryPage = lazy(() => import('./pages/MyLibraryPage').then(m => ({ default: m.MyLibraryPage })));
 
 const PageFallback: React.FC = () => (
-  <div className="min-h-[60vh] flex flex-col items-center justify-center gap-3 p-8 text-amber-800 dark:text-amber-300">
+  <div className="min-h-[60vh] flex flex-col items-center justify-center gap-3 p-8 text-amber-300">
     <Sparkles className="w-8 h-8 animate-spin text-amber-600" style={{ animationDuration: '3s' }} />
     <span className="font-serif text-sm font-medium tracking-wide">Loading Sacred Wisdom...</span>
   </div>
@@ -35,7 +34,7 @@ export default function App() {
   return (
     <Router>
       <AppProvider>
-        <div className="flex flex-col min-h-screen bg-stone-950 text-amber-100 overflow-x-hidden pb-14 md:pb-0">
+        <div className="flex flex-col min-h-screen bg-stone-950 text-amber-100 overflow-x-hidden">
           <Header />
           <main className="flex-1 w-full overflow-x-hidden">
             <Suspense fallback={<PageFallback />}>
@@ -60,7 +59,6 @@ export default function App() {
             </Suspense>
           </main>
           <Footer />
-          <MobileBottomNav />
           <SearchModal />
           <SpiritualAssistantModal />
           <TopicKnowledgeModal />

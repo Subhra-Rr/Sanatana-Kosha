@@ -1,19 +1,11 @@
 @import "tailwindcss";
 
 @layer base {
-  :root {
-    --bg-main: #FAF6EE;
-    --bg-card: #F2E9DB;
-    --bg-accent: #E8D7C0;
-    --text-primary: #2C1810;
-    --text-secondary: #5C4033;
-    --border-color: #D4AF37;
-    --saffron-gold: #E05A10;
-    --temple-accent: #8B4513;
-  }
-
-  /* Temple Night (Oil Lamp Theme) */
-  .theme-lamp-night {
+  :root,
+  html,
+  body {
+    color-scheme: dark !important;
+    forced-color-adjust: none !important;
     --bg-main: #120D0A;
     --bg-card: #1C140E;
     --bg-accent: #2A1D15;
@@ -22,51 +14,43 @@
     --border-color: #9A7B38;
     --saffron-gold: #F39C12;
     --temple-accent: #D4AF37;
-    background-color: var(--bg-main);
-    color: var(--text-primary);
+    background-color: #0c0a09 !important;
+    color: #F3E5AB !important;
   }
 
-  /* Sandstone Theme */
-  .theme-sandstone {
-    --bg-main: #FAF6EE;
-    --bg-card: #F2E8D9;
-    --bg-accent: #E5D5BF;
-    --text-primary: #2C1810;
-    --text-secondary: #583E2E;
-    --border-color: #C5A880;
-    --saffron-gold: #D9531E;
-    --temple-accent: #8B4513;
-    background-color: var(--bg-main);
-    color: var(--text-primary);
-  }
-
-  /* Copper Gold Theme */
-  .theme-copper-gold {
-    --bg-main: #1F120B;
-    --bg-card: #2B1A10;
-    --bg-accent: #3A2518;
-    --text-primary: #F2C94C;
-    --text-secondary: #D4AF37;
-    --border-color: #B87333;
-    --saffron-gold: #E67E22;
-    --temple-accent: #B87333;
-    background-color: var(--bg-main);
-    color: var(--text-primary);
-  }
-
-  /* Morning Sunrise Theme */
+  /* Temple Night (Oil Lamp Theme - Immutable) */
+  .theme-lamp-night,
+  .theme-sandstone,
+  .theme-copper-gold,
   .theme-morning {
-    --bg-main: #FFFDF9;
-    --bg-card: #FFF8EE;
-    --bg-accent: #FDEED9;
-    --text-primary: #331A00;
-    --text-secondary: #663300;
-    --border-color: #E05A10;
-    --saffron-gold: #E05A10;
+    --bg-main: #120D0A;
+    --bg-card: #1C140E;
+    --bg-accent: #2A1D15;
+    --text-primary: #F3E5AB;
+    --text-secondary: #C8B28B;
+    --border-color: #9A7B38;
+    --saffron-gold: #F39C12;
     --temple-accent: #D4AF37;
-    background-color: var(--bg-main);
-    color: var(--text-primary);
+    background-color: var(--bg-main) !important;
+    color: var(--text-primary) !important;
   }
+}
+
+/* Force dark oil lamp canvas on all root containers */
+html, body, #root {
+  background-color: #0c0a09 !important;
+  color: #fef3c7 !important;
+  color-scheme: dark !important;
+}
+
+/* Override any accidental light mode background utility classes on non-dark device viewports */
+:not(.dark) .bg-amber-50,
+:not(.dark) .bg-amber-100,
+:not(.dark) .bg-stone-100,
+:not(.dark) .bg-stone-200,
+:not(.dark) .bg-white {
+  background-color: #1c1917 !important;
+  color: #fef3c7 !important;
 }
 
 /* Custom Scrollbar for Temple Library feel */
