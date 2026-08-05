@@ -51,34 +51,34 @@ export const PuranasPage: React.FC = () => {
             className="p-6 rounded-2xl bg-amber-50/90 dark:bg-stone-900 border border-amber-800/20 shadow-md space-y-4 flex flex-col justify-between hover:border-amber-600 transition-all hover:-translate-y-1 cursor-pointer group"
           >
             <div className="space-y-3">
-              <div className="flex items-center justify-between border-b border-amber-900/10 pb-2">
-                <div>
-                  <h3 className="font-serif text-xl font-bold text-amber-950 dark:text-amber-100 group-hover:text-amber-700 transition-colors flex items-center gap-1.5">
-                    {p.name}
-                    <ExternalLink className="w-3.5 h-3.5 text-amber-600 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-2 border-b border-amber-900/10 pb-2.5">
+                <div className="min-w-0">
+                  <h3 className="font-serif text-xl font-bold text-amber-950 dark:text-amber-100 group-hover:text-amber-700 transition-colors flex items-center gap-1.5 break-words">
+                    <span>{p.name}</span>
+                    <ExternalLink className="w-3.5 h-3.5 text-amber-600 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
                   </h3>
-                  <span className="text-xs text-amber-800 dark:text-amber-300 font-serif sanskrit-font">
+                  <span className="text-xs text-amber-800 dark:text-amber-300 font-serif sanskrit-font block break-words">
                     ({p.sanskritName})
                   </span>
                 </div>
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-600/20 text-amber-900 dark:text-amber-200">
+                <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-amber-600/20 text-amber-900 dark:text-amber-200 shrink-0 self-start sm:self-auto whitespace-nowrap">
                   {p.traditionalVerseCount.toLocaleString()} Verses
                 </span>
               </div>
 
-              <div className="text-[11px] font-semibold text-amber-800 dark:text-amber-400">
+              <div className="text-[11px] font-semibold text-amber-800 dark:text-amber-400 break-words">
                 Primary Deity: {p.dominantDeity}
               </div>
 
-              <p className="text-xs text-stone-700 dark:text-stone-300 leading-relaxed font-serif">
+              <p className="text-xs text-stone-700 dark:text-stone-300 leading-relaxed font-serif break-words">
                 {p.synopsis}
               </p>
 
               <div className="space-y-1 pt-2">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-amber-800 dark:text-amber-400">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-amber-800 dark:text-amber-400 block">
                   Key Topics & Stories (Click to read)
                 </span>
-                <div className="flex flex-wrap gap-1.5 text-xs">
+                <div className="flex flex-wrap gap-2 text-xs">
                   {p.keyTopics.map((topic, tIdx) => (
                     <button
                       key={tIdx}
@@ -86,7 +86,7 @@ export const PuranasPage: React.FC = () => {
                         e.stopPropagation();
                         openTopicModal(topic);
                       }}
-                      className="px-2.5 py-1 rounded bg-amber-500/15 text-amber-900 dark:text-amber-200 hover:bg-amber-600 hover:text-white transition-colors text-left"
+                      className="px-3 py-2 rounded-xl bg-amber-500/15 text-amber-900 dark:text-amber-200 hover:bg-amber-600 hover:text-white transition-all text-left min-h-[44px] flex items-center font-medium active:scale-95 break-words"
                     >
                       {topic}
                     </button>

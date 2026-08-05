@@ -81,11 +81,11 @@ export const AcharyasPage: React.FC = () => {
               className="cursor-pointer p-6 rounded-3xl bg-amber-50/90 dark:bg-stone-900 border border-amber-800/20 shadow-xl space-y-4 hover:border-amber-600 transition-all hover:-translate-y-1 flex flex-col justify-between"
             >
               <div className="space-y-3">
-                <div className="flex items-center justify-between border-b border-amber-900/10 pb-2">
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-amber-800 dark:text-amber-400 px-2 py-0.5 rounded bg-amber-600/15">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-3 border-b border-amber-900/10 pb-2.5">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-amber-800 dark:text-amber-400 px-2 py-1 rounded bg-amber-600/15 max-w-full break-words inline-block leading-tight self-start">
                     {a.tradition}
                   </span>
-                  <span className="text-xs font-serif text-stone-500 dark:text-stone-400 font-medium">
+                  <span className="text-xs font-serif text-stone-500 dark:text-stone-400 font-medium shrink-0">
                     {a.period}
                   </span>
                 </div>
@@ -130,12 +130,12 @@ export const AcharyasPage: React.FC = () => {
       {activeTab === 'parampara' && (
         <div className="space-y-6">
           {/* Lineage Selector */}
-          <div className="flex items-center justify-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+          <div className="flex items-center justify-start sm:justify-center gap-2 overflow-x-auto pb-2 scrollbar-none px-1 max-w-full">
             {GURU_PARAMPARA_DATA.map(lin => (
               <button
                 key={lin.id}
                 onClick={() => setSelectedLineageId(lin.id)}
-                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-serif font-bold transition-all whitespace-nowrap ${
+                className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-serif font-bold transition-all whitespace-nowrap shrink-0 min-h-[44px] flex items-center justify-center active:scale-95 ${
                   selectedLineageId === lin.id
                     ? 'bg-amber-800 text-white shadow-lg border border-amber-600'
                     : 'bg-amber-100/70 dark:bg-stone-900 text-stone-800 dark:text-stone-300 hover:bg-amber-200 border border-amber-800/15'
@@ -147,12 +147,12 @@ export const AcharyasPage: React.FC = () => {
           </div>
 
           {/* Lineage Overview Banner */}
-          <div className="p-6 rounded-3xl bg-amber-100/80 dark:bg-stone-900/90 border border-amber-800/20 shadow-xl space-y-3">
-            <div className="flex items-center justify-between">
-              <h2 className="font-serif text-2xl font-bold text-amber-950 dark:text-amber-100">
+          <div className="p-5 sm:p-6 rounded-3xl bg-amber-100/80 dark:bg-stone-900/90 border border-amber-800/20 shadow-xl space-y-3">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-3">
+              <h2 className="font-serif text-2xl font-bold text-amber-950 dark:text-amber-100 break-words">
                 {activeLineage.lineageName}
               </h2>
-              <span className="text-xs font-serif text-amber-800 dark:text-amber-300 font-bold sanskrit-font">
+              <span className="text-xs font-serif text-amber-800 dark:text-amber-300 font-bold sanskrit-font shrink-0">
                 ({activeLineage.sanskritLineageName})
               </span>
             </div>
@@ -160,7 +160,7 @@ export const AcharyasPage: React.FC = () => {
               {activeLineage.description}
             </p>
             {activeLineage.foundationalMantra && (
-              <p className="p-3 rounded-xl bg-amber-200/50 dark:bg-stone-950/80 font-serif text-xs font-bold text-amber-950 dark:text-amber-200 sanskrit-font">
+              <p className="p-3 rounded-xl bg-amber-200/50 dark:bg-stone-950/80 font-serif text-xs font-bold text-amber-950 dark:text-amber-200 sanskrit-font break-words">
                 "{activeLineage.foundationalMantra}"
               </p>
             )}
@@ -175,20 +175,20 @@ export const AcharyasPage: React.FC = () => {
                   {nIdx + 1}
                 </div>
 
-                <div className="p-5 rounded-2xl bg-amber-50/90 dark:bg-stone-900 border border-amber-800/20 shadow-md space-y-3 hover:border-amber-600 transition-all">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border-b border-amber-900/10 pb-2">
-                    <div>
-                      <span className="text-[10px] font-bold uppercase tracking-widest text-amber-800 dark:text-amber-400 px-2 py-0.5 rounded bg-amber-600/15">
+                <div className="p-4 sm:p-5 rounded-2xl bg-amber-50/90 dark:bg-stone-900 border border-amber-800/20 shadow-md space-y-3 hover:border-amber-600 transition-all">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-3 border-b border-amber-900/10 pb-2">
+                    <div className="min-w-0">
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-amber-800 dark:text-amber-400 px-2 py-0.5 rounded bg-amber-600/15 inline-block max-w-full break-words self-start">
                         {node.role}
                       </span>
-                      <h3 className="font-serif text-lg font-bold text-amber-950 dark:text-amber-100 mt-0.5">
+                      <h3 className="font-serif text-lg font-bold text-amber-950 dark:text-amber-100 mt-0.5 break-words">
                         {node.name}
                       </h3>
-                      <p className="text-xs text-amber-800 dark:text-amber-300 font-serif sanskrit-font">
+                      <p className="text-xs text-amber-800 dark:text-amber-300 font-serif sanskrit-font break-words">
                         ({node.sanskritName})
                       </p>
                     </div>
-                    <span className="text-xs font-mono text-stone-500 dark:text-stone-400">
+                    <span className="text-xs font-mono text-stone-500 dark:text-stone-400 shrink-0">
                       {node.period} {node.location && `• ${node.location}`}
                     </span>
                   </div>
@@ -225,18 +225,18 @@ export const AcharyasPage: React.FC = () => {
           {SHANKARACHARYA_PEETHAS_DATA.map(p => (
             <div
               key={p.id}
-              className="p-6 rounded-3xl bg-amber-50/90 dark:bg-stone-900 border border-amber-800/20 shadow-xl space-y-4"
+              className="p-5 sm:p-6 rounded-3xl bg-amber-50/90 dark:bg-stone-900 border border-amber-800/20 shadow-xl space-y-4"
             >
-              <div className="flex items-center justify-between border-b border-amber-900/10 pb-2">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-amber-800 dark:text-amber-400">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-3 border-b border-amber-900/10 pb-2.5">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-amber-800 dark:text-amber-400 bg-amber-600/15 px-2 py-1 rounded max-w-full break-words leading-tight inline-block self-start">
                   {p.cardinalDirection} PEETHAM • {p.associatedVeda}
                 </span>
-                <span className="text-xs font-mono text-stone-500 dark:text-stone-400">
+                <span className="text-xs font-mono text-stone-500 dark:text-stone-400 shrink-0">
                   {p.location}
                 </span>
               </div>
 
-              <h3 className="font-serif text-2xl font-bold text-amber-950 dark:text-amber-100">
+              <h3 className="font-serif text-2xl font-bold text-amber-950 dark:text-amber-100 break-words">
                 {p.name}
               </h3>
 
@@ -248,11 +248,11 @@ export const AcharyasPage: React.FC = () => {
                 <span className="text-[10px] font-bold uppercase text-amber-900 dark:text-amber-300 block">
                   Associated Mahavakya (Great Proclamation):
                 </span>
-                <p className="font-serif font-bold text-xs text-amber-950 dark:text-amber-100 sanskrit-font">
+                <p className="font-serif font-bold text-xs text-amber-950 dark:text-amber-100 sanskrit-font break-words">
                   "{p.associatedMahavakya}"
                 </p>
                 {p.mahavakyaMeaning && (
-                  <p className="text-[11px] font-serif italic text-stone-600 dark:text-stone-400">
+                  <p className="text-[11px] font-serif italic text-stone-600 dark:text-stone-400 break-words">
                     "{p.mahavakyaMeaning}"
                   </p>
                 )}
@@ -269,19 +269,19 @@ export const AcharyasPage: React.FC = () => {
             <div
               key={s.id}
               onClick={() => openTopicModal(s.name)}
-              className="cursor-pointer p-6 rounded-3xl bg-amber-50/90 dark:bg-stone-900 border border-amber-800/20 shadow-xl space-y-4 hover:border-amber-600 transition-all hover:-translate-y-1 flex flex-col justify-between"
+              className="cursor-pointer p-5 sm:p-6 rounded-3xl bg-amber-50/90 dark:bg-stone-900 border border-amber-800/20 shadow-xl space-y-4 hover:border-amber-600 transition-all hover:-translate-y-1 flex flex-col justify-between"
             >
               <div className="space-y-3">
-                <div className="flex items-center justify-between border-b border-amber-900/10 pb-2">
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-amber-800 dark:text-amber-400 px-2 py-0.5 rounded bg-amber-600/15">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-3 border-b border-amber-900/10 pb-2.5">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-amber-800 dark:text-amber-400 px-2 py-1 rounded bg-amber-600/15 max-w-full break-words leading-tight inline-block self-start">
                     {s.region} • {s.traditionOrMovement}
                   </span>
-                  <span className="text-xs font-serif text-stone-500 dark:text-stone-400 font-medium">
+                  <span className="text-xs font-serif text-stone-500 dark:text-stone-400 font-medium shrink-0">
                     {s.period}
                   </span>
                 </div>
 
-                <h3 className="font-serif text-xl font-bold text-amber-950 dark:text-amber-100">
+                <h3 className="font-serif text-xl font-bold text-amber-950 dark:text-amber-100 break-words">
                   {s.name}
                 </h3>
 
@@ -293,10 +293,10 @@ export const AcharyasPage: React.FC = () => {
                   <span className="text-[10px] font-bold uppercase text-amber-900 dark:text-amber-300 block">
                     Famous Devotional Verse:
                   </span>
-                  <p className="font-serif italic text-xs text-amber-950 dark:text-amber-100">
+                  <p className="font-serif italic text-xs text-amber-950 dark:text-amber-100 break-words">
                     "{s.famousQuoteOrAbhang.sanskritOrVernacular}"
                   </p>
-                  <p className="text-[11px] font-serif text-stone-600 dark:text-stone-400">
+                  <p className="text-[11px] font-serif text-stone-600 dark:text-stone-400 break-words">
                     "{s.famousQuoteOrAbhang.translation}"
                   </p>
                 </div>
@@ -304,7 +304,7 @@ export const AcharyasPage: React.FC = () => {
 
               <div className="pt-3 border-t border-amber-900/10 flex items-center justify-between text-xs text-amber-800 dark:text-amber-300 font-serif font-semibold">
                 <span>Explore Saint History</span>
-                <ExternalLink className="w-3.5 h-3.5" />
+                <ExternalLink className="w-3.5 h-3.5 shrink-0" />
               </div>
             </div>
           ))}

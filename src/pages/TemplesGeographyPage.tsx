@@ -170,12 +170,12 @@ export const TemplesGeographyPage: React.FC = () => {
             </p>
           </div>
 
-          <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
+          <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none px-1 max-w-full">
             {['all', 'Sapta Puri', 'Ramayana Yatra', 'Ancient University'].map(rCat => (
               <button
                 key={rCat}
                 onClick={() => setActiveRouteCategory(rCat as any)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-serif font-bold whitespace-nowrap transition-all ${
+                className={`px-3.5 py-2 rounded-xl text-xs font-serif font-bold whitespace-nowrap transition-all shrink-0 min-h-[44px] flex items-center justify-center active:scale-95 ${
                   activeRouteCategory === rCat
                     ? 'bg-amber-800 text-white shadow'
                     : 'bg-amber-100/60 dark:bg-stone-900 text-stone-800 dark:text-stone-300 border border-amber-800/15'
@@ -193,31 +193,31 @@ export const TemplesGeographyPage: React.FC = () => {
               key={item.id}
               className="p-5 rounded-3xl bg-amber-50/90 dark:bg-stone-900 border border-amber-800/20 shadow-md space-y-3 hover:border-amber-600 transition-all"
             >
-              <div className="flex items-center justify-between border-b border-amber-900/10 pb-2">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-amber-800 dark:text-amber-400 px-2 py-0.5 rounded bg-amber-600/15">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-3 border-b border-amber-900/10 pb-2.5">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-amber-800 dark:text-amber-400 px-2 py-1 rounded bg-amber-600/15 inline-block max-w-full break-words self-start leading-tight">
                   {item.routeCategory}
                 </span>
-                <span className="text-xs font-serif text-stone-500 dark:text-stone-400 font-medium">
+                <span className="text-xs font-serif text-stone-500 dark:text-stone-400 font-medium shrink-0">
                   {item.modernLocation}, {item.stateOrCountry}
                 </span>
               </div>
 
               <div>
-                <h4 className="font-serif text-lg font-bold text-amber-950 dark:text-amber-100">
+                <h4 className="font-serif text-lg font-bold text-amber-950 dark:text-amber-100 break-words">
                   {item.name}
                 </h4>
-                <p className="text-xs text-amber-800 dark:text-amber-300 font-serif sanskrit-font">
+                <p className="text-xs text-amber-800 dark:text-amber-300 font-serif sanskrit-font break-words">
                   ({item.sanskritName})
                 </p>
               </div>
 
-              <p className="text-xs font-serif text-stone-700 dark:text-stone-300 leading-relaxed">
+              <p className="text-xs font-serif text-stone-700 dark:text-stone-300 leading-relaxed break-words">
                 {item.significance}
               </p>
 
               <div className="p-3 rounded-xl bg-amber-200/40 dark:bg-stone-950/80 border border-amber-800/20 text-[11px] font-serif">
                 <strong className="text-amber-950 dark:text-amber-300 block mb-0.5">Scripture Event:</strong>
-                <span className="text-stone-700 dark:text-stone-300 italic">{item.keyScriptureEvent}</span>
+                <span className="text-stone-700 dark:text-stone-300 italic break-words">{item.keyScriptureEvent}</span>
               </div>
             </div>
           ))}

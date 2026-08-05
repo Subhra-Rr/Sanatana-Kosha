@@ -81,35 +81,35 @@ export const BhagavadGitaPage: React.FC = () => {
         {/* Detailed Chapter & Verse Viewer Column */}
         <div className="lg:col-span-2 space-y-6">
           {/* Chapter Overview Card */}
-          <div className="bg-amber-50/90 dark:bg-stone-900 border border-amber-800/20 rounded-2xl p-6 shadow-md space-y-4">
-            <div className="border-b border-amber-900/10 pb-3 flex items-center justify-between">
-              <div>
+          <div className="bg-amber-50/90 dark:bg-stone-900 border border-amber-800/20 rounded-2xl p-5 sm:p-6 shadow-md space-y-4">
+            <div className="border-b border-amber-900/10 pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div className="min-w-0">
                 <span className="text-xs font-bold uppercase tracking-wider text-amber-800 dark:text-amber-400">
                   CHAPTER {currentChapter.chapterNumber}
                 </span>
                 <h2
                   onClick={() => openTopicModal(`Bhagavad Gita Chapter ${currentChapter.chapterNumber}: ${currentChapter.title}`)}
-                  className="font-serif text-2xl font-bold text-amber-950 dark:text-amber-100 sanskrit-font mt-0.5 hover:text-amber-700 cursor-pointer transition-colors flex items-center gap-1.5"
+                  className="font-serif text-xl sm:text-2xl font-bold text-amber-950 dark:text-amber-100 sanskrit-font mt-0.5 hover:text-amber-700 cursor-pointer transition-colors flex items-center gap-1.5 break-words"
                 >
-                  {currentChapter.title} ({currentChapter.sanskritTitle})
-                  <ExternalLink className="w-4 h-4 text-amber-600" />
+                  <span>{currentChapter.title} ({currentChapter.sanskritTitle})</span>
+                  <ExternalLink className="w-4 h-4 text-amber-600 shrink-0" />
                 </h2>
 
-                <p className="text-xs text-amber-900/80 dark:text-amber-300 font-serif">
+                <p className="text-xs text-amber-900/80 dark:text-amber-300 font-serif break-words">
                   Meaning: {currentChapter.meaning}
                 </p>
               </div>
 
-              <span className="text-xs font-bold px-3 py-1 rounded-full bg-amber-600/20 text-amber-900 dark:text-amber-200">
+              <span className="text-xs font-bold px-3 py-1 rounded-full bg-amber-600/20 text-amber-900 dark:text-amber-200 shrink-0 self-start sm:self-auto whitespace-nowrap">
                 {currentChapter.versesCount} Verses
               </span>
             </div>
 
-            <p className="text-xs sm:text-sm text-stone-700 dark:text-stone-300 font-serif leading-relaxed">
+            <p className="text-xs sm:text-sm text-stone-700 dark:text-stone-300 font-serif leading-relaxed break-words">
               {currentChapter.summary}
             </p>
 
-            <div className="flex flex-wrap gap-1.5 pt-2 border-t border-amber-900/10">
+            <div className="flex flex-wrap gap-2 pt-2 border-t border-amber-900/10">
               <span className="text-[10px] font-bold uppercase tracking-wider text-amber-800 dark:text-amber-400 w-full mb-1">
                 Core Yoga Themes (Click to read)
               </span>
@@ -117,7 +117,7 @@ export const BhagavadGitaPage: React.FC = () => {
                 <button
                   key={idx}
                   onClick={() => openTopicModal(theme)}
-                  className="px-2.5 py-1 rounded-lg bg-amber-500/15 text-amber-900 dark:text-amber-200 hover:bg-amber-600 hover:text-white transition-colors text-xs font-serif font-medium"
+                  className="px-3 py-2 rounded-xl bg-amber-500/15 text-amber-900 dark:text-amber-200 hover:bg-amber-600 hover:text-white transition-all text-xs font-serif font-medium min-h-[44px] flex items-center active:scale-95 break-words"
                 >
                   {theme}
                 </button>

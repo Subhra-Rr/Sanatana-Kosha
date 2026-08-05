@@ -61,26 +61,26 @@ export const TimelinesPage: React.FC = () => {
               onClick={() => openTopicModal(evt.title)}
               className="p-4 sm:p-6 rounded-2xl bg-amber-50/90 dark:bg-stone-900 border border-amber-800/20 shadow-md space-y-3 hover:border-amber-600 transition-all cursor-pointer group hover:-translate-y-1"
             >
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-amber-900/10 pb-2">
-                <div>
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-amber-800 dark:text-amber-400">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-amber-900/10 pb-2.5">
+                <div className="min-w-0">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-amber-800 dark:text-amber-400 bg-amber-600/15 px-2 py-0.5 rounded inline-block max-w-full break-words">
                     {evt.category} ERA
                   </span>
-                  <h3 className="font-serif text-2xl font-bold text-amber-950 dark:text-amber-100 mt-0.5 group-hover:text-amber-700 transition-colors flex items-center gap-1.5">
-                    {evt.title}
-                    <ExternalLink className="w-4 h-4 text-amber-600 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-amber-950 dark:text-amber-100 mt-1 group-hover:text-amber-700 transition-colors flex items-center gap-1.5 break-words">
+                    <span>{evt.title}</span>
+                    <ExternalLink className="w-4 h-4 text-amber-600 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
                   </h3>
                 </div>
-                <span className="text-xs font-bold px-3 py-1 rounded-full bg-amber-600/20 text-amber-900 dark:text-amber-200 self-start sm:self-auto">
+                <span className="text-xs font-bold px-3 py-1.5 rounded-full bg-amber-600/20 text-amber-900 dark:text-amber-200 self-start sm:self-auto shrink-0 whitespace-nowrap">
                   {evt.yearBCEorCE}
                 </span>
               </div>
 
-              <p className="text-xs sm:text-sm text-stone-700 dark:text-stone-300 leading-relaxed font-serif">
+              <p className="text-xs sm:text-sm text-stone-700 dark:text-stone-300 leading-relaxed font-serif break-words">
                 {evt.description}
               </p>
 
-              <div className="pt-2 flex flex-wrap gap-1.5 text-xs">
+              <div className="pt-2 flex flex-wrap gap-2 text-xs">
                 {evt.keyFigures.map((fig, fIdx) => (
                   <button
                     key={fIdx}
@@ -88,7 +88,7 @@ export const TimelinesPage: React.FC = () => {
                       e.stopPropagation();
                       openTopicModal(fig);
                     }}
-                    className="px-2 py-0.5 rounded bg-amber-500/15 text-amber-900 dark:text-amber-200 hover:bg-amber-600 hover:text-white transition-colors text-left font-medium"
+                    className="px-3 py-2 rounded-xl bg-amber-500/15 text-amber-900 dark:text-amber-200 hover:bg-amber-600 hover:text-white transition-all text-left font-medium min-h-[44px] flex items-center active:scale-95 break-words"
                   >
                     {fig}
                   </button>

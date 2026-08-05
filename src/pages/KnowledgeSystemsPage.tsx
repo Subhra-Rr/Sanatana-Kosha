@@ -22,27 +22,27 @@ export const KnowledgeSystemsPage: React.FC = () => {
       </div>
 
       {/* Primary Tab Controls */}
-      <div className="flex items-center justify-center gap-3 border-b border-amber-900/15 pb-4">
+      <div className="flex flex-wrap items-center justify-center gap-2 border-b border-amber-900/15 pb-4">
         <button
           onClick={() => setActiveTab('architecture')}
-          className={`px-5 py-2.5 rounded-2xl font-serif text-xs sm:text-sm font-semibold transition-all min-h-[42px] flex items-center gap-2 ${
+          className={`px-4 sm:px-5 py-2.5 rounded-2xl font-serif text-xs sm:text-sm font-semibold transition-all min-h-[44px] flex items-center justify-center gap-2 active:scale-95 ${
             activeTab === 'architecture'
               ? 'bg-amber-800 text-white shadow-lg border border-amber-600'
               : 'bg-amber-100/70 dark:bg-stone-900 text-stone-800 dark:text-stone-300 hover:bg-amber-200 border border-amber-800/15'
           }`}
         >
-          <Landmark className="w-4 h-4" />
+          <Landmark className="w-4 h-4 shrink-0" />
           <span>Temple Architecture (वास्तुशास्त्र)</span>
         </button>
         <button
           onClick={() => setActiveTab('sciences')}
-          className={`px-5 py-2.5 rounded-2xl font-serif text-xs sm:text-sm font-semibold transition-all min-h-[42px] flex items-center gap-2 ${
+          className={`px-4 sm:px-5 py-2.5 rounded-2xl font-serif text-xs sm:text-sm font-semibold transition-all min-h-[44px] flex items-center justify-center gap-2 active:scale-95 ${
             activeTab === 'sciences'
               ? 'bg-amber-800 text-white shadow-lg border border-amber-600'
               : 'bg-amber-100/70 dark:bg-stone-900 text-stone-800 dark:text-stone-300 hover:bg-amber-200 border border-amber-800/15'
           }`}
         >
-          <Cpu className="w-4 h-4" />
+          <Cpu className="w-4 h-4 shrink-0" />
           <span>Knowledge Systems (विज्ञानम्)</span>
         </button>
       </div>

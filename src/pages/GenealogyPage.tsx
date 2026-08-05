@@ -49,17 +49,17 @@ export const GenealogyPage: React.FC = () => {
             className="p-6 rounded-2xl bg-amber-50/90 dark:bg-stone-900 border border-amber-800/20 shadow-md space-y-3 flex flex-col justify-between hover:border-amber-600 transition-all cursor-pointer group hover:-translate-y-1"
           >
             <div className="space-y-2">
-              <div className="flex items-center justify-between border-b border-amber-900/10 pb-2">
-                <div>
-                  <h3 className="font-serif text-xl font-bold text-amber-950 dark:text-amber-100 group-hover:text-amber-700 transition-colors flex items-center gap-1.5">
-                    {node.name}
-                    <ExternalLink className="w-3.5 h-3.5 text-amber-600 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-2 border-b border-amber-900/10 pb-2.5">
+                <div className="min-w-0">
+                  <h3 className="font-serif text-xl font-bold text-amber-950 dark:text-amber-100 group-hover:text-amber-700 transition-colors flex items-center gap-1.5 break-words">
+                    <span>{node.name}</span>
+                    <ExternalLink className="w-3.5 h-3.5 text-amber-600 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
                   </h3>
-                  <span className="text-xs text-amber-800 dark:text-amber-300 font-serif sanskrit-font">
+                  <span className="text-xs text-amber-800 dark:text-amber-300 font-serif sanskrit-font block break-words">
                     ({node.sanskritName})
                   </span>
                 </div>
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-600/20 text-amber-900 dark:text-amber-200">
+                <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-amber-600/20 text-amber-900 dark:text-amber-200 shrink-0 self-start sm:self-auto whitespace-nowrap">
                   Gen {node.generation || '—'}
                 </span>
               </div>
