@@ -49,7 +49,7 @@ export const Footer: React.FC = () => {
             <li><Link to="/acharyas" className="hover:text-amber-600 transition-colors">Acharyas & 4 Peethas</Link></li>
             <li><Link to="/geography" className="hover:text-amber-600 transition-colors">Sacred Map & Temples</Link></li>
             <li><Link to="/festivals" className="hover:text-amber-600 transition-colors">Hindu Calendar & Panchang</Link></li>
-            <li><Link to="/sanskrit" className="hover:text-amber-600 transition-colors">Sanskrit Learning Hub</Link></li>
+            <li><Link to="/timelines" className="hover:text-amber-600 transition-colors">Historical Timelines</Link></li>
           </ul>
         </div>
 

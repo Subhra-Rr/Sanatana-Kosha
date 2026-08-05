@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AppProvider } from './context/AppContext';
 import { Header } from './components/common/Header';
 import { Footer } from './components/common/Footer';
+import { MobileBottomNav } from './components/common/MobileBottomNav';
 import { SearchModal } from './components/common/SearchModal';
 import { SpiritualAssistantModal } from './components/ai/SpiritualAssistantModal';
 import { TopicKnowledgeModal } from './components/common/TopicKnowledgeModal';
@@ -19,7 +20,6 @@ const DarshanasPage = lazy(() => import('./pages/DarshanasPage').then(m => ({ de
 const AcharyasPage = lazy(() => import('./pages/AcharyasPage').then(m => ({ default: m.AcharyasPage })));
 const TemplesGeographyPage = lazy(() => import('./pages/TemplesGeographyPage').then(m => ({ default: m.TemplesGeographyPage })));
 const FestivalsPage = lazy(() => import('./pages/FestivalsPage').then(m => ({ default: m.FestivalsPage })));
-const SanskritPage = lazy(() => import('./pages/SanskritPage').then(m => ({ default: m.SanskritPage })));
 const TimelinesPage = lazy(() => import('./pages/TimelinesPage').then(m => ({ default: m.TimelinesPage })));
 const GenealogyPage = lazy(() => import('./pages/GenealogyPage').then(m => ({ default: m.GenealogyPage })));
 const MyLibraryPage = lazy(() => import('./pages/MyLibraryPage').then(m => ({ default: m.MyLibraryPage })));
@@ -35,7 +35,7 @@ export default function App() {
   return (
     <Router>
       <AppProvider>
-        <div className="flex flex-col min-h-screen bg-stone-950 text-amber-100 overflow-x-hidden">
+        <div className="flex flex-col min-h-screen bg-stone-950 text-amber-100 overflow-x-hidden pb-14 md:pb-0">
           <Header />
           <main className="flex-1 w-full overflow-x-hidden">
             <Suspense fallback={<PageFallback />}>
@@ -51,7 +51,6 @@ export default function App() {
                 <Route path="/acharyas" element={<AcharyasPage />} />
                 <Route path="/geography" element={<TemplesGeographyPage />} />
                 <Route path="/festivals" element={<FestivalsPage />} />
-                <Route path="/sanskrit" element={<SanskritPage />} />
                 <Route path="/timelines" element={<TimelinesPage />} />
                 <Route path="/genealogy" element={<GenealogyPage />} />
                 <Route path="/my-library" element={<MyLibraryPage />} />
@@ -61,6 +60,7 @@ export default function App() {
             </Suspense>
           </main>
           <Footer />
+          <MobileBottomNav />
           <SearchModal />
           <SpiritualAssistantModal />
           <TopicKnowledgeModal />

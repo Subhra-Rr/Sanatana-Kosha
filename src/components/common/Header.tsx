@@ -32,13 +32,10 @@ export const Header: React.FC = () => {
     { label: 'Home', path: '/', icon: BookOpen },
     { label: 'My Library', path: '/my-library', icon: Bookmark },
     { label: 'Vedic Library', path: '/library/vedas', icon: Layers },
-    { label: 'Scripture Comparison', path: '/comparison', icon: FileSpreadsheet },
-    { label: 'Academy & Quizzes', path: '/academy', icon: GraduationCap },
-    { label: 'Architecture & Science', path: '/knowledge-systems', icon: Cpu },
     { label: 'Acharyas & Parampara', path: '/acharyas', icon: Landmark },
     { label: 'Sacred Geography & Maps', path: '/geography', icon: MapPin },
     { label: 'Philosophies', path: '/philosophy', icon: Compass },
-    { label: 'Sanskrit & Codices', path: '/sanskrit', icon: GraduationCap },
+    { label: 'Festivals & Panchang', path: '/festivals', icon: Calendar },
     { label: 'Timelines', path: '/timelines', icon: History },
     { label: 'Genealogy', path: '/genealogy', icon: GitBranch }
   ];

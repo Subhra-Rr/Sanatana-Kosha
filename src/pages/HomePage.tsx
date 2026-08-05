@@ -204,7 +204,7 @@ export const HomePage: React.FC = () => {
             ज्ञानकोषविभागाः • Knowledge Sections
           </h2>
           <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-400 font-serif max-w-xl mx-auto">
-            Explore primary scriptures, classical commentaries, philosophical systems, Acharyas, sacred temples, and Sanskrit learning tools.
+            Explore primary scriptures, classical commentaries, philosophical systems, Acharyas, sacred temples, and historical timelines.
           </p>
         </div>
 
@@ -267,11 +267,11 @@ export const HomePage: React.FC = () => {
               count: 'Interactive Maps'
             },
             {
-              title: 'Sanskrit Learning Hub',
-              sanskrit: 'संस्कृतशिक्षाहब',
-              desc: 'Devanagari vowels, consonants, pronunciation rules, Subhashitas, and practice exercises.',
-              path: '/sanskrit',
-              count: 'Interactive Guide'
+              title: 'Historical Timelines',
+              sanskrit: 'कालक्रमः',
+              desc: 'Chronological timeline of Vedic periods, Rishis, astronomical alignments, and key historical milestones.',
+              path: '/timelines',
+              count: 'Chronological Map'
             }
           ].map((item, idx) => (
             <Link
