@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&);
+
 @layer base {
   :root,
   html,

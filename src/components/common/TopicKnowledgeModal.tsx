@@ -51,7 +51,7 @@ export const TopicKnowledgeModal: React.FC = () => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-stone-950/75 backdrop-blur-sm animate-fade-in overflow-y-auto">
       <div
-        className="relative w-full max-w-3xl my-6 bg-amber-50/95 dark:bg-stone-900 border border-amber-800/30 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
+        className="relative w-full max-w-3xl my-6 bg-stone-900 border border-amber-800/30 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Header */}
@@ -79,21 +79,21 @@ export const TopicKnowledgeModal: React.FC = () => {
         </div>
 
         {/* Modal Scrollable Content */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-6 text-stone-800 dark:text-stone-200 font-serif text-sm">
+        <div className="flex-1 overflow-y-auto p-6 space-y-6 text-stone-200 font-serif text-sm">
           {/* Origin / Scriptural Text Badge */}
           {item.originOrText && (
-            <div className="text-xs font-semibold text-amber-900 dark:text-amber-300 flex items-center gap-2 p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/15">
-              <BookOpen className="w-4 h-4 text-amber-700 flex-shrink-0" />
+            <div className="text-xs font-semibold text-amber-300 flex items-center gap-2 p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/15">
+              <BookOpen className="w-4 h-4 text-amber-400 flex-shrink-0" />
               <span>Scriptural Origin / Reference: {item.originOrText}</span>
             </div>
           )}
 
           {/* Overview */}
           <div className="space-y-2">
-            <h3 className="font-serif text-base font-bold text-amber-950 dark:text-amber-100 border-b border-amber-900/10 pb-1">
+            <h3 className="font-serif text-base font-bold text-amber-100 border-b border-amber-900/30 pb-1">
               Knowledge Overview
             </h3>
-            <p className="leading-relaxed text-stone-700 dark:text-stone-300">
+            <p className="leading-relaxed text-stone-300">
               {item.overview}
             </p>
           </div>
@@ -101,13 +101,13 @@ export const TopicKnowledgeModal: React.FC = () => {
           {/* Key Principles / Insights */}
           {item.keyPrinciples && item.keyPrinciples.length > 0 && (
             <div className="space-y-2.5">
-              <h3 className="font-serif text-base font-bold text-amber-950 dark:text-amber-100 border-b border-amber-900/10 pb-1">
+              <h3 className="font-serif text-base font-bold text-amber-100 border-b border-amber-900/30 pb-1">
                 Core Principles & Insights
               </h3>
               <ul className="space-y-2">
                 {item.keyPrinciples.map((principle, idx) => (
                   <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm">
-                    <CheckCircle2 className="w-4 h-4 text-amber-700 dark:text-amber-400 mt-0.5 flex-shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-amber-400 mt-0.5 flex-shrink-0" />
                     <span>{principle}</span>
                   </li>
                 ))}
@@ -117,10 +117,10 @@ export const TopicKnowledgeModal: React.FC = () => {
 
           {/* Mantra or Shloka Card */}
           {item.mantraOrShloka && (
-            <div className="p-4 sm:p-5 rounded-2xl bg-amber-100/60 dark:bg-stone-950/80 border border-amber-800/25 space-y-3 shadow-inner">
-              <div className="flex items-center justify-between border-b border-amber-900/10 pb-2">
-                <span className="text-xs font-bold uppercase tracking-wider text-amber-900 dark:text-amber-300 flex items-center gap-1.5">
-                  <Sparkles className="w-4 h-4 text-amber-600" /> Key Shloka / Mantra
+            <div className="p-4 sm:p-5 rounded-2xl bg-stone-950/80 border border-amber-800/25 space-y-3 shadow-inner">
+              <div className="flex items-center justify-between border-b border-amber-900/20 pb-2">
+                <span className="text-xs font-bold uppercase tracking-wider text-amber-300 flex items-center gap-1.5">
+                  <Sparkles className="w-4 h-4 text-amber-400" /> Key Shloka / Mantra
                 </span>
                 <button
                   onClick={() => playVerseAudio(item.mantraOrShloka!.sanskrit)}
@@ -131,16 +131,16 @@ export const TopicKnowledgeModal: React.FC = () => {
               </div>
 
               <div className="text-center space-y-2 py-2">
-                <p className="font-serif text-base sm:text-lg font-bold text-amber-950 dark:text-amber-100 sanskrit-font leading-relaxed whitespace-pre-line">
+                <p className="font-serif text-base sm:text-lg font-bold text-amber-100 sanskrit-font leading-relaxed whitespace-pre-line">
                   {item.mantraOrShloka.sanskrit}
                 </p>
-                <p className="text-xs text-amber-800 dark:text-amber-300 italic">
+                <p className="text-xs text-amber-300 italic">
                   {item.mantraOrShloka.transliteration}
                 </p>
               </div>
 
-              <div className="pt-2 border-t border-amber-900/10 text-xs text-stone-700 dark:text-stone-300 leading-relaxed">
-                <span className="font-bold text-amber-900 dark:text-amber-200">Meaning: </span>
+              <div className="pt-2 border-t border-amber-900/20 text-xs text-stone-300 leading-relaxed">
+                <span className="font-bold text-amber-200">Meaning: </span>
                 "{item.mantraOrShloka.translation}"
               </div>
             </div>
@@ -150,10 +150,10 @@ export const TopicKnowledgeModal: React.FC = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {item.spiritualSignificance && (
               <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/15 space-y-1">
-                <span className="text-xs font-bold text-amber-900 dark:text-amber-300 block uppercase tracking-wider">
+                <span className="text-xs font-bold text-amber-300 block uppercase tracking-wider">
                   Spiritual Significance
                 </span>
-                <p className="text-xs text-stone-700 dark:text-stone-300 leading-relaxed">
+                <p className="text-xs text-stone-300 leading-relaxed">
                   {item.spiritualSignificance}
                 </p>
               </div>
@@ -161,10 +161,10 @@ export const TopicKnowledgeModal: React.FC = () => {
 
             {item.practicalApplication && (
               <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/15 space-y-1">
-                <span className="text-xs font-bold text-amber-900 dark:text-amber-300 block uppercase tracking-wider">
+                <span className="text-xs font-bold text-amber-300 block uppercase tracking-wider">
                   Sadhana & Application
                 </span>
-                <p className="text-xs text-stone-700 dark:text-stone-300 leading-relaxed">
+                <p className="text-xs text-stone-300 leading-relaxed">
                   {item.practicalApplication}
                 </p>
               </div>
@@ -173,8 +173,8 @@ export const TopicKnowledgeModal: React.FC = () => {
 
           {/* Related Topics Links */}
           {item.relatedTopics && item.relatedTopics.length > 0 && (
-            <div className="space-y-2 pt-2 border-t border-amber-900/10">
-              <span className="text-xs font-bold text-amber-900 dark:text-amber-400 block uppercase tracking-wider">
+            <div className="space-y-2 pt-2 border-t border-amber-900/20">
+              <span className="text-xs font-bold text-amber-400 block uppercase tracking-wider">
                 Explore Related Topics
               </span>
               <div className="flex flex-wrap gap-2 text-xs">
@@ -182,10 +182,10 @@ export const TopicKnowledgeModal: React.FC = () => {
                   <button
                     key={rIdx}
                     onClick={() => openTopicModal(rel)}
-                    className="px-3.5 py-2.5 rounded-xl bg-amber-200/60 dark:bg-stone-800 text-stone-800 dark:text-stone-200 hover:bg-amber-300 hover:dark:bg-stone-700 transition-colors flex items-center gap-1 font-medium min-h-[44px] active:scale-95"
+                    className="px-3.5 py-2.5 rounded-xl bg-stone-800 text-stone-200 hover:bg-stone-700 transition-colors flex items-center gap-1 font-medium min-h-[44px] active:scale-95"
                   >
                     <span>{rel}</span>
-                    <ArrowRight className="w-3.5 h-3.5 text-amber-700 shrink-0" />
+                    <ArrowRight className="w-3.5 h-3.5 text-amber-400 shrink-0" />
                   </button>
                 ))}
               </div>
@@ -194,13 +194,13 @@ export const TopicKnowledgeModal: React.FC = () => {
         </div>
 
         {/* Modal Footer Actions */}
-        <div className="px-6 py-4 bg-amber-100/70 dark:bg-stone-950/70 border-t border-amber-900/15 flex flex-wrap items-center justify-between gap-3">
+        <div className="px-6 py-4 bg-stone-950/70 border-t border-amber-900/30 flex flex-wrap items-center justify-between gap-3">
           <button
             onClick={handleToggleBookmark}
             className={`px-4 py-2.5 min-h-[44px] rounded-xl text-xs font-medium flex items-center gap-1.5 transition-colors active:scale-95 ${
               isSaved
                 ? 'bg-amber-700 text-white font-bold shadow-sm'
-                : 'bg-amber-500/10 hover:bg-amber-500/20 text-amber-900 dark:text-amber-200'
+                : 'bg-amber-500/10 hover:bg-amber-500/20 text-amber-200'
             }`}
           >
             <Bookmark className="w-4 h-4" />

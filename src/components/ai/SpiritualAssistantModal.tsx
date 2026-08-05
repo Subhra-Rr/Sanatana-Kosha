@@ -76,7 +76,7 @@ export const SpiritualAssistantModal: React.FC = () => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-950/70 backdrop-blur-sm animate-fade-in">
-      <div className="w-full max-w-2xl bg-amber-50 dark:bg-stone-900 border border-amber-900/30 rounded-2xl shadow-2xl overflow-hidden flex flex-col h-[85vh] sm:h-[75vh]">
+      <div className="w-full max-w-2xl bg-stone-900 border border-amber-900/30 rounded-2xl shadow-2xl overflow-hidden flex flex-col h-[85vh] sm:h-[75vh]">
         {/* Modal Header */}
         <div className="px-5 py-4 bg-gradient-to-r from-amber-900 to-amber-950 text-amber-100 flex items-center justify-between border-b border-amber-700/30">
           <div className="flex items-center gap-2.5">
@@ -108,15 +108,15 @@ export const SpiritualAssistantModal: React.FC = () => {
                 className={`max-w-[82%] p-3.5 rounded-2xl text-xs sm:text-sm leading-relaxed shadow-sm ${
                   m.sender === 'user'
                     ? 'bg-amber-700 text-white rounded-br-none'
-                    : 'bg-stone-100 dark:bg-stone-800 text-stone-900 dark:text-stone-100 border border-amber-900/10 rounded-bl-none'
+                    : 'bg-stone-800 text-stone-100 border border-amber-900/10 rounded-bl-none'
                 }`}
               >
-                <div className="whitespace-pre-line font-serif leading-relaxed text-stone-800 dark:text-stone-100">
+                <div className="whitespace-pre-line font-serif leading-relaxed text-stone-100">
                   {m.text}
                 </div>
 
                 {m.citations && m.citations.length > 0 && (
-                  <div className="mt-3 pt-2 border-t border-amber-900/10 dark:border-amber-500/20 text-[11px] text-amber-800 dark:text-amber-300">
+                  <div className="mt-3 pt-2 border-t border-amber-500/20 text-[11px] text-amber-300">
                     <span className="font-bold flex items-center gap-1 mb-1">
                       <BookOpen className="w-3 h-3" /> Cited References:
                     </span>
@@ -130,7 +130,7 @@ export const SpiritualAssistantModal: React.FC = () => {
               </div>
 
               {m.sender === 'user' && (
-                <div className="w-8 h-8 rounded-full bg-stone-300 dark:bg-stone-700 text-stone-700 dark:text-stone-200 flex items-center justify-center flex-shrink-0 text-xs">
+                <div className="w-8 h-8 rounded-full bg-stone-700 text-stone-200 flex items-center justify-center flex-shrink-0 text-xs">
                   <User className="w-4 h-4" />
                 </div>
               )}
@@ -138,7 +138,7 @@ export const SpiritualAssistantModal: React.FC = () => {
           ))}
 
           {isLoading && (
-            <div className="flex items-center gap-2 text-xs text-amber-800 dark:text-amber-300 italic">
+            <div className="flex items-center gap-2 text-xs text-amber-300 italic">
               <Sparkles className="w-4 h-4 animate-spin" />
               <span>Consulting sacred texts and commentaries...</span>
             </div>
@@ -146,14 +146,14 @@ export const SpiritualAssistantModal: React.FC = () => {
         </div>
 
         {/* Query Input Box */}
-        <div className="p-3 border-t border-amber-900/15 bg-amber-100/40 dark:bg-stone-950/40 flex items-center gap-2">
+        <div className="p-3 border-t border-amber-900/15 bg-stone-950/40 flex items-center gap-2">
           <input
             type="text"
             value={inputQuery}
             onChange={(e) => setInputQuery(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSend()}
             placeholder="Ask e.g. 'Explain Karma Yoga in Bhagavad Gita'..."
-            className="flex-1 bg-stone-100 dark:bg-stone-800 border border-amber-900/20 rounded-xl px-4 py-2.5 text-xs sm:text-sm outline-none font-serif text-stone-900 dark:text-stone-100"
+            className="flex-1 bg-stone-800 border border-amber-900/20 rounded-xl px-4 py-2.5 text-xs sm:text-sm outline-none font-serif text-stone-100 placeholder:text-stone-400"
           />
           <button
             onClick={handleSend}

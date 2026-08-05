@@ -80,45 +80,45 @@ export const ResearchCitationModal: React.FC<ResearchCitationModalProps> = ({ is
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-fade-in">
-      <div className="w-full max-w-4xl max-h-[90vh] bg-amber-50 dark:bg-stone-900 border border-amber-800/30 dark:border-amber-500/30 rounded-3xl shadow-2xl flex flex-col overflow-hidden text-stone-900 dark:text-stone-100">
+      <div className="w-full max-w-4xl max-h-[90vh] bg-stone-900 border border-amber-500/30 rounded-3xl shadow-2xl flex flex-col overflow-hidden text-stone-100">
         
         {/* Modal Header */}
-        <div className="p-5 border-b border-amber-900/15 flex items-center justify-between bg-amber-100/60 dark:bg-stone-950/80">
+        <div className="p-5 border-b border-amber-900/15 flex items-center justify-between bg-stone-950/80">
           <div className="flex items-center gap-2">
-            <BookOpen className="w-5 h-5 text-amber-600" />
-            <h3 className="font-serif font-bold text-lg text-amber-950 dark:text-amber-100">
+            <BookOpen className="w-5 h-5 text-amber-400" />
+            <h3 className="font-serif font-bold text-lg text-amber-100">
               Academic Research & Citation Exporter
             </h3>
           </div>
-          <button onClick={onClose} className="p-1 rounded-full hover:bg-amber-500/20 text-stone-500">
+          <button onClick={onClose} className="p-1 rounded-full hover:bg-amber-500/20 text-stone-400 hover:text-stone-200">
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Search Bar & Citation Format Bar */}
-        <div className="p-4 border-b border-amber-900/10 space-y-3 bg-amber-50/50 dark:bg-stone-900/50">
+        <div className="p-4 border-b border-amber-900/10 space-y-3 bg-stone-900/50">
           <div className="flex flex-col sm:flex-row items-center gap-3">
             <div className="relative flex-1 w-full">
-              <Search className="absolute left-3.5 top-3 w-4 h-4 text-amber-700 dark:text-amber-400" />
+              <Search className="absolute left-3.5 top-3 w-4 h-4 text-amber-400" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search across all Vedic Mantras, Suktas, and Commentaries..."
-                className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-white dark:bg-stone-800 border border-amber-800/20 text-xs sm:text-sm outline-none focus:border-amber-600 font-serif"
+                className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-stone-800 border border-amber-800/20 text-xs sm:text-sm outline-none focus:border-amber-600 font-serif text-amber-100 placeholder:text-stone-400"
               />
             </div>
 
             <div className="flex items-center gap-1 self-stretch sm:self-auto">
-              <span className="text-xs font-serif font-bold text-amber-900 dark:text-amber-300 mr-1">Format:</span>
+              <span className="text-xs font-serif font-bold text-amber-300 mr-1">Format:</span>
               {(['BibTeX', 'APA', 'MLA', 'Chicago'] as const).map(fmt => (
                 <button
                   key={fmt}
                   onClick={() => setCitationFormat(fmt)}
                   className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition-all ${
                     citationFormat === fmt
-                      ? 'bg-amber-800 text-white shadow'
-                      : 'bg-amber-200/50 dark:bg-stone-800 text-stone-800 dark:text-stone-300'
+                      ? 'bg-amber-700 text-white shadow'
+                      : 'bg-stone-800 text-stone-300 hover:bg-stone-700'
                   }`}
                 >
                   {fmt}
@@ -130,7 +130,7 @@ export const ResearchCitationModal: React.FC<ResearchCitationModalProps> = ({ is
 
         {/* Results List */}
         <div className="p-6 overflow-y-auto space-y-4 flex-1">
-          <div className="text-xs font-serif text-stone-500 dark:text-stone-400 flex items-center justify-between">
+          <div className="text-xs font-serif text-stone-400 flex items-center justify-between">
             <span>Showing {Math.min(results.length, 25)} Research Results</span>
             <span>Copy citation in {citationFormat} format</span>
           </div>
@@ -138,10 +138,10 @@ export const ResearchCitationModal: React.FC<ResearchCitationModalProps> = ({ is
           {results.slice(0, 25).map((item, idx) => (
             <div
               key={idx}
-              className="p-5 rounded-2xl bg-white dark:bg-stone-950 border border-amber-800/15 shadow-sm space-y-3"
+              className="p-5 rounded-2xl bg-stone-950 border border-amber-800/20 shadow-sm space-y-3"
             >
-              <div className="flex items-center justify-between border-b border-amber-900/10 pb-2">
-                <span className="text-xs font-bold text-amber-900 dark:text-amber-300 font-serif">
+              <div className="flex items-center justify-between border-b border-amber-900/20 pb-2">
+                <span className="text-xs font-bold text-amber-300 font-serif">
                   {item.source} • {item.ref}
                 </span>
                 <button
@@ -160,21 +160,21 @@ export const ResearchCitationModal: React.FC<ResearchCitationModalProps> = ({ is
                 </button>
               </div>
 
-              <p className="font-serif font-bold text-sm text-amber-950 dark:text-amber-100 sanskrit-font">
+              <p className="font-serif font-bold text-sm text-amber-100 sanskrit-font">
                 "{item.sanskrit}"
               </p>
-              <p className="text-xs font-serif italic text-stone-700 dark:text-stone-300">
+              <p className="text-xs font-serif italic text-stone-300">
                 "{item.translation}"
               </p>
 
               {item.commentary && (
-                <div className="p-3 rounded-xl bg-amber-50 dark:bg-stone-900 text-[11px] font-serif text-stone-600 dark:text-stone-400">
+                <div className="p-3 rounded-xl bg-stone-900 text-[11px] font-serif text-stone-400 border border-amber-900/10">
                   <strong>Commentary Note:</strong> {item.commentary}
                 </div>
               )}
 
               {/* Citation Preview String */}
-              <pre className="p-2.5 rounded-xl bg-stone-100 dark:bg-stone-900 font-mono text-[10px] text-stone-700 dark:text-stone-300 overflow-x-auto whitespace-pre-wrap">
+              <pre className="p-2.5 rounded-xl bg-stone-900 font-mono text-[10px] text-stone-300 border border-stone-800 overflow-x-auto whitespace-pre-wrap">
                 {getCitationString(item, citationFormat)}
               </pre>
             </div>

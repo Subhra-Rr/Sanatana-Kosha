@@ -49,36 +49,36 @@ export const SearchModal: React.FC = () => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-24 px-4 bg-stone-950/70 backdrop-blur-sm animate-fade-in">
-      <div className="w-full max-w-3xl bg-amber-50 dark:bg-stone-900 border border-amber-900/30 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[80vh]">
+      <div className="w-full max-w-3xl bg-stone-900 border border-amber-900/30 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[80vh]">
         {/* Search Header */}
         <div className="p-4 border-b border-amber-900/15 flex items-center gap-3">
-          <Search className="w-5 h-5 text-amber-700 dark:text-amber-400 shrink-0" />
+          <Search className="w-5 h-5 text-amber-400 shrink-0" />
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search Sanskrit words, verse numbers, chapters, Acharyas, temples, philosophical concepts..."
-            className="flex-1 bg-transparent border-none outline-none text-stone-900 dark:text-stone-100 placeholder:text-stone-400 font-serif text-sm sm:text-base min-h-[44px]"
+            className="flex-1 bg-transparent border-none outline-none text-stone-100 placeholder:text-stone-400 font-serif text-sm sm:text-base min-h-[44px]"
             autoFocus
           />
           {query && (
             <button
               onClick={() => setQuery('')}
-              className="p-2 text-stone-400 hover:text-stone-600 min-w-[44px] min-h-[44px] flex items-center justify-center"
+              className="p-2 text-stone-400 hover:text-stone-200 min-w-[44px] min-h-[44px] flex items-center justify-center"
             >
               <X className="w-4 h-4" />
             </button>
           )}
           <button
             onClick={() => setIsSearchOpen(false)}
-            className="text-xs px-3 py-2 rounded-md bg-stone-200 dark:bg-stone-800 text-stone-600 dark:text-stone-400 hover:bg-stone-300 min-h-[44px] flex items-center justify-center font-medium active:scale-95"
+            className="text-xs px-3 py-2 rounded-md bg-stone-800 text-stone-400 hover:bg-stone-700 min-h-[44px] flex items-center justify-center font-medium active:scale-95"
           >
             Esc
           </button>
         </div>
 
         {/* Filter Pills */}
-        <div className="px-4 py-2 border-b border-amber-900/10 bg-amber-100/50 dark:bg-stone-950/50 flex items-center gap-2 overflow-x-auto scrollbar-none text-xs">
+        <div className="px-4 py-2 border-b border-amber-900/10 bg-stone-950/50 flex items-center gap-2 overflow-x-auto scrollbar-none text-xs">
           {categories.map((cat) => (
             <button
               key={cat.id}
@@ -86,7 +86,7 @@ export const SearchModal: React.FC = () => {
               className={`px-3.5 py-2 rounded-full whitespace-nowrap transition-colors min-h-[44px] flex items-center justify-center active:scale-95 ${
                 categoryFilter === cat.id
                   ? 'bg-amber-600 text-white font-medium shadow-sm'
-                  : 'bg-stone-200/60 dark:bg-stone-800 text-stone-700 dark:text-stone-300 hover:bg-stone-300'
+                  : 'bg-stone-800 text-stone-300 hover:bg-stone-700'
               }`}
             >
               {cat.label}
@@ -100,7 +100,7 @@ export const SearchModal: React.FC = () => {
             <div>
               {recentSearches.length > 0 && (
                 <div className="space-y-2 mb-6">
-                  <span className="text-xs font-semibold text-amber-800 dark:text-amber-300 flex items-center gap-1">
+                  <span className="text-xs font-semibold text-amber-300 flex items-center gap-1">
                     <Clock className="w-3.5 h-3.5" /> Recent Searches
                   </span>
                   <div className="flex flex-wrap gap-2">
@@ -108,7 +108,7 @@ export const SearchModal: React.FC = () => {
                       <button
                         key={idx}
                         onClick={() => setQuery(s)}
-                        className="text-xs px-3 py-1 rounded-lg bg-amber-500/10 text-stone-800 dark:text-stone-200 hover:bg-amber-500/20"
+                        className="text-xs px-3 py-1 rounded-lg bg-amber-500/10 text-stone-200 hover:bg-amber-500/20"
                       >
                         {s}
                       </button>
@@ -117,20 +117,20 @@ export const SearchModal: React.FC = () => {
                 </div>
               )}
 
-              <div className="text-center py-8 text-stone-500 text-xs font-serif space-y-1">
-                <p className="font-semibold text-amber-900 dark:text-amber-200 text-sm">
+              <div className="text-center py-8 text-stone-400 text-xs font-serif space-y-1">
+                <p className="font-semibold text-amber-200 text-sm">
                   Global Instant Search Engine
                 </p>
                 <p>Try searching: "Karma", "Rigveda 1.164.46", "Shankaracharya", "Gita 2.47", "Kashi", "Upanishads"</p>
               </div>
             </div>
           ) : results.length === 0 ? (
-            <div className="text-center py-12 text-stone-500 text-sm">
-              No results found matching "<span className="font-semibold">{query}</span>".
+            <div className="text-center py-12 text-stone-400 text-sm">
+              No results found matching "<span className="font-semibold text-amber-300">{query}</span>".
             </div>
           ) : (
             <div className="space-y-2">
-              <div className="text-xs text-stone-500 mb-2">
+              <div className="text-xs text-stone-400 mb-2">
                 Found {results.length} results
               </div>
               {results.map((res) => (
@@ -138,38 +138,38 @@ export const SearchModal: React.FC = () => {
                   key={res.id}
                   to={res.linkUrl}
                   onClick={() => handleSelectResult(query)}
-                  className="block p-3 rounded-xl bg-stone-100/80 dark:bg-stone-800/60 hover:bg-amber-500/15 border border-amber-900/10 dark:border-amber-500/10 transition-all group"
+                  className="block p-3 rounded-xl bg-stone-800/60 hover:bg-amber-500/15 border border-amber-500/10 transition-all group"
                 >
                   <div className="flex items-start justify-between gap-2">
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="font-serif font-bold text-amber-950 dark:text-amber-100 text-sm group-hover:text-amber-600 transition-colors">
+                        <span className="font-serif font-bold text-amber-100 text-sm group-hover:text-amber-400 transition-colors">
                           {res.title}
                         </span>
                         {res.sanskritTitle && (
-                          <span className="text-xs text-amber-800 dark:text-amber-300 font-serif opacity-80 sanskrit-font">
+                          <span className="text-xs text-amber-300 font-serif opacity-80 sanskrit-font">
                             ({res.sanskritTitle})
                           </span>
                         )}
                       </div>
-                      <div className="text-xs text-amber-800/80 dark:text-amber-300/80 font-medium mt-0.5">
+                      <div className="text-xs text-amber-300/80 font-medium mt-0.5">
                         {res.subtitle}
                       </div>
                     </div>
-                    <span className="text-[10px] px-2 py-0.5 rounded bg-amber-600/20 text-amber-900 dark:text-amber-200 font-medium whitespace-nowrap">
+                    <span className="text-[10px] px-2 py-0.5 rounded bg-amber-600/20 text-amber-200 font-medium whitespace-nowrap">
                       {res.categoryName}
                     </span>
                   </div>
 
-                  <p className="text-xs text-stone-600 dark:text-stone-300 mt-1.5 line-clamp-2 leading-relaxed">
+                  <p className="text-xs text-stone-300 mt-1.5 line-clamp-2 leading-relaxed">
                     {res.snippet}
                   </p>
 
                   {res.tags && res.tags.length > 0 && (
-                    <div className="flex items-center gap-1.5 mt-2 flex-wrap text-[10px] text-stone-500">
+                    <div className="flex items-center gap-1.5 mt-2 flex-wrap text-[10px] text-stone-400">
                       <Tag className="w-3 h-3 opacity-60" />
                       {res.tags.slice(0, 3).map((tag, idx) => (
-                        <span key={idx} className="bg-stone-200 dark:bg-stone-700/50 px-1.5 py-0.5 rounded">
+                        <span key={idx} className="bg-stone-700/50 px-1.5 py-0.5 rounded">
                           {tag}
                         </span>
                       ))}
