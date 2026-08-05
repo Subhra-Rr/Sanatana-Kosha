@@ -72,7 +72,7 @@ export const TopicKnowledgeModal: React.FC = () => {
 
           <button
             onClick={closeTopicModal}
-            className="p-1.5 rounded-lg text-amber-200/80 hover:text-white hover:bg-amber-800/50 transition-colors"
+            className="p-2.5 rounded-lg text-amber-200/80 hover:text-white hover:bg-amber-800/50 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
           >
             <X className="w-5 h-5" />
           </button>
@@ -182,10 +182,10 @@ export const TopicKnowledgeModal: React.FC = () => {
                   <button
                     key={rIdx}
                     onClick={() => openTopicModal(rel)}
-                    className="px-3 py-1.5 rounded-xl bg-amber-200/60 dark:bg-stone-800 text-stone-800 dark:text-stone-200 hover:bg-amber-300 hover:dark:bg-stone-700 transition-colors flex items-center gap-1 font-medium"
+                    className="px-3.5 py-2.5 rounded-xl bg-amber-200/60 dark:bg-stone-800 text-stone-800 dark:text-stone-200 hover:bg-amber-300 hover:dark:bg-stone-700 transition-colors flex items-center gap-1 font-medium min-h-[44px] active:scale-95"
                   >
                     <span>{rel}</span>
-                    <ArrowRight className="w-3 h-3 text-amber-700" />
+                    <ArrowRight className="w-3.5 h-3.5 text-amber-700 shrink-0" />
                   </button>
                 ))}
               </div>
@@ -197,7 +197,7 @@ export const TopicKnowledgeModal: React.FC = () => {
         <div className="px-6 py-4 bg-amber-100/70 dark:bg-stone-950/70 border-t border-amber-900/15 flex flex-wrap items-center justify-between gap-3">
           <button
             onClick={handleToggleBookmark}
-            className={`px-4 py-2 rounded-xl text-xs font-medium flex items-center gap-1.5 transition-colors ${
+            className={`px-4 py-2.5 min-h-[44px] rounded-xl text-xs font-medium flex items-center gap-1.5 transition-colors active:scale-95 ${
               isSaved
                 ? 'bg-amber-700 text-white font-bold shadow-sm'
                 : 'bg-amber-500/10 hover:bg-amber-500/20 text-amber-900 dark:text-amber-200'
@@ -209,7 +209,7 @@ export const TopicKnowledgeModal: React.FC = () => {
 
           <button
             onClick={handleAskAi}
-            className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-700 to-amber-900 text-amber-50 hover:from-amber-800 hover:to-amber-950 text-xs font-semibold shadow-md flex items-center gap-2 transition-all"
+            className="px-5 py-2.5 min-h-[44px] rounded-xl bg-gradient-to-r from-amber-700 to-amber-900 text-amber-50 hover:from-amber-800 hover:to-amber-950 text-xs font-semibold shadow-md flex items-center gap-2 transition-all active:scale-95"
           >
             <Sparkles className="w-4 h-4 text-amber-300" />
             <span>Inquire further with AI Assistant</span>

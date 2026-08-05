@@ -52,35 +52,38 @@ export const SearchModal: React.FC = () => {
       <div className="w-full max-w-3xl bg-amber-50 dark:bg-stone-900 border border-amber-900/30 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[80vh]">
         {/* Search Header */}
         <div className="p-4 border-b border-amber-900/15 flex items-center gap-3">
-          <Search className="w-5 h-5 text-amber-700 dark:text-amber-400" />
+          <Search className="w-5 h-5 text-amber-700 dark:text-amber-400 shrink-0" />
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search Sanskrit words, verse numbers, chapters, Acharyas, temples, philosophical concepts..."
-            className="flex-1 bg-transparent border-none outline-none text-stone-900 dark:text-stone-100 placeholder:text-stone-400 font-serif text-sm sm:text-base"
+            className="flex-1 bg-transparent border-none outline-none text-stone-900 dark:text-stone-100 placeholder:text-stone-400 font-serif text-sm sm:text-base min-h-[44px]"
             autoFocus
           />
           {query && (
-            <button onClick={() => setQuery('')} className="p-1 text-stone-400 hover:text-stone-600">
+            <button
+              onClick={() => setQuery('')}
+              className="p-2 text-stone-400 hover:text-stone-600 min-w-[44px] min-h-[44px] flex items-center justify-center"
+            >
               <X className="w-4 h-4" />
             </button>
           )}
           <button
             onClick={() => setIsSearchOpen(false)}
-            className="text-xs px-2.5 py-1 rounded-md bg-stone-200 dark:bg-stone-800 text-stone-600 dark:text-stone-400 hover:bg-stone-300"
+            className="text-xs px-3 py-2 rounded-md bg-stone-200 dark:bg-stone-800 text-stone-600 dark:text-stone-400 hover:bg-stone-300 min-h-[44px] flex items-center justify-center font-medium active:scale-95"
           >
             Esc
           </button>
         </div>
 
         {/* Filter Pills */}
-        <div className="px-4 py-2 border-b border-amber-900/10 bg-amber-100/50 dark:bg-stone-950/50 flex items-center gap-1.5 overflow-x-auto scrollbar-none text-xs">
+        <div className="px-4 py-2 border-b border-amber-900/10 bg-amber-100/50 dark:bg-stone-950/50 flex items-center gap-2 overflow-x-auto scrollbar-none text-xs">
           {categories.map((cat) => (
             <button
               key={cat.id}
               onClick={() => setCategoryFilter(cat.id)}
-              className={`px-2.5 py-1 rounded-full whitespace-nowrap transition-colors ${
+              className={`px-3.5 py-2 rounded-full whitespace-nowrap transition-colors min-h-[44px] flex items-center justify-center active:scale-95 ${
                 categoryFilter === cat.id
                   ? 'bg-amber-600 text-white font-medium shadow-sm'
                   : 'bg-stone-200/60 dark:bg-stone-800 text-stone-700 dark:text-stone-300 hover:bg-stone-300'

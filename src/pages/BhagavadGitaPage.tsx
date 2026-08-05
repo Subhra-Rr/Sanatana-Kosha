@@ -56,7 +56,7 @@ export const BhagavadGitaPage: React.FC = () => {
                   setSelectedChapterNumber(ch.chapterNumber);
                   setSelectedVerseIndex(0);
                 }}
-                className={`w-full text-left p-3 rounded-xl transition-all border flex items-center justify-between ${
+                className={`w-full text-left p-3.5 rounded-xl transition-all border flex items-center justify-between min-h-[48px] active:scale-98 ${
                   selectedChapterNumber === ch.chapterNumber
                     ? 'bg-amber-700 text-white font-bold border-amber-500 shadow-md'
                     : 'bg-stone-100 dark:bg-stone-800/60 text-stone-800 dark:text-stone-200 border-amber-900/10 hover:bg-amber-200'
@@ -70,7 +70,7 @@ export const BhagavadGitaPage: React.FC = () => {
                     {ch.sanskritTitle}
                   </div>
                 </div>
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-500/20 text-stone-900 dark:text-amber-100">
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-500/20 text-stone-900 dark:text-amber-100 shrink-0 ml-2">
                   {ch.versesCount} Verses
                 </span>
               </button>
@@ -135,7 +135,7 @@ export const BhagavadGitaPage: React.FC = () => {
               <button
                 key={idx}
                 onClick={() => setSelectedVerseIndex(idx)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all whitespace-nowrap ${
+                className={`px-3.5 py-2 rounded-lg text-xs font-bold transition-all whitespace-nowrap min-h-[44px] flex items-center justify-center ${
                   selectedVerseIndex === idx
                     ? 'bg-amber-700 text-white shadow-sm'
                     : 'bg-stone-200 dark:bg-stone-800 text-stone-700 dark:text-stone-300 hover:bg-amber-200'

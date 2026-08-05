@@ -133,18 +133,18 @@ export const DailyShloka: React.FC = () => {
                 <button
                   onClick={() => handleSpeak(currentShloka.sanskrit)}
                   title="Recite Shloka in Sanskrit"
-                  className="px-3 py-1.5 rounded-xl bg-amber-500/20 text-amber-950 dark:text-amber-200 hover:bg-amber-500/30 font-serif text-xs font-semibold flex items-center gap-1.5 transition-all"
+                  className="px-3.5 py-2.5 rounded-xl bg-amber-500/20 text-amber-950 dark:text-amber-200 hover:bg-amber-500/30 font-serif text-xs font-semibold flex items-center gap-1.5 transition-all min-h-[44px]"
                 >
-                  <Volume2 className="w-3.5 h-3.5 text-amber-700 dark:text-amber-300" />
+                  <Volume2 className="w-4 h-4 text-amber-700 dark:text-amber-300" />
                   <span>Recite</span>
                 </button>
 
                 <button
                   onClick={() => handleCopy(`${currentShloka.sanskrit}\n\n${currentShloka.translation}`)}
                   title="Copy Shloka Text"
-                  className="p-2 rounded-xl bg-amber-500/20 text-amber-950 dark:text-amber-200 hover:bg-amber-500/30 transition-all"
+                  className="p-2.5 rounded-xl bg-amber-500/20 text-amber-950 dark:text-amber-200 hover:bg-amber-500/30 transition-all min-w-[44px] min-h-[44px] flex items-center justify-center"
                 >
-                  {copied ? <Check className="w-3.5 h-3.5 text-green-600" /> : <Copy className="w-3.5 h-3.5" />}
+                  {copied ? <Check className="w-4 h-4 text-green-600" /> : <Copy className="w-4 h-4" />}
                 </button>
 
                 <button
@@ -158,10 +158,10 @@ export const DailyShloka: React.FC = () => {
                     })
                   }
                   title="Bookmark Shloka"
-                  className="p-2 rounded-xl bg-amber-500/20 text-amber-950 dark:text-amber-200 hover:bg-amber-500/30 transition-all"
+                  className="p-2.5 rounded-xl bg-amber-500/20 text-amber-950 dark:text-amber-200 hover:bg-amber-500/30 transition-all min-w-[44px] min-h-[44px] flex items-center justify-center"
                 >
                   <Bookmark
-                    className={`w-3.5 h-3.5 ${
+                    className={`w-4 h-4 ${
                       isBookmarked(`daily-shloka-${currentShloka.title}`) ? 'fill-current text-amber-600' : ''
                     }`}
                   />

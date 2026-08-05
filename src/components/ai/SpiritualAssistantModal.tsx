@@ -86,7 +86,7 @@ export const SpiritualAssistantModal: React.FC = () => {
               <p className="text-[11px] text-amber-300/80">Trained on Vedas, Upanishads, Bhagavad Gita & Commentaries</p>
             </div>
           </div>
-          <button onClick={() => setIsAiAssistantOpen(false)} className="p-1 hover:bg-amber-800 rounded-lg text-amber-200">
+          <button onClick={() => setIsAiAssistantOpen(false)} className="p-2.5 hover:bg-amber-800 rounded-lg text-amber-200 min-w-[44px] min-h-[44px] flex items-center justify-center">
             <X className="w-5 h-5" />
           </button>
         </div>
@@ -158,7 +158,7 @@ export const SpiritualAssistantModal: React.FC = () => {
           <button
             onClick={handleSend}
             disabled={!inputQuery.trim() || isLoading}
-            className="p-2.5 rounded-xl bg-amber-700 text-white hover:bg-amber-800 disabled:opacity-50 transition-colors"
+            className="p-2.5 rounded-xl bg-amber-700 text-white hover:bg-amber-800 disabled:opacity-50 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center active:scale-95"
           >
             <Send className="w-4 h-4" />
           </button>

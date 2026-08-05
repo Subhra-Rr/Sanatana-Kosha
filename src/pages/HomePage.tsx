@@ -84,7 +84,7 @@ export const HomePage: React.FC = () => {
                   <button
                     key={veda.id}
                     onClick={() => setActiveVedaIdx(idx)}
-                    className={`px-3 py-1.5 rounded-lg font-serif transition-colors min-h-[38px] flex items-center justify-center ${
+                    className={`px-3.5 py-2 rounded-lg font-serif transition-colors min-h-[44px] flex items-center justify-center ${
                       activeVedaIdx === idx
                         ? 'bg-amber-700 text-white font-bold shadow-sm'
                         : 'bg-stone-200/50 dark:bg-stone-800 text-stone-700 dark:text-stone-300 hover:bg-stone-300'
@@ -126,17 +126,17 @@ export const HomePage: React.FC = () => {
           </div>
 
           {/* Quick Action Buttons */}
-          <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 pt-2">
             <Link
               to="/library/gita"
-              className="px-6 py-3 rounded-xl bg-gradient-to-r from-amber-700 to-amber-900 text-amber-50 hover:from-amber-800 hover:to-amber-950 font-serif font-semibold text-sm shadow-lg border border-amber-400/30 transition-all flex items-center gap-2"
+              className="px-6 py-3.5 min-h-[48px] rounded-xl bg-gradient-to-r from-amber-700 to-amber-900 text-amber-50 hover:from-amber-800 hover:to-amber-950 font-serif font-semibold text-sm shadow-lg border border-amber-400/30 transition-all flex items-center justify-center gap-2 active:scale-98"
             >
               <BookOpen className="w-4 h-4" />
               <span>Read Bhagavad Gita</span>
             </Link>
             <Link
               to="/geography"
-              className="px-5 py-3 rounded-xl bg-amber-100 dark:bg-stone-800 text-stone-800 dark:text-stone-200 border border-amber-800/20 hover:border-amber-600 font-serif font-medium text-sm transition-all flex items-center gap-2 shadow-sm"
+              className="px-5 py-3.5 min-h-[48px] rounded-xl bg-amber-100 dark:bg-stone-800 text-stone-800 dark:text-stone-200 border border-amber-800/20 hover:border-amber-600 font-serif font-medium text-sm transition-all flex items-center justify-center gap-2 shadow-sm active:scale-98"
             >
               <Compass className="w-4 h-4 text-amber-700" />
               <span>Sacred Geography Map</span>
@@ -331,10 +331,10 @@ export const HomePage: React.FC = () => {
               <button
                 key={idx}
                 onClick={() => openTopicModal(topic)}
-                className="px-3 py-1.5 rounded-xl bg-amber-500/15 hover:bg-amber-600 hover:text-white text-amber-950 dark:text-amber-200 border border-amber-800/15 hover:border-amber-600 font-medium transition-all shadow-sm hover:shadow-md cursor-pointer flex items-center gap-1.5"
+                className="px-3.5 py-2.5 min-h-[44px] rounded-xl bg-amber-500/15 hover:bg-amber-600 hover:text-white text-amber-950 dark:text-amber-200 border border-amber-800/15 hover:border-amber-600 font-medium transition-all shadow-sm hover:shadow-md cursor-pointer flex items-center gap-1.5 active:scale-95"
               >
                 <span>{topic}</span>
-                <Sparkles className="w-3 h-3 text-amber-600 hover:text-white" />
+                <Sparkles className="w-3.5 h-3.5 text-amber-600 group-hover:text-white shrink-0" />
               </button>
             ))}
           </div>

@@ -47,9 +47,9 @@ export const UpanishadsPage: React.FC = () => {
             <button
               key={veda}
               onClick={() => setFilterVeda(veda)}
-              className={`px-3.5 sm:px-4 py-2 rounded-xl capitalize transition-colors min-h-[40px] flex items-center justify-center ${
+              className={`px-3.5 sm:px-4 py-2.5 rounded-xl capitalize transition-colors min-h-[44px] flex items-center justify-center font-bold active:scale-95 ${
                 filterVeda === veda
-                  ? 'bg-amber-700 text-white font-bold shadow-md'
+                  ? 'bg-amber-700 text-white shadow-md'
                   : 'bg-stone-200/60 dark:bg-stone-800 text-stone-800 dark:text-stone-200 hover:bg-stone-300 dark:hover:bg-stone-700'
               }`}
             >
@@ -74,7 +74,7 @@ export const UpanishadsPage: React.FC = () => {
               <button
                 key={u.id}
                 onClick={() => setSelectedUpanishadId(u.id)}
-                className={`w-full text-left p-3 rounded-xl transition-all border flex items-center justify-between ${
+                className={`w-full text-left p-3.5 rounded-xl transition-all border flex items-center justify-between min-h-[48px] active:scale-98 ${
                   selectedUpanishadId === u.id
                     ? 'bg-amber-700 text-white font-bold border-amber-500 shadow-md'
                     : 'bg-stone-100 dark:bg-stone-800/60 text-stone-800 dark:text-stone-200 border-amber-900/10 hover:bg-amber-200'
@@ -86,7 +86,7 @@ export const UpanishadsPage: React.FC = () => {
                     {u.sanskritName}
                   </div>
                 </div>
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-500/20 text-stone-900 dark:text-amber-100">
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-500/20 text-stone-900 dark:text-amber-100 shrink-0 ml-2">
                   {u.associatedVeda}
                 </span>
               </button>

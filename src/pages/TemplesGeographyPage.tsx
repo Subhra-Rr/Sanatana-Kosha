@@ -52,7 +52,7 @@ export const TemplesGeographyPage: React.FC = () => {
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-3.5 sm:px-4 py-2 rounded-xl capitalize transition-all min-h-[40px] flex items-center justify-center font-semibold ${
+              className={`px-3.5 sm:px-4 py-2.5 rounded-xl capitalize transition-all min-h-[44px] flex items-center justify-center font-semibold active:scale-95 ${
                 selectedCategory === cat
                   ? 'bg-amber-700 text-white shadow-md'
                   : 'bg-stone-200/60 dark:bg-stone-800 text-stone-800 dark:text-stone-200 hover:bg-stone-300 dark:hover:bg-stone-700'
@@ -112,7 +112,7 @@ export const TemplesGeographyPage: React.FC = () => {
             <div className="flex items-center gap-2">
               <button
                 onClick={handleToggleTempleBookmark}
-                className={`p-2.5 rounded-full border transition-all ${
+                className={`p-2.5 rounded-full border transition-all min-w-[44px] min-h-[44px] flex items-center justify-center ${
                   isSaved ? 'bg-amber-700 text-white border-amber-600' : 'bg-stone-200 dark:bg-stone-800 text-stone-700 dark:text-stone-300 border-amber-800/20'
                 }`}
                 title="Save Temple to Library"
@@ -121,7 +121,7 @@ export const TemplesGeographyPage: React.FC = () => {
               </button>
               <button
                 onClick={() => openTopicModal(activeTemple.name)}
-                className="px-4 py-2 rounded-xl bg-amber-800 text-white text-xs font-serif font-bold shadow hover:bg-amber-700"
+                className="px-4 py-2.5 rounded-xl bg-amber-800 text-white text-xs font-serif font-bold shadow hover:bg-amber-700 min-h-[44px] flex items-center justify-center active:scale-95"
               >
                 Explore Details
               </button>

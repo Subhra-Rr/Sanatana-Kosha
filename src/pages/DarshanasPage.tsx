@@ -21,12 +21,12 @@ export const DarshanasPage: React.FC = () => {
       </div>
 
       {/* Tabs */}
-      <div className="flex items-center justify-center gap-2 border-b border-amber-900/15 pb-4">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-2 border-b border-amber-900/15 pb-4">
         <button
           onClick={() => setActiveTab('darshanas')}
-          className={`px-5 py-2.5 rounded-xl font-serif text-sm transition-all ${
+          className={`px-5 py-3 min-h-[44px] rounded-xl font-serif text-sm transition-all flex items-center justify-center font-semibold active:scale-95 ${
             activeTab === 'darshanas'
-              ? 'bg-amber-700 text-white font-bold shadow-md'
+              ? 'bg-amber-700 text-white shadow-md'
               : 'bg-amber-100/60 dark:bg-stone-900 text-stone-800 dark:text-stone-200 hover:bg-amber-200'
           }`}
         >
@@ -34,9 +34,9 @@ export const DarshanasPage: React.FC = () => {
         </button>
         <button
           onClick={() => setActiveTab('debates')}
-          className={`px-5 py-2.5 rounded-xl font-serif text-sm transition-all ${
+          className={`px-5 py-3 min-h-[44px] rounded-xl font-serif text-sm transition-all flex items-center justify-center font-semibold active:scale-95 ${
             activeTab === 'debates'
-              ? 'bg-amber-700 text-white font-bold shadow-md'
+              ? 'bg-amber-700 text-white shadow-md'
               : 'bg-amber-100/60 dark:bg-stone-900 text-stone-800 dark:text-stone-200 hover:bg-amber-200'
           }`}
         >

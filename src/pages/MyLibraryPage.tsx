@@ -61,9 +61,9 @@ export const MyLibraryPage: React.FC = () => {
               <button
                 key={cat}
                 onClick={() => setSelectedFilter(cat)}
-                className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs font-serif uppercase tracking-wider transition-all min-h-[40px] ${
+                className={`px-3.5 py-2.5 rounded-xl text-xs font-serif uppercase tracking-wider transition-all min-h-[44px] flex items-center justify-center font-bold active:scale-95 ${
                   selectedFilter === cat
-                    ? 'bg-amber-700 text-white font-bold shadow-md'
+                    ? 'bg-amber-700 text-white shadow-md'
                     : 'bg-amber-100/70 dark:bg-stone-800 text-stone-800 dark:text-stone-200 hover:bg-amber-200'
                 }`}
               >
@@ -78,7 +78,7 @@ export const MyLibraryPage: React.FC = () => {
               placeholder="Search library items..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-3.5 py-2 rounded-xl bg-white dark:bg-stone-800 border border-amber-900/20 text-xs font-serif outline-none focus:ring-2 focus:ring-amber-600/50 text-stone-900 dark:text-stone-100 min-h-[40px]"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-stone-800 border border-amber-900/20 text-xs font-serif outline-none focus:ring-2 focus:ring-amber-600/50 text-stone-900 dark:text-stone-100 min-h-[44px]"
             />
           </div>
         </div>
@@ -128,7 +128,7 @@ export const MyLibraryPage: React.FC = () => {
 
                       <button
                         onClick={() => toggleBookmark(bm)}
-                        className="p-2 rounded-xl text-rose-600 hover:bg-rose-500/10 transition-colors flex-shrink-0 min-w-[36px] min-h-[36px] flex items-center justify-center"
+                        className="p-2.5 rounded-xl text-rose-600 hover:bg-rose-500/10 transition-colors flex-shrink-0 min-w-[44px] min-h-[44px] flex items-center justify-center active:scale-95"
                         title="Remove Bookmark"
                       >
                         <Trash2 className="w-4 h-4" />

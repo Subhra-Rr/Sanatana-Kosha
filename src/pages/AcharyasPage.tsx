@@ -30,7 +30,7 @@ export const AcharyasPage: React.FC = () => {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 text-xs sm:text-sm font-serif">
           <button
             onClick={() => setActiveTab('acharyas')}
-            className={`px-3 py-2.5 rounded-xl transition-all min-h-[42px] flex items-center justify-center font-semibold ${
+            className={`px-3 py-2.5 rounded-xl transition-all min-h-[44px] flex items-center justify-center font-semibold active:scale-95 ${
               activeTab === 'acharyas'
                 ? 'bg-amber-700 text-white shadow-md'
                 : 'bg-stone-200/60 dark:bg-stone-800 text-stone-800 dark:text-stone-200 hover:bg-stone-300'
@@ -40,7 +40,7 @@ export const AcharyasPage: React.FC = () => {
           </button>
           <button
             onClick={() => setActiveTab('parampara')}
-            className={`px-3 py-2.5 rounded-xl transition-all min-h-[42px] flex items-center justify-center font-semibold ${
+            className={`px-3 py-2.5 rounded-xl transition-all min-h-[44px] flex items-center justify-center font-semibold active:scale-95 ${
               activeTab === 'parampara'
                 ? 'bg-amber-700 text-white shadow-md'
                 : 'bg-stone-200/60 dark:bg-stone-800 text-stone-800 dark:text-stone-200 hover:bg-stone-300'
@@ -50,7 +50,7 @@ export const AcharyasPage: React.FC = () => {
           </button>
           <button
             onClick={() => setActiveTab('peethas')}
-            className={`px-3 py-2.5 rounded-xl transition-all min-h-[42px] flex items-center justify-center font-semibold ${
+            className={`px-3 py-2.5 rounded-xl transition-all min-h-[44px] flex items-center justify-center font-semibold active:scale-95 ${
               activeTab === 'peethas'
                 ? 'bg-amber-700 text-white shadow-md'
                 : 'bg-stone-200/60 dark:bg-stone-800 text-stone-800 dark:text-stone-200 hover:bg-stone-300'
@@ -60,7 +60,7 @@ export const AcharyasPage: React.FC = () => {
           </button>
           <button
             onClick={() => setActiveTab('saints')}
-            className={`px-3 py-2.5 rounded-xl transition-all min-h-[42px] flex items-center justify-center font-semibold ${
+            className={`px-3 py-2.5 rounded-xl transition-all min-h-[44px] flex items-center justify-center font-semibold active:scale-95 ${
               activeTab === 'saints'
                 ? 'bg-amber-700 text-white shadow-md'
                 : 'bg-stone-200/60 dark:bg-stone-800 text-stone-800 dark:text-stone-200 hover:bg-stone-300'

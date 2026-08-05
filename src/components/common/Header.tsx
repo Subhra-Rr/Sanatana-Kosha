@@ -89,7 +89,7 @@ export const Header: React.FC = () => {
           {/* AI Spiritual Assistant Trigger */}
           <button
             onClick={() => setIsAiAssistantOpen(true)}
-            className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full bg-gradient-to-r from-amber-700 to-amber-900 text-amber-100 hover:from-amber-600 hover:to-amber-800 text-xs font-medium shadow-md transition-all border border-amber-400/30 active:scale-95 min-h-[38px]"
+            className="flex items-center gap-1.5 px-3 py-2 rounded-full bg-gradient-to-r from-amber-700 to-amber-900 text-amber-100 hover:from-amber-600 hover:to-amber-800 text-xs font-medium shadow-md transition-all border border-amber-400/30 active:scale-95 min-h-[44px]"
           >
             <Sparkles className="w-3.5 h-3.5 text-amber-300 animate-spin" style={{ animationDuration: '6s' }} />
             <span className="inline">Ask AI</span>
@@ -99,7 +99,7 @@ export const Header: React.FC = () => {
           <button
             onClick={() => setIsSearchOpen(true)}
             aria-label="Search"
-            className="md:hidden p-2 rounded-full text-amber-800 dark:text-amber-300 hover:bg-amber-500/10 active:scale-95 min-w-[40px] min-h-[40px] flex items-center justify-center"
+            className="md:hidden p-2 rounded-full text-amber-800 dark:text-amber-300 hover:bg-amber-500/10 active:scale-95 min-w-[44px] min-h-[44px] flex items-center justify-center"
           >
             <Search className="w-4 h-4" />
           </button>
@@ -108,7 +108,7 @@ export const Header: React.FC = () => {
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
-            className="lg:hidden p-2 rounded-full text-amber-800 dark:text-amber-300 hover:bg-amber-500/10 active:scale-95 min-w-[40px] min-h-[40px] flex items-center justify-center"
+            className="lg:hidden p-2 rounded-full text-amber-800 dark:text-amber-300 hover:bg-amber-500/10 active:scale-95 min-w-[44px] min-h-[44px] flex items-center justify-center"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
