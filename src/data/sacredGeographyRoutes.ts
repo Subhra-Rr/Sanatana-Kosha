@@ -158,5 +158,71 @@ export const SACRED_GEOGRAPHY_ROUTES_DATA: SacredRouteWaypoint[] = [
     routeCategory: 'Ancient University',
     significance: 'Ancient temple university dedicated to Goddess Sharada (Saraswati); origin of Sharada script.',
     keyScriptureEvent: 'Ramanujacharya acquired Bodhayana Vritti manuscript here to compose Sri Bhashya.'
+  },
+  {
+    id: 'univ-vikramashila',
+    name: 'Vikramashila University',
+    sanskritName: 'विक्रमशिला महाविहारः',
+    modernLocation: 'Bhagalpur',
+    stateOrCountry: 'Bihar',
+    coordinates: { lat: 25.3262, lng: 87.2831 },
+    routeCategory: 'Ancient University',
+    significance: 'Premier ancient seat of higher learning for Tantra, Logic (Nyaya), and Grammar established by King Dharmapala.',
+    keyScriptureEvent: 'Birthplace of Atisha Dipankara and center of high philosophical debates.'
+  },
+  {
+    id: 'univ-valabhi',
+    name: 'Valabhi University',
+    sanskritName: 'वलभी विश्वविद्यालयः',
+    modernLocation: 'Bhavnagar, Kathiawar',
+    stateOrCountry: 'Gujarat',
+    coordinates: { lat: 21.8841, lng: 71.9168 },
+    routeCategory: 'Ancient University',
+    significance: 'Renowned western center of learning specializing in Buddhist logic, Arthashastra, Administration, and Medicine.',
+    keyScriptureEvent: 'Visited by Xuanzang and praised alongside Nalanda for administrative excellence.'
+  },
+  {
+    id: 'ram-rameshwaram',
+    name: 'Rameshwaram & Rama Setu',
+    sanskritName: 'रामेश्वरम् सेतुबन्धः',
+    modernLocation: 'Rameshwaram Island',
+    stateOrCountry: 'Tamil Nadu',
+    coordinates: { lat: 9.2876, lng: 79.3129 },
+    routeCategory: 'Ramayana Yatra',
+    significance: 'Southern tip where Sri Rama constructed Rama Setu with Nala & Nila, and established Ramanathaswamy Jyotirlinga.',
+    keyScriptureEvent: 'Construction of ocean bridge (Rama Setu) and worship of Lord Shiva.'
+  },
+  {
+    id: 'ram-janakpur',
+    name: 'Janakpur (Mithila)',
+    sanskritName: 'जनकपुरम् (मिथिला)',
+    modernLocation: 'Janakpur',
+    stateOrCountry: 'Mithila / Nepal border',
+    coordinates: { lat: 26.7271, lng: 85.9237 },
+    routeCategory: 'Ramayana Yatra',
+    significance: 'Capital of Rajarshi Janaka where Sita Devi was raised; venue of Pinaka Dhanush breaking (Sita Swayamvar).',
+    keyScriptureEvent: 'Sita Swayamvara, Ramayana Bala Kanda.'
+  },
+  {
+    id: 'mhb-prayagraj',
+    name: 'Prayagraj (Tirtharaj Triveni Sangam)',
+    sanskritName: 'तीर्थराज प्रयागः',
+    modernLocation: 'Prayagraj',
+    stateOrCountry: 'Uttar Pradesh',
+    coordinates: { lat: 25.4358, lng: 81.8463 },
+    routeCategory: 'Sapta Puri',
+    significance: 'Confluence of sacred rivers Ganga, Yamuna, and invisible Saraswati; king of all holy pilgrimage places.',
+    keyScriptureEvent: 'Sage Bharadvaja Ashram and Maha Kumbha Mela.'
+  },
+  {
+    id: 'mhb-kurukshetra',
+    name: 'Kurukshetra (Dharmakshetra)',
+    sanskritName: 'धर्मक्षेत्रं कुरुक्षेत्रम्',
+    modernLocation: 'Kurukshetra',
+    stateOrCountry: 'Haryana',
+    coordinates: { lat: 29.9695, lng: 76.8783 },
+    routeCategory: 'Mahabharata Kshetra',
+    significance: 'Sacred battlefield where the 18-day Mahabharata war was fought and Bhagavad Gita was delivered at Jyotisar.',
+    keyScriptureEvent: 'Bhagavad Gita dialogue between Bhagavan Sri Krishna and Arjuna.'
   }
 ];

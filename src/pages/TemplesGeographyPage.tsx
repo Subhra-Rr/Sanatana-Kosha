@@ -141,15 +141,20 @@ export const TemplesGeographyPage: React.FC = () => {
           </div>
 
           {activeTemple.festivalsCelebrated.length > 0 && (
-            <div className="pt-2 border-t border-amber-900/10">
-              <span className="text-[10px] font-bold uppercase text-amber-800 dark:text-amber-400 block mb-1">
-                Major Celebrated Festivals:
+            <div className="pt-2 border-t border-amber-900/10 space-y-2">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-amber-800 dark:text-amber-400 block">
+                Major Celebrated Festivals (Click to explore):
               </span>
-              <div className="flex flex-wrap gap-1.5">
+              <div className="flex flex-wrap gap-2">
                 {activeTemple.festivalsCelebrated.map((f, fIdx) => (
-                  <span key={fIdx} className="px-2.5 py-1 rounded-lg bg-amber-600/15 text-amber-950 dark:text-amber-200 text-xs font-serif font-semibold">
-                    {f}
-                  </span>
+                  <button
+                    key={fIdx}
+                    onClick={() => openTopicModal(f)}
+                    className="px-3 py-2 rounded-xl bg-amber-600/15 text-amber-950 dark:text-amber-200 hover:bg-amber-700 hover:text-white transition-all text-xs font-serif font-semibold min-h-[44px] flex items-center gap-1.5 active:scale-95 group/fest break-words"
+                  >
+                    <span>{f}</span>
+                    <ExternalLink className="w-3 h-3 text-amber-600 opacity-60 group-hover/fest:text-white transition-colors shrink-0" />
+                  </button>
                 ))}
               </div>
             </div>
@@ -162,11 +167,11 @@ export const TemplesGeographyPage: React.FC = () => {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="space-y-1">
             <div className="flex items-center gap-2 font-serif font-bold text-xl text-amber-950 dark:text-amber-200">
-              <Navigation className="w-5 h-5 text-amber-600" />
+              <Navigation className="w-5 h-5 text-amber-600 shrink-0" />
               <span>Sacred Routes, Sapta Puris & Ancient Learning Hubs</span>
             </div>
             <p className="text-xs font-serif text-stone-600 dark:text-stone-400">
-              Historical pilgrimage networks connecting sacred cities and ancient universities across Bharatvarsha.
+              Historical pilgrimage networks connecting sacred cities and ancient universities across Bharatvarsha. Click any card for detailed knowledge.
             </p>
           </div>
 
@@ -187,35 +192,39 @@ export const TemplesGeographyPage: React.FC = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredRoutes.map(item => (
             <div
               key={item.id}
-              className="p-5 rounded-3xl bg-amber-50/90 dark:bg-stone-900 border border-amber-800/20 shadow-md space-y-3 hover:border-amber-600 transition-all"
+              onClick={() => openTopicModal(item.name)}
+              className="p-5 sm:p-6 rounded-3xl bg-amber-50/90 dark:bg-stone-900 border border-amber-800/20 shadow-md space-y-3.5 hover:border-amber-600 transition-all hover:-translate-y-1 cursor-pointer group flex flex-col justify-between"
             >
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-3 border-b border-amber-900/10 pb-2.5">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-amber-800 dark:text-amber-400 px-2 py-1 rounded bg-amber-600/15 inline-block max-w-full break-words self-start leading-tight">
-                  {item.routeCategory}
-                </span>
-                <span className="text-xs font-serif text-stone-500 dark:text-stone-400 font-medium shrink-0">
-                  {item.modernLocation}, {item.stateOrCountry}
-                </span>
-              </div>
+              <div className="space-y-3">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-3 border-b border-amber-900/10 pb-2.5">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-amber-800 dark:text-amber-400 px-2.5 py-1 rounded bg-amber-600/15 inline-block max-w-full break-words self-start leading-tight">
+                    {item.routeCategory}
+                  </span>
+                  <span className="text-xs font-serif text-stone-500 dark:text-stone-400 font-medium shrink-0">
+                    {item.modernLocation}, {item.stateOrCountry}
+                  </span>
+                </div>
 
-              <div>
-                <h4 className="font-serif text-lg font-bold text-amber-950 dark:text-amber-100 break-words">
-                  {item.name}
-                </h4>
-                <p className="text-xs text-amber-800 dark:text-amber-300 font-serif sanskrit-font break-words">
-                  ({item.sanskritName})
+                <div>
+                  <h4 className="font-serif text-lg sm:text-xl font-bold text-amber-950 dark:text-amber-100 group-hover:text-amber-700 transition-colors flex items-center justify-between gap-1.5 break-words">
+                    <span>{item.name}</span>
+                    <ExternalLink className="w-4 h-4 text-amber-600 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
+                  </h4>
+                  <p className="text-xs text-amber-800 dark:text-amber-300 font-serif sanskrit-font break-words">
+                    ({item.sanskritName})
+                  </p>
+                </div>
+
+                <p className="text-xs sm:text-sm font-serif text-stone-700 dark:text-stone-300 leading-relaxed break-words">
+                  {item.significance}
                 </p>
               </div>
 
-              <p className="text-xs font-serif text-stone-700 dark:text-stone-300 leading-relaxed break-words">
-                {item.significance}
-              </p>
-
-              <div className="p-3 rounded-xl bg-amber-200/40 dark:bg-stone-950/80 border border-amber-800/20 text-[11px] font-serif">
+              <div className="p-3.5 rounded-xl bg-amber-200/40 dark:bg-stone-950/80 border border-amber-800/20 text-xs font-serif mt-auto">
                 <strong className="text-amber-950 dark:text-amber-300 block mb-0.5">Scripture Event:</strong>
                 <span className="text-stone-700 dark:text-stone-300 italic break-words">{item.keyScriptureEvent}</span>
               </div>

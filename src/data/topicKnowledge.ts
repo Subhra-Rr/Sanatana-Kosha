@@ -256,6 +256,185 @@ export const TOPIC_KNOWLEDGE_DATABASE: Record<string, TopicKnowledgeItem> = {
     relatedTopics: ['Bhagavatam', 'Narada', 'Bhakti Yoga', 'Dhruva Star']
   },
 
+  // --- HISTORICAL SHASTRARTHA DEBATES ---
+  'adi shankara vs mandana mishra (karma vs jnana)': {
+    id: 'deb-shankara-mandana-topic',
+    title: 'Adi Shankara vs Mandana Mishra Shastrartha',
+    sanskritTitle: 'मण्डनमिश्र-शङ्कराचार्य-शास्त्रार्थः',
+    category: 'Historical Shastrartha Debate',
+    originOrText: 'Shankara Digvijaya (Madhaviya Shankara Vijaya)',
+    overview: 'The iconic debate at Mahishmati between householder Purva Mimamsa master Mandana Mishra and young sannyasi Adi Shankaracharya, arbitrated by Ubhaya Bharati (reincarnation of Saraswati). It pitted ritual action (Karma) against absolute non-dual self-knowledge (Advaita Jnana).',
+    historicalContext: 'Conducted in front of hundreds of scholars over several weeks. Garland of fresh flowers was placed on each debater; the one whose flowers withered first would be declared defeated.',
+    keyPrinciples: [
+      'Jnana as Sole Means to Moksha: Action produces perishable results; uncreated Brahman is realized only through non-dual awareness.',
+      'Karma-Yoga as Mind Purifier: Action purifies Chitta (mind), preparing the intellect for Vedic inquiry (Vichara).',
+      'Harmonization of Ashrama Duties: Physical renunciation is necessary for wholehearted absorption in non-dual truth.'
+    ],
+    mantraOrShloka: {
+      sanskrit: 'ब्रह्म सत्यं जगन्मिथ्या जीवो ब्रह्मैव नापरः ॥',
+      transliteration: 'Brahma Satyam Jagan Mithya Jivo Brahmaiva Naparah ||',
+      translation: 'Brahman alone is absolute Truth, the world is relative appearance, and the individual soul is none other than Brahman.'
+    },
+    spiritualSignificance: 'Established Advaita Vedanta as the paramount intellectual synthesis across Bharatvarsha.',
+    practicalApplication: 'Perform daily duties selflessly without egoic attachment, using clarity of intellect to disidentify from temporary states.',
+    relatedTopics: ['Advaita Vedanta', 'Adi Shankaracharya', 'Purva Mimamsa', 'Brahma Sutras']
+  },
+
+  'yajnavalkya vs gargi vachaknavi (supreme substratum)': {
+    id: 'deb-yajnavalkya-gargi-topic',
+    title: 'Yajnavalkya & Gargi Vachaknavi Dialogue',
+    sanskritTitle: 'गार्गी-याज्ञवल्क्य-संवादः (बृहदारण्यकम्)',
+    category: 'Upanishadic Shastrartha',
+    originOrText: 'Brihadaranyaka Upanishad Adhyaya 3, Brahmanas 6 & 8',
+    overview: 'During King Janaka’s grand Vedic assembly (Bahudakshina Yajna), female scholar Gargi Vachaknavi challenged sage Yajnavalkya on the ultimate unweaving warp and woof of all space, worlds, and time.',
+    historicalContext: 'Demonstrates the supreme intellectual stature and equal participation of women Rishikas (Brahmavadinis) in ancient Vedic assemblies.',
+    keyPrinciples: [
+      'Akshara (The Imperishable): Space is woven upon Brahman, which is imperishable, immutable, and non-attached.',
+      'Cosmic Command (Prashasanam): By the command of this Imperishable Brahman, the sun, moon, stars, and seasons hold their courses.',
+      'Limits of Verbal Logic: Intellectual questioning must culminate in direct intuitive realization of the Witness (Drashta).'
+    ],
+    mantraOrShloka: {
+      sanskrit: 'एतद्द्वै तदक्षरं गार्गि ब्राह्मणा अभिवदन्त्यस्थूलमनण्वह्रस्वमदीर्घम् ॥',
+      transliteration: 'Etad vai tad aksaram gargi brahmana abhivadanty asthulam ananv ahrasvam adirgham ||',
+      translation: 'That Imperishable Reality, O Gargi, is described by knowers of Brahman as neither gross nor subtle, neither short nor long.'
+    },
+    spiritualSignificance: 'Highlights female leadership in highest metaphysics and defines Akshara Brahman.',
+    relatedTopics: ['Brihadaranyaka Upanishad', 'Gargi Vachaknavi', 'Yajnavalkya', 'Brahman']
+  },
+
+  'ramanujacharya vs advaitin scholars (abheda vs bheda)': {
+    id: 'deb-ramanuja-mayavada-topic',
+    title: 'Sri Ramanujacharya Shastrartha on Bhedabheda',
+    sanskritTitle: 'श्रीरामानुज-श्रुतिसमन्वय-शास्त्रार्थः',
+    category: 'Vedantic System Debate',
+    originOrText: 'Sri Bhashya & Vedartha Sangraha',
+    overview: 'Sri Ramanujacharya systematically debated and reconciled non-dual (Abheda) and dual (Bheda) Vedic passages using Ghataka Shruti, proving that all scriptural texts form a seamless unity in Vishishtadvaita.',
+    keyPrinciples: [
+      'Sharira-Shariri Bhava: The universe of conscious souls and matter forms the real body (Sharira) of Sriman Narayana (the Soul).',
+      'Divine Attributes (Ananta Kalyana Guna): God is devoid of material imperfections (Nirguna) yet possesses infinite divine attributes (Saguna).',
+      'Prapatti (Complete Surrender): Unconditional self-surrender to the Divine grants eternal communion.'
+    ],
+    mantraOrShloka: {
+      sanskrit: 'ॐ नमो नारायणाय ॥ सर्वं परवशं दुःखं सर्वमात्मवशं सुखम् ॥',
+      transliteration: 'Om Namo Narayanaya || Sarvam paravasham duhkham sarvam atmavasham sukham ||',
+      translation: 'Salutations to Narayana. Dependence on external matter brings sorrow; sanctuary in the divine Soul brings bliss.'
+    },
+    spiritualSignificance: 'Revitalized Vaishnava Bhakti through rigorous philosophical commentary.',
+    relatedTopics: ['Vishishtadvaita', 'Ramanujacharya', 'Sri Bhashya', 'Sriman Narayana']
+  },
+
+  'chaitanya mahaprabhu vs vasudeva sarvabhauma': {
+    id: 'deb-chaitanya-sarvabhauma-topic',
+    title: 'Sri Chaitanya & Vasudeva Sarvabhauma Shastrartha',
+    sanskritTitle: 'सार्वभौम-संवादः • भक्तिवेदान्तः',
+    category: 'Historical Shastrartha',
+    originOrText: 'Chaitanya Charitamrita Madhya-lila Chapter 6',
+    overview: 'At Jagannath Puri, Sri Chaitanya Mahaprabhu explained the Vedanta Sutras and the famous Atmarama verse in 18 distinct devotional ways to logic titan Vasudeva Sarvabhauma, melting his dry scholasticism into divine love.',
+    keyPrinciples: [
+      'Direct Meaning (Mukhya Artha): Vyasa Sutras directly glorify Bhagavan Krishna; metaphorical twists hide divine sweetness.',
+      'Achintya Bhedabheda: Souls are inconceivably one with and different from God, like sunrays and the sun.',
+      'Panchama Purushartha: Divine Love (Prema) transcends Dharma, Artha, Kama, and Moksha.'
+    ],
+    mantraOrShloka: {
+      sanskrit: 'हरे कृष्ण हरे कृष्ण कृष्ण कृष्ण हरे हरे ।\nहरे राम हरे राम राम राम हरे हरे ॥',
+      transliteration: 'Hare Krishna Hare Krishna Krishna Krishna Hare Hare |\nHare Rama Hare Rama Rama Rama Hare Hare ||',
+      translation: 'The Maha-Mantra invoking the divine potency (Hare) and supreme bliss (Krishna/Rama).'
+    },
+    spiritualSignificance: 'Established Naam-Sankirtana as the supreme sadhana for the present age.',
+    relatedTopics: ['Sri Chaitanya', 'Achintya Bhedabheda', 'Gaudiya Vaishnavism', 'Bhakti']
+  },
+
+  // --- ANCIENT UNIVERSITIES & SACRED GEOGRAPHY ---
+  'takshashila university (taxila)': {
+    id: 'univ-takshashila-topic',
+    title: 'Takshashila University (तक्षशिला)',
+    sanskritTitle: 'तक्षशिला विश्वज्ञानकेन्द्रम्',
+    category: 'Ancient Indian University',
+    originOrText: 'Buddhist Jatakas, Chanakya Neeti, Panini Ashtadhyayi',
+    overview: 'Established c. 1000 BCE in Gandhara, Takshashila was the world’s earliest university. Scholars from across Eurasia studied 68 disciplines including Military Science, Medicine (Ayurveda), Chanakya Arthashastra, Astronomy, and Paninian Grammar.',
+    keyPrinciples: [
+      'Interdisciplinary Excellence: Students mastered both Vedic lore and empirical sciences.',
+      'Practical Apprenticeship: Royal physician Jivaka and Emperor Chandragupta trained under master acharyas here.',
+      'Autonomous Governance: Each Acharya operated with complete academic freedom.'
+    ],
+    spiritualSignificance: 'Demonstrates ancient India’s commitment to holistic science, statecraft, and intellectual rigor.',
+    relatedTopics: ['Chanakya', 'Panini', 'Ancient Universities', 'Ayurveda']
+  },
+
+  'nalanda mahavihara': {
+    id: 'nalanda-mahavihara-topic',
+    title: 'Nalanda Mahavihara (नालन्दा)',
+    sanskritTitle: 'नालन्दा महाविहारः • धर्मगञ्जः',
+    category: 'Ancient Indian University',
+    originOrText: 'Travelogues of Xuanzang, Yijing, Taranatha Chronicles',
+    overview: 'Nalanda was a world-famous residential university in Bihar housing 10,000 monks and students and 2,000 professors. Its library, Dharma Gunj (Mountain of Truth), contained 9 million palm-leaf and copper manuscripts.',
+    keyPrinciples: [
+      'Rigorous Entrance Examination: Doorway guardians tested applicants in advanced logic (Hetuvidya) before admission.',
+      'Debate Culture: Daily Shastrartha debates shaped international Buddhist and Hindu philosophy.',
+      'Universal Patronage: Supported by Gupta emperors and Palas without ideological interference.'
+    ],
+    spiritualSignificance: 'Symbolizes the golden apex of Indian intellectual inquiry and preservation of global knowledge.',
+    relatedTopics: ['Nalanda', 'Ancient Universities', 'Hetuvidya', 'Aryabhata']
+  },
+
+  'sharada peeth university': {
+    id: 'univ-sharada-topic',
+    title: 'Sharada Peeth Temple University (शारदापीठम्)',
+    sanskritTitle: 'सर्वज्ञपीठम् • कश्मीरा मण्डलम्',
+    category: 'Ancient Temple University',
+    originOrText: 'Rajatarangini of Kalhana, Sri Bhashya Introductions',
+    overview: 'Located in ancient Kashmir (Sarvajna Peeth), Sharada Peeth was a premier temple university dedicated to Goddess Saraswati. It possessed the rare Bodhayana Vritti commentary on Brahma Sutras.',
+    keyPrinciples: [
+      'Center of Sharada Script: Developed the foundational literary script of northern scripts.',
+      'Test of Omniscience: Scholars had to open the Southern Gate of Sarvajna Peeth through unbeaten philosophical debate.',
+      'Preservation of Rare Texts: Preserved priceless manuscripts studied by Adi Shankara and Ramanujacharya.'
+    ],
+    spiritualSignificance: 'The original spiritual seat of Saraswati worship in northern Bharatvarsha.',
+    relatedTopics: ['Kashmir Shaivism', 'Ramanujacharya', 'Saraswati', 'Sharada Script']
+  },
+
+  'rameshwaram & rama setu': {
+    id: 'ram-rameshwaram-topic',
+    title: 'Rameshwaram & Rama Setu (रामेश्वरम्)',
+    sanskritTitle: 'रामनाथस्वामी ज्योतिर्लिङ्गम् • सेतुबन्धः',
+    category: 'Sacred Pilgrimage & Ramayana Site',
+    originOrText: 'Valmiki Ramayana Yuddha Kanda, Skanda Purana',
+    overview: 'Rameshwaram is the sacred southern island where Sri Rama worshipped Lord Shiva (Ramanathaswamy Jyotirlinga) and constructed the 30-mile stone bridge (Rama Setu) across the sea to Lanka.',
+    keyPrinciples: [
+      'Harmony of Shiva and Vishnu: Sri Rama declares "He who loves Me but hates Shiva, or loves Shiva but hates Me, cannot attain Me."',
+      'Feat of Engineering: Built by Vanara engineers Nala and Nila floating buoyant stones across ocean depths.',
+      'Northern-Southern Unity: Pilgrims traditionally bring sacred Ganga water from Kashi to bathe Ramanathaswamy Lingam.'
+    ],
+    mantraOrShloka: {
+      sanskrit: 'ॐ नमः शिवाय ॥ रामनाथप्रसादेन सर्वपापैः प्रमुच्यते ॥',
+      transliteration: 'Om Namah Shivaya || Ramanatha-prasadena sarva-papaih pramuchyate ||',
+      translation: 'Om, salutations to Shiva. By the grace of Ramanathaswamy, all sins are dissolved.'
+    },
+    spiritualSignificance: 'Unites the Northern Char Dham (Badrinath) with Southern Char Dham (Rameshwaram).',
+    relatedTopics: ['Ramayana', 'Jyotirlinga', 'Sri Rama', 'Char Dham']
+  },
+
+  'kurukshetra (dharmakshetra)': {
+    id: 'mhb-kurukshetra-topic',
+    title: 'Kurukshetra (धर्मक्षेत्रम् कुरुक्षेत्रम्)',
+    sanskritTitle: 'श्रीमद्भगवद्गीता-प्राकट्यभूमिः',
+    category: 'Sacred Mahabharata Heritage',
+    originOrText: 'Mahabharata Bhishma Parva, Vamana Purana',
+    overview: 'Kurukshetra is the sacred land between Saraswati and Drishadvati rivers where King Kuru performed righteous tilling, and where Lord Krishna imparted the eternal Bhagavad Gita to Arjuna at Jyotisar.',
+    keyPrinciples: [
+      'Dharmakshetra: Land consecrated to the preservation of cosmic righteousness.',
+      'Gita Jayanti: Site of immortal dialogue establishing Nishkama Karma, Jnana, and Bhakti.',
+      'Brahma Sarovar: Holy lake where millions assemble during solar eclipses for spiritual purification.'
+    ],
+    mantraOrShloka: {
+      sanskrit: 'धर्मक्षेत्रे कुरुक्षेत्रे समवेता युयुत्सवः ।\nमामकाः पाण्डवाश्चैव किमकुर्वत सञ्जय ॥',
+      transliteration: 'Dharmakshtre Kurukshetra samaveta yuyutsavah |\nMamakah Pandavashchaiva kimakurvata Sanjaya ||',
+      translation: 'In the field of righteousness, in Kurukshetra, gathered desiring to fight, what did my sons and Pandavas do, O Sanjaya?'
+    },
+    spiritualSignificance: 'The birthplace of Bhagavad Gita and eternal reminder of ethical duty.',
+    relatedTopics: ['Bhagavad Gita', 'Mahabharata', 'Sri Krishna', 'Arjuna']
+  },
+
   'vishnu sahasranama': {
     id: 'vishnu-sahasranama',
     title: 'Vishnu Sahasranama (विष्णुसहस्रनाम - 1000 Names of Vishnu)',
