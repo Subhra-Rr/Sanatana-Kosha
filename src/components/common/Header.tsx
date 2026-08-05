@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
 import { Diya } from './Diya';
+import { ResearchCitationModal } from './ResearchCitationModal';
 import {
   Search,
   BookOpen,
@@ -16,27 +17,28 @@ import {
   Layers,
   GraduationCap,
   History,
-  GitBranch
+  GitBranch,
+  Cpu,
+  FileSpreadsheet
 } from 'lucide-react';
 
 export const Header: React.FC = () => {
-  const {
-    setIsSearchOpen,
-    setIsAiAssistantOpen
-  } = useApp();
-
+  const { setIsSearchOpen, setIsAiAssistantOpen } = useApp();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isCitationModalOpen, setIsCitationModalOpen] = useState(false);
   const location = useLocation();
 
   const navLinks = [
     { label: 'Home', path: '/', icon: BookOpen },
     { label: 'My Library', path: '/my-library', icon: Bookmark },
-    { label: 'Library', path: '/library/vedas', icon: Layers },
+    { label: 'Vedic Library', path: '/library/vedas', icon: Layers },
+    { label: 'Scripture Comparison', path: '/comparison', icon: FileSpreadsheet },
+    { label: 'Academy & Quizzes', path: '/academy', icon: GraduationCap },
+    { label: 'Architecture & Science', path: '/knowledge-systems', icon: Cpu },
+    { label: 'Acharyas & Parampara', path: '/acharyas', icon: Landmark },
+    { label: 'Sacred Geography & Maps', path: '/geography', icon: MapPin },
     { label: 'Philosophies', path: '/philosophy', icon: Compass },
-    { label: 'Acharyas', path: '/acharyas', icon: Landmark },
-    { label: 'Temples & Maps', path: '/geography', icon: MapPin },
-    { label: 'Festivals', path: '/festivals', icon: Calendar },
-    { label: 'Sanskrit Hub', path: '/sanskrit', icon: GraduationCap },
+    { label: 'Sanskrit & Codices', path: '/sanskrit', icon: GraduationCap },
     { label: 'Timelines', path: '/timelines', icon: History },
     { label: 'Genealogy', path: '/genealogy', icon: GitBranch }
   ];
@@ -46,7 +48,7 @@ export const Header: React.FC = () => {
       {/* Top Utility Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2">
         {/* Brand Logo & Name */}
-        <Link to="/" className="flex items-center gap-3 group">
+        <Link to="/" className="flex items-center gap-3 group shrink-0">
           <Diya size="sm" />
           <div className="flex flex-col">
             <div className="flex items-center gap-2">
@@ -77,6 +79,16 @@ export const Header: React.FC = () => {
 
         {/* Utility Controls */}
         <div className="flex items-center gap-1.5 sm:gap-2">
+          {/* Research & Citation Trigger */}
+          <button
+            onClick={() => setIsCitationModalOpen(true)}
+            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-200/60 dark:bg-stone-800 text-amber-950 dark:text-amber-200 border border-amber-700/30 text-xs font-serif font-semibold hover:bg-amber-300 transition-all"
+            title="Academic Research & Citation Exporter"
+          >
+            <BookOpen className="w-3.5 h-3.5 text-amber-700 dark:text-amber-400" />
+            <span>Research Mode</span>
+          </button>
+
           {/* AI Spiritual Assistant Trigger */}
           <button
             onClick={() => setIsAiAssistantOpen(true)}
@@ -139,6 +151,15 @@ export const Header: React.FC = () => {
             <span className="text-xs font-serif font-bold text-amber-900 dark:text-amber-300 uppercase tracking-widest">
               Navigation Treasury
             </span>
+            <button
+              onClick={() => {
+                setIsCitationModalOpen(true);
+                setMobileMenuOpen(false);
+              }}
+              className="text-xs font-serif text-amber-700 dark:text-amber-300 font-bold flex items-center gap-1"
+            >
+              <BookOpen className="w-3 h-3" /> Research Mode
+            </button>
           </div>
 
           {navLinks.map((link) => {
@@ -162,6 +183,12 @@ export const Header: React.FC = () => {
           })}
         </div>
       )}
+
+      {/* Research Citation Exporter Modal */}
+      <ResearchCitationModal
+        isOpen={isCitationModalOpen}
+        onClose={() => setIsCitationModalOpen(false)}
+      />
     </header>
   );
 };

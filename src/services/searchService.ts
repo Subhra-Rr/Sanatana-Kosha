@@ -14,6 +14,8 @@ import { FESTIVALS_DATA } from '../data/festivals';
 import { SANSKRIT_LESSONS_DATA } from '../data/sanskrit';
 import { HISTORICAL_TIMELINE_DATA } from '../data/timelines';
 import { GENEALOGY_DATA } from '../data/genealogy';
+import { SANSKRIT_DICTIONARY_DATA } from '../data/sanskritDictionary';
+import { MANUSCRIPTS_DATA } from '../data/manuscripts';
 import { ScriptureCategory } from '../types';
 
 export interface SearchResultItem {
@@ -289,6 +291,36 @@ function compileMasterDataset(): SearchResultItem[] {
       snippet: g.summary,
       categoryName: 'Genealogy',
       linkUrl: `/genealogy`
+    });
+  });
+
+  // Sanskrit Dictionary
+  SANSKRIT_DICTIONARY_DATA.forEach(dict => {
+    master.push({
+      id: dict.id,
+      type: 'sanskrit',
+      title: `${dict.word} (${dict.sanskrit})`,
+      sanskritTitle: dict.sanskrit,
+      subtitle: `Transliteration: ${dict.transliteration} • Root: ${dict.dhatu || 'N/A'}`,
+      snippet: `${dict.englishMeaning} — ${dict.detailedDefinition}`,
+      categoryName: 'Sanskrit Dictionary',
+      tags: dict.relatedScriptures,
+      linkUrl: `/sanskrit`
+    });
+  });
+
+  // Manuscripts & Epigraphy
+  MANUSCRIPTS_DATA.forEach(m => {
+    master.push({
+      id: m.id,
+      type: 'sanskrit',
+      title: m.title,
+      sanskritTitle: m.sanskritTitle,
+      subtitle: `Category: ${m.category} • Century: ${m.estimatedCentury}`,
+      snippet: m.historicalSignificance,
+      categoryName: 'Manuscript Codex',
+      tags: [m.scriptUsed, m.currentLocation],
+      linkUrl: `/sanskrit`
     });
   });
 
