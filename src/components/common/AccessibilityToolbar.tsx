@@ -41,7 +41,7 @@ export const AccessibilityToolbar: React.FC = () => {
 
       {/* Floating Control Panel */}
       {isOpen && (
-        <div className="w-80 sm:w-96 p-4 rounded-2xl bg-stone-900/98 border border-amber-500/30 shadow-2xl backdrop-blur-xl text-amber-100 space-y-4 animate-fade-in text-xs">
+        <div className="w-80 sm:w-96 max-w-[calc(100vw-2.5rem)] p-4 rounded-2xl bg-stone-900/98 border border-amber-500/30 shadow-2xl backdrop-blur-xl text-amber-100 space-y-4 animate-fade-in text-xs">
           <div className="flex items-center justify-between border-b border-amber-900/30 pb-2">
             <div className="flex items-center gap-2 font-serif font-bold text-amber-200">
               <Eye className="w-4 h-4 text-amber-400" />

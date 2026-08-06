@@ -121,15 +121,15 @@ export const DailyShloka: React.FC = () => {
         <div className="space-y-6">
           <div className="bg-stone-900/90 border border-amber-800/20 rounded-2xl p-6 sm:p-8 shadow-inner space-y-6 relative overflow-hidden">
             {/* Top Bar Controls */}
-            <div className="flex items-center justify-between border-b border-amber-900/10 pb-4">
-              <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-amber-600 animate-pulse" />
-                <span className="text-xs font-bold uppercase tracking-wider text-amber-300 font-serif">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-amber-900/10 pb-4">
+              <div className="flex items-center gap-2 min-w-0 flex-1">
+                <span className="w-2.5 h-2.5 rounded-full bg-amber-600 animate-pulse shrink-0" />
+                <span className="text-xs font-bold uppercase tracking-wider text-amber-300 font-serif break-words">
                   {currentShloka.title} • {panchang.dateString}
                 </span>
               </div>
 
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 flex-wrap shrink-0">
                 <button
                   onClick={() => handleSpeak(currentShloka.sanskrit)}
                   title="Recite Shloka in Sanskrit"

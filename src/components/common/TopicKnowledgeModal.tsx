@@ -55,8 +55,8 @@ export const TopicKnowledgeModal: React.FC = () => {
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Header */}
-        <div className="px-6 py-5 bg-gradient-to-r from-amber-900 via-amber-950 to-stone-900 text-amber-100 flex items-start justify-between border-b border-amber-700/30">
-          <div className="space-y-1 max-w-[85%]">
+        <div className="px-6 py-5 bg-gradient-to-r from-amber-900 via-amber-950 to-stone-900 text-amber-100 flex items-start justify-between border-b border-amber-700/30 gap-3">
+          <div className="space-y-1 min-w-0 flex-1">
             <span className="text-[10px] font-bold uppercase tracking-widest text-amber-300/90 px-2 py-0.5 rounded bg-amber-800/40 border border-amber-600/30 inline-block">
               {item.category}
             </span>

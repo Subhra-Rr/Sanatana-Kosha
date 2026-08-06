@@ -150,12 +150,12 @@ export const BhagavadGitaPage: React.FC = () => {
           {currentVerse && (
             <div className="bg-amber-50/90 dark:bg-stone-900 border border-amber-800/20 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
               {/* Verse Header Actions */}
-              <div className="flex items-center justify-between border-b border-amber-900/10 pb-4">
-                <span className="font-serif text-sm font-bold text-amber-900 dark:text-amber-300">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-amber-900/10 pb-4">
+                <span className="font-serif text-sm font-bold text-amber-900 dark:text-amber-300 min-w-0">
                   VERSE {currentChapter.chapterNumber}.{currentVerse.verseNumber}
                 </span>
 
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 flex-wrap shrink-0">
                   <button
                     onClick={() => playVerseAudio(currentVerse.sanskrit)}
                     className="p-2 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-900 dark:text-amber-200 text-xs font-medium flex items-center gap-1.5 transition-colors"
