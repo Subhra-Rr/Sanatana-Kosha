@@ -110,6 +110,27 @@ html, body, #root {
 
 .sanskrit-font {
   font-family: 'Georgia', 'Garamond', 'Noto Serif Devanagari', serif;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+/* Global text wrapping & layout overflow safeguards */
+p, span, h1, h2, h3, h4, h5, h6, div, label, button, a {
+  overflow-wrap: break-word;
+}
+
+img, svg, video, iframe, canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Hide scrollbar utility */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 /* Diya Flicker Animation */
