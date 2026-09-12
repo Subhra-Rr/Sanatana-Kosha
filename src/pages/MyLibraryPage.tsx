@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
 import { storageService } from '../services/storageService';
-import { Bookmark, Trash2, ExternalLink, Sparkles, Filter, BookOpen } from 'lucide-react';
+import { authService } from '../services/authService';
+import { Bookmark, Trash2, ExternalLink, Sparkles, Filter, BookOpen, ShieldCheck, User, RefreshCw, Lock } from 'lucide-react';
 
 export const MyLibraryPage: React.FC = () => {
-  const { bookmarks, toggleBookmark, openTopicModal } = useApp();
+  const { bookmarks, toggleBookmark, openTopicModal, currentUser, openAuthModal } = useApp();
   const [personalNotes, setPersonalNotes] = useState<Record<string, string>>({});
   const [selectedFilter, setSelectedFilter] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const [isSyncing, setIsSyncing] = useState(false);
+  const [syncStatus, setSyncStatus] = useState<string | null>(null);
 
   useEffect(() => {
     // Load personal study notes for bookmarked items
@@ -26,6 +29,23 @@ export const MyLibraryPage: React.FC = () => {
   const handleSaveNote = async (itemId: string, noteText: string) => {
     await storageService.saveNote(itemId, noteText);
     setPersonalNotes(prev => ({ ...prev, [itemId]: noteText }));
+  };
+
+  const handleSyncNow = async () => {
+    if (!currentUser) {
+      openAuthModal();
+      return;
+    }
+    setIsSyncing(true);
+    setSyncStatus(null);
+    const success = await authService.syncLibrary(bookmarks, personalNotes);
+    setIsSyncing(false);
+    if (success) {
+      setSyncStatus('Library and reflections successfully synced to your encrypted account.');
+      setTimeout(() => setSyncStatus(null), 4000);
+    } else {
+      setSyncStatus('Sync could not be completed. Please re-authenticate.');
+    }
   };
 
   const filteredBookmarks = bookmarks.filter(bm => {
@@ -52,6 +72,63 @@ export const MyLibraryPage: React.FC = () => {
           Your personal saved repository for bookmarked verses, sacred temples, Acharyas, study reflections, and research notes stored locally in IndexedDB & LocalStorage.
         </p>
       </div>
+
+      {/* Security & Cloud Sync Status Banner */}
+      <div className="bg-stone-900/90 border border-amber-800/30 rounded-2xl p-4 sm:p-5 shadow-lg flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="flex items-center gap-3 w-full sm:w-auto">
+          <div className="w-10 h-10 rounded-xl bg-amber-950/80 border border-amber-700/40 flex items-center justify-center shrink-0 text-amber-400">
+            {currentUser ? <ShieldCheck className="w-5 h-5" /> : <Lock className="w-5 h-5" />}
+          </div>
+          <div className="min-w-0">
+            {currentUser ? (
+              <>
+                <p className="text-xs sm:text-sm font-serif font-bold text-amber-200 truncate">
+                  Authenticated: {currentUser.name} ({currentUser.email})
+                </p>
+                <p className="text-[11px] text-stone-400">
+                  Protected with salted bcrypt hashing, brute-force rate-limiting, and standard JWT token session.
+                </p>
+              </>
+            ) : (
+              <>
+                <p className="text-xs sm:text-sm font-serif font-bold text-amber-200">
+                  Guest Seeker Session (Local Only)
+                </p>
+                <p className="text-[11px] text-stone-400">
+                  Sign in or create an account to securely encrypt and sync your verses & reflections across devices.
+                </p>
+              </>
+            )}
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
+          {currentUser ? (
+            <button
+              onClick={handleSyncNow}
+              disabled={isSyncing}
+              className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-amber-700 hover:bg-amber-600 text-amber-100 font-serif font-bold text-xs flex items-center justify-center gap-2 shadow-sm transition-all min-h-[44px] active:scale-95 disabled:opacity-50"
+            >
+              <RefreshCw className={`w-3.5 h-3.5 ${isSyncing ? 'animate-spin' : ''}`} />
+              <span>{isSyncing ? 'Syncing...' : 'Sync Cloud Library'}</span>
+            </button>
+          ) : (
+            <button
+              onClick={openAuthModal}
+              className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-amber-700 hover:bg-amber-600 text-amber-100 font-serif font-bold text-xs flex items-center justify-center gap-2 shadow-sm transition-all min-h-[44px] active:scale-95"
+            >
+              <User className="w-3.5 h-3.5" />
+              <span>Sign In to Sync</span>
+            </button>
+          )}
+        </div>
+      </div>
+
+      {syncStatus && (
+        <div className="p-3 rounded-xl bg-emerald-950/40 border border-emerald-800/40 text-emerald-200 text-xs text-center font-serif animate-fade-in">
+          {syncStatus}
+        </div>
+      )}
 
       {/* Filter & Search Controls */}
       <div className="bg-amber-50/80 dark:bg-stone-900 border border-amber-800/20 rounded-2xl p-4 sm:p-5 shadow-sm space-y-4">

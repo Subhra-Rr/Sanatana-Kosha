@@ -2,7 +2,9 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { ThemeMode, UserBookmark, UserReadingProgress } from '../types';
 import { storageService } from '../services/storageService';
 import { audioService } from '../services/audioService';
+import { authService, AuthUser } from '../services/authService';
 import { TopicKnowledgeItem } from '../data/topicKnowledge';
+import { AuthModal } from '../components/common/AuthModal';
 
 interface AppContextType {
   theme: ThemeMode;
@@ -24,6 +26,13 @@ interface AppContextType {
   isBookmarked: (itemId: string) => boolean;
   readingProgress: Record<string, UserReadingProgress>;
   updateReadingProgress: (itemId: string, verseIndex: number, percentage: number) => Promise<void>;
+  // Auth & Security state
+  currentUser: AuthUser | null;
+  isAuthModalOpen: boolean;
+  openAuthModal: () => void;
+  closeAuthModal: () => void;
+  logout: () => void;
+  setCurrentUser: (user: AuthUser | null) => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -36,12 +45,19 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [isDroneActive, setIsDroneActive] = useState(false);
   const [bookmarks, setBookmarks] = useState<UserBookmark[]>([]);
   const [readingProgress, setReadingProgress] = useState<Record<string, UserReadingProgress>>({});
+  const [currentUser, setCurrentUser] = useState<AuthUser | null>(authService.getUser());
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
   useEffect(() => {
     // Permanently enforce Dark Oil Lamp Theme attributes and dark class
     document.documentElement.className = 'theme-lamp-night dark overflow-x-hidden';
     document.documentElement.setAttribute('data-theme', 'lamp-night');
     document.documentElement.style.colorScheme = 'dark';
+
+    // Verify token validity and load current authenticated user
+    authService.checkSession().then((user) => {
+      if (user) setCurrentUser(user);
+    });
 
     // Load initial storage data
     storageService.getBookmarks().then(setBookmarks);
@@ -57,6 +73,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
+
+  const openAuthModal = () => setIsAuthModalOpen(true);
+  const closeAuthModal = () => setIsAuthModalOpen(false);
+
+  const logout = () => {
+    authService.logout();
+    setCurrentUser(null);
+  };
 
   const setTheme = (_newTheme: ThemeMode) => {
     // Theme locked permanently to Dark Oil Lamp (Deepam) Theme
@@ -132,11 +156,22 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         toggleBookmark,
         isBookmarked,
         readingProgress,
-        updateReadingProgress
+        updateReadingProgress,
+        currentUser,
+        isAuthModalOpen,
+        openAuthModal,
+        closeAuthModal,
+        logout,
+        setCurrentUser
       }}
     >
       <div className="theme-lamp-night dark min-h-screen bg-stone-950 text-amber-100 font-sans">
         {children}
+        <AuthModal
+          isOpen={isAuthModalOpen}
+          onClose={closeAuthModal}
+          onSuccess={(user) => setCurrentUser(user)}
+        />
       </div>
     </AppContext.Provider>
   );

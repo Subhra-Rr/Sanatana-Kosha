@@ -19,13 +19,17 @@ import {
   History,
   GitBranch,
   Cpu,
-  FileSpreadsheet
+  FileSpreadsheet,
+  User,
+  LogOut,
+  ShieldCheck
 } from 'lucide-react';
 
 export const Header: React.FC = () => {
-  const { setIsSearchOpen, setIsAiAssistantOpen } = useApp();
+  const { setIsSearchOpen, setIsAiAssistantOpen, currentUser, openAuthModal, logout } = useApp();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isCitationModalOpen, setIsCitationModalOpen] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
   const location = useLocation();
 
   const navLinks = [
@@ -79,7 +83,7 @@ export const Header: React.FC = () => {
           {/* Research & Citation Trigger */}
           <button
             onClick={() => setIsCitationModalOpen(true)}
-            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-stone-800 text-amber-200 border border-amber-700/30 text-xs font-serif font-semibold hover:bg-stone-700 transition-all"
+            className="hidden xl:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-stone-800 text-amber-200 border border-amber-700/30 text-xs font-serif font-semibold hover:bg-stone-700 transition-all"
             title="Academic Research & Citation Exporter"
           >
             <BookOpen className="w-3.5 h-3.5 text-amber-400" />
@@ -94,6 +98,62 @@ export const Header: React.FC = () => {
             <Sparkles className="w-3.5 h-3.5 text-amber-300 animate-spin" style={{ animationDuration: '6s' }} />
             <span className="inline">Ask AI</span>
           </button>
+
+          {/* User Account / Sign In Control */}
+          {currentUser ? (
+            <div className="relative">
+              <button
+                onClick={() => setUserMenuOpen(!userMenuOpen)}
+                className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full bg-amber-950/80 hover:bg-amber-900/80 border border-amber-500/40 text-amber-200 text-xs font-serif font-medium transition-all min-h-[40px]"
+                title={`Signed in as ${currentUser.name}`}
+              >
+                <div className="w-5 h-5 rounded-full bg-amber-700/60 text-amber-200 flex items-center justify-center text-[10px] font-bold">
+                  {currentUser.name.charAt(0).toUpperCase()}
+                </div>
+                <span className="hidden sm:inline max-w-[90px] truncate">{currentUser.name.split(' ')[0]}</span>
+              </button>
+
+              {userMenuOpen && (
+                <div className="absolute right-0 mt-2 w-56 bg-stone-900/95 border border-amber-800/40 rounded-2xl p-3 shadow-2xl backdrop-blur-md z-50 text-xs space-y-2 animate-fade-in">
+                  <div className="border-b border-amber-900/30 pb-2">
+                    <p className="font-serif font-bold text-amber-200 truncate">{currentUser.name}</p>
+                    <p className="text-[10px] text-stone-400 truncate">{currentUser.email}</p>
+                    <div className="mt-1 flex items-center gap-1 text-[9px] text-emerald-400 font-mono">
+                      <ShieldCheck className="w-3 h-3" />
+                      <span>Encrypted Session Active</span>
+                    </div>
+                  </div>
+                  <Link
+                    to="/my-library"
+                    onClick={() => setUserMenuOpen(false)}
+                    className="flex items-center gap-2 p-2 rounded-xl text-stone-300 hover:bg-amber-900/30 hover:text-amber-200 transition-colors"
+                  >
+                    <Bookmark className="w-3.5 h-3.5 text-amber-400" />
+                    <span>My Library & Notes</span>
+                  </Link>
+                  <button
+                    onClick={() => {
+                      logout();
+                      setUserMenuOpen(false);
+                    }}
+                    className="w-full flex items-center gap-2 p-2 rounded-xl text-red-300 hover:bg-red-950/40 transition-colors text-left font-serif"
+                  >
+                    <LogOut className="w-3.5 h-3.5 text-red-400" />
+                    <span>Sign Out (निर्गमनम्)</span>
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <button
+              onClick={openAuthModal}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-stone-900 hover:bg-stone-800 border border-amber-600/40 text-amber-300 text-xs font-serif font-semibold transition-all min-h-[40px] active:scale-95 shadow-sm"
+              title="Sign in or create account"
+            >
+              <User className="w-3.5 h-3.5 text-amber-400" />
+              <span className="hidden sm:inline">Sign In</span>
+            </button>
+          )}
 
           {/* Mobile Search Button */}
           <button
@@ -178,6 +238,42 @@ export const Header: React.FC = () => {
               </Link>
             );
           })}
+
+          {/* Mobile Auth Account Action */}
+          <div className="pt-3 mt-3 border-t border-amber-900/30">
+            {currentUser ? (
+              <div className="space-y-2 p-2 rounded-xl bg-amber-950/40 border border-amber-800/30">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="font-serif font-bold text-amber-200">{currentUser.name}</span>
+                  <span className="text-[10px] text-emerald-400 font-mono flex items-center gap-1">
+                    <ShieldCheck className="w-3 h-3" /> Secure JWT
+                  </span>
+                </div>
+                <p className="text-[10px] text-stone-400 truncate">{currentUser.email}</p>
+                <button
+                  onClick={() => {
+                    logout();
+                    setMobileMenuOpen(false);
+                  }}
+                  className="w-full py-2 px-3 rounded-lg bg-red-950/60 border border-red-800/40 text-red-300 text-xs font-serif font-semibold flex items-center justify-center gap-2"
+                >
+                  <LogOut className="w-3.5 h-3.5" />
+                  <span>Sign Out</span>
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={() => {
+                  openAuthModal();
+                  setMobileMenuOpen(false);
+                }}
+                className="w-full py-3 px-4 rounded-xl bg-amber-700 text-white font-serif font-bold text-xs flex items-center justify-center gap-2 shadow-md active:scale-98 min-h-[44px]"
+              >
+                <User className="w-4 h-4" />
+                <span>Sign In / Register Account</span>
+              </button>
+            )}
+          </div>
         </div>
       )}
 
