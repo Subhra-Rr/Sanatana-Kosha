@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AppProvider } from './context/AppContext';
 import { Header } from './components/common/Header';
 import { Footer } from './components/common/Footer';
+import { BottomNav } from './components/common/BottomNav';
 import { SearchModal } from './components/common/SearchModal';
 import { SpiritualAssistantModal } from './components/ai/SpiritualAssistantModal';
 import { TopicKnowledgeModal } from './components/common/TopicKnowledgeModal';
@@ -36,7 +37,7 @@ export default function App() {
       <AppProvider>
         <div className="flex flex-col min-h-screen bg-stone-950 text-amber-100 overflow-x-hidden">
           <Header />
-          <main className="flex-1 w-full overflow-x-hidden">
+          <main className="flex-1 w-full overflow-x-hidden pb-16 md:pb-0">
             <Suspense fallback={<PageFallback />}>
               <Routes>
                 <Route path="/" element={<HomePage />} />
@@ -59,6 +60,7 @@ export default function App() {
             </Suspense>
           </main>
           <Footer />
+          <BottomNav />
           <SearchModal />
           <SpiritualAssistantModal />
           <TopicKnowledgeModal />

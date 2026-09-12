@@ -203,14 +203,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
                 Full Name / साधक नाम
               </label>
               <div className="relative">
-                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-500" />
+                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-500 pointer-events-none" />
                 <input
                   type="text"
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="e.g., Ananda Sharma"
-                  className="w-full pl-9 pr-4 py-2.5 bg-stone-950/70 border border-amber-900/30 rounded-xl text-stone-200 text-xs sm:text-sm font-serif outline-none focus:border-amber-600 transition-colors"
+                  className="w-full pl-9 pr-4 py-3 bg-stone-950/70 border border-amber-900/30 rounded-xl text-stone-200 text-base font-serif outline-none focus:border-amber-600 transition-colors min-h-[48px]"
                 />
               </div>
             </div>
@@ -221,14 +221,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
               Email Address / पत्रसंकेतः
             </label>
             <div className="relative">
-              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-500" />
+              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-500 pointer-events-none" />
               <input
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="name@example.com"
-                className="w-full pl-9 pr-4 py-2.5 bg-stone-950/70 border border-amber-900/30 rounded-xl text-stone-200 text-xs sm:text-sm font-serif outline-none focus:border-amber-600 transition-colors"
+                className="w-full pl-9 pr-4 py-3 bg-stone-950/70 border border-amber-900/30 rounded-xl text-stone-200 text-base font-serif outline-none focus:border-amber-600 transition-colors min-h-[48px]"
               />
             </div>
           </div>
@@ -238,14 +238,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
               Password / कूटशब्दः
             </label>
             <div className="relative">
-              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-500" />
+              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-500 pointer-events-none" />
               <input
                 type="password"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder={mode === 'register' ? 'Min 8 chars, letters & numbers' : 'Enter your password'}
-                className="w-full pl-9 pr-4 py-2.5 bg-stone-950/70 border border-amber-900/30 rounded-xl text-stone-200 text-xs sm:text-sm font-serif outline-none focus:border-amber-600 transition-colors"
+                className="w-full pl-9 pr-4 py-3 bg-stone-950/70 border border-amber-900/30 rounded-xl text-stone-200 text-base font-serif outline-none focus:border-amber-600 transition-colors min-h-[48px]"
               />
             </div>
             {mode === 'register' && (
@@ -261,14 +261,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
                 Confirm Password / कूटशब्द पुष्टिकरण
               </label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-500" />
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-500 pointer-events-none" />
                 <input
                   type="password"
                   required
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="Re-enter your password"
-                  className="w-full pl-9 pr-4 py-2.5 bg-stone-950/70 border border-amber-900/30 rounded-xl text-stone-200 text-xs sm:text-sm font-serif outline-none focus:border-amber-600 transition-colors"
+                  className="w-full pl-9 pr-4 py-3 bg-stone-950/70 border border-amber-900/30 rounded-xl text-stone-200 text-base font-serif outline-none focus:border-amber-600 transition-colors min-h-[48px]"
                 />
               </div>
             </div>
@@ -277,7 +277,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
           <button
             type="submit"
             disabled={loading || Boolean(lockoutTimer && lockoutTimer > 0)}
-            className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-amber-700 to-amber-900 hover:from-amber-600 hover:to-amber-800 text-amber-100 font-serif font-bold text-xs sm:text-sm shadow-lg border border-amber-500/30 transition-all flex items-center justify-center gap-2 active:scale-98 disabled:opacity-50 disabled:cursor-not-allowed min-h-[44px]"
+            className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-amber-700 to-amber-900 hover:from-amber-600 hover:to-amber-800 text-amber-100 font-serif font-bold text-sm shadow-lg border border-amber-500/30 transition-all flex items-center justify-center gap-2 active:scale-98 disabled:opacity-50 disabled:cursor-not-allowed min-h-[48px]"
           >
             {loading ? (
               <span>Authenticating securely...</span>

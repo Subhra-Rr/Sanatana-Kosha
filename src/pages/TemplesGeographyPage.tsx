@@ -47,12 +47,12 @@ export const TemplesGeographyPage: React.FC = () => {
 
       {/* Filter Category Bar */}
       <div className="max-w-3xl mx-auto bg-amber-100/60 dark:bg-stone-900/80 border border-amber-800/20 rounded-2xl p-3.5 sm:p-4 shadow-xl backdrop-blur-sm">
-        <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 text-xs font-serif">
+        <div className="flex flex-wrap items-center justify-center gap-2 text-xs font-serif">
           {['all', 'char dham', 'jyotirlinga', 'shakti peetha', 'ancient temple'].map((cat) => (
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-3.5 sm:px-4 py-2.5 rounded-xl capitalize transition-all min-h-[44px] flex items-center justify-center font-semibold active:scale-95 ${
+              className={`px-4 py-2.5 rounded-xl capitalize transition-all min-h-[48px] flex items-center justify-center font-semibold active:scale-95 ${
                 selectedCategory === cat
                   ? 'bg-amber-700 text-white shadow-md'
                   : 'bg-stone-200/60 dark:bg-stone-800 text-stone-800 dark:text-stone-200 hover:bg-stone-300 dark:hover:bg-stone-700'

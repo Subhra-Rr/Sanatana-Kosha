@@ -18,6 +18,46 @@
     --temple-accent: #D4AF37;
     background-color: #0c0a09 !important;
     color: #F3E5AB !important;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scrollbar-gutter: stable;
+    scroll-behavior: smooth;
+  }
+
+  /* Universal cross-platform font stacks */
+  .font-serif {
+    font-family: 'Cinzel', 'Noto Serif Devanagari', 'Georgia', 'Cambria', serif;
+  }
+
+  .sanskrit-font {
+    font-family: 'Noto Serif Devanagari', 'Cinzel', 'Georgia', 'Garamond', serif;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  /* Prevent unwanted auto-zoom on iOS Safari when focusing form inputs */
+  @media screen and (max-width: 768px) {
+    input,
+    textarea,
+    select {
+      font-size: 16px !important;
+    }
+  }
+
+  /* Standard touch target baseline across mobile viewports */
+  @media (pointer: coarse) {
+    button,
+    a,
+    input,
+    select,
+    textarea,
+    [role="button"] {
+      min-height: 48px;
+      touch-action: manipulation;
+    }
   }
 
   /* Temple Night (Oil Lamp Theme - Immutable) */
@@ -55,7 +95,12 @@ html, body, #root {
   color: #fef3c7 !important;
 }
 
-/* Custom Scrollbar for Temple Library feel */
+/* Cross-OS and Browser Smooth Scrollbar (Windows, macOS, Linux, Chrome, Firefox, Safari) */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #9A7B38 #1C140E;
+}
+
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;

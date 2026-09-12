@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
 import { Diya } from './Diya';
-import { ResearchCitationModal } from './ResearchCitationModal';
 import {
   Search,
   BookOpen,
@@ -28,7 +27,6 @@ import {
 export const Header: React.FC = () => {
   const { setIsSearchOpen, setIsAiAssistantOpen, currentUser, openAuthModal, logout } = useApp();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isCitationModalOpen, setIsCitationModalOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const location = useLocation();
 
@@ -79,21 +77,11 @@ export const Header: React.FC = () => {
         </button>
 
         {/* Utility Controls */}
-        <div className="flex items-center gap-1.5 sm:gap-2">
-          {/* Research & Citation Trigger */}
-          <button
-            onClick={() => setIsCitationModalOpen(true)}
-            className="hidden xl:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-stone-800 text-amber-200 border border-amber-700/30 text-xs font-serif font-semibold hover:bg-stone-700 transition-all"
-            title="Academic Research & Citation Exporter"
-          >
-            <BookOpen className="w-3.5 h-3.5 text-amber-400" />
-            <span>Research Mode</span>
-          </button>
-
+        <div className="flex items-center gap-2">
           {/* AI Spiritual Assistant Trigger */}
           <button
             onClick={() => setIsAiAssistantOpen(true)}
-            className="flex items-center gap-1.5 px-3 py-2 rounded-full bg-gradient-to-r from-amber-700 to-amber-900 text-amber-100 hover:from-amber-600 hover:to-amber-800 text-xs font-medium shadow-md transition-all border border-amber-400/30 active:scale-95 min-h-[44px]"
+            className="flex items-center gap-1.5 px-3 py-2 rounded-full bg-gradient-to-r from-amber-700 to-amber-900 text-amber-100 hover:from-amber-600 hover:to-amber-800 text-xs font-medium shadow-md transition-all border border-amber-400/30 active:scale-95 min-h-[48px] min-w-[48px] justify-center"
           >
             <Sparkles className="w-3.5 h-3.5 text-amber-300 animate-spin" style={{ animationDuration: '6s' }} />
             <span className="inline">Ask AI</span>
@@ -104,10 +92,10 @@ export const Header: React.FC = () => {
             <div className="relative">
               <button
                 onClick={() => setUserMenuOpen(!userMenuOpen)}
-                className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full bg-amber-950/80 hover:bg-amber-900/80 border border-amber-500/40 text-amber-200 text-xs font-serif font-medium transition-all min-h-[40px]"
+                className="flex items-center gap-1.5 px-3 py-2 rounded-full bg-amber-950/80 hover:bg-amber-900/80 border border-amber-500/40 text-amber-200 text-xs font-serif font-medium transition-all min-h-[48px] min-w-[48px] justify-center"
                 title={`Signed in as ${currentUser.name}`}
               >
-                <div className="w-5 h-5 rounded-full bg-amber-700/60 text-amber-200 flex items-center justify-center text-[10px] font-bold">
+                <div className="w-6 h-6 rounded-full bg-amber-700/60 text-amber-200 flex items-center justify-center text-[11px] font-bold">
                   {currentUser.name.charAt(0).toUpperCase()}
                 </div>
                 <span className="hidden sm:inline max-w-[90px] truncate">{currentUser.name.split(' ')[0]}</span>
@@ -126,9 +114,9 @@ export const Header: React.FC = () => {
                   <Link
                     to="/my-library"
                     onClick={() => setUserMenuOpen(false)}
-                    className="flex items-center gap-2 p-2 rounded-xl text-stone-300 hover:bg-amber-900/30 hover:text-amber-200 transition-colors"
+                    className="flex items-center gap-2 p-2.5 rounded-xl text-stone-300 hover:bg-amber-900/30 hover:text-amber-200 transition-colors min-h-[48px]"
                   >
-                    <Bookmark className="w-3.5 h-3.5 text-amber-400" />
+                    <Bookmark className="w-4 h-4 text-amber-400" />
                     <span>My Library & Notes</span>
                   </Link>
                   <button
@@ -136,9 +124,9 @@ export const Header: React.FC = () => {
                       logout();
                       setUserMenuOpen(false);
                     }}
-                    className="w-full flex items-center gap-2 p-2 rounded-xl text-red-300 hover:bg-red-950/40 transition-colors text-left font-serif"
+                    className="w-full flex items-center gap-2 p-2.5 rounded-xl text-red-300 hover:bg-red-950/40 transition-colors text-left font-serif min-h-[48px]"
                   >
-                    <LogOut className="w-3.5 h-3.5 text-red-400" />
+                    <LogOut className="w-4 h-4 text-red-400" />
                     <span>Sign Out (निर्गमनम्)</span>
                   </button>
                 </div>
@@ -147,7 +135,7 @@ export const Header: React.FC = () => {
           ) : (
             <button
               onClick={openAuthModal}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-stone-900 hover:bg-stone-800 border border-amber-600/40 text-amber-300 text-xs font-serif font-semibold transition-all min-h-[40px] active:scale-95 shadow-sm"
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-stone-900 hover:bg-stone-800 border border-amber-600/40 text-amber-300 text-xs font-serif font-semibold transition-all min-h-[48px] min-w-[48px] justify-center active:scale-95 shadow-sm"
               title="Sign in or create account"
             >
               <User className="w-3.5 h-3.5 text-amber-400" />
@@ -159,18 +147,18 @@ export const Header: React.FC = () => {
           <button
             onClick={() => setIsSearchOpen(true)}
             aria-label="Search"
-            className="md:hidden p-2 rounded-full text-amber-300 hover:bg-amber-500/10 active:scale-95 min-w-[44px] min-h-[44px] flex items-center justify-center"
+            className="md:hidden p-2.5 rounded-full text-amber-300 hover:bg-amber-500/10 active:scale-95 min-w-[48px] min-h-[48px] flex items-center justify-center"
           >
-            <Search className="w-4 h-4" />
+            <Search className="w-5 h-5" />
           </button>
 
           {/* Mobile Menu Toggle */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
-            className="lg:hidden p-2 rounded-full text-amber-300 hover:bg-amber-500/10 active:scale-95 min-w-[44px] min-h-[44px] flex items-center justify-center"
+            className="lg:hidden p-2.5 rounded-full text-amber-300 hover:bg-amber-500/10 active:scale-95 min-w-[48px] min-h-[48px] flex items-center justify-center"
           >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
       </div>
@@ -204,19 +192,10 @@ export const Header: React.FC = () => {
       {/* Mobile Navigation Drawer */}
       {mobileMenuOpen && (
         <div className="lg:hidden bg-stone-950/98 backdrop-blur-lg border-b border-amber-900/30 p-4 space-y-1 animate-fade-in shadow-xl max-h-[80vh] overflow-y-auto">
-          <div className="flex items-center justify-between pb-2 mb-2 border-b border-amber-500/10">
+          <div className="pb-2 mb-2 border-b border-amber-500/10">
             <span className="text-xs font-serif font-bold text-amber-300 uppercase tracking-widest">
               Navigation Treasury
             </span>
-            <button
-              onClick={() => {
-                setIsCitationModalOpen(true);
-                setMobileMenuOpen(false);
-              }}
-              className="text-xs font-serif text-amber-300 font-bold flex items-center gap-1"
-            >
-              <BookOpen className="w-3 h-3" /> Research Mode
-            </button>
           </div>
 
           {navLinks.map((link) => {
@@ -227,7 +206,7 @@ export const Header: React.FC = () => {
                 key={link.path}
                 to={link.path}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all min-h-[48px] ${
                   isActive
                     ? 'bg-amber-700 text-white font-semibold shadow-sm'
                     : 'text-stone-200 hover:bg-amber-500/10 active:bg-amber-500/20'
@@ -242,11 +221,11 @@ export const Header: React.FC = () => {
           {/* Mobile Auth Account Action */}
           <div className="pt-3 mt-3 border-t border-amber-900/30">
             {currentUser ? (
-              <div className="space-y-2 p-2 rounded-xl bg-amber-950/40 border border-amber-800/30">
+              <div className="space-y-2 p-3 rounded-xl bg-amber-950/40 border border-amber-800/30">
                 <div className="flex items-center justify-between text-xs">
                   <span className="font-serif font-bold text-amber-200">{currentUser.name}</span>
                   <span className="text-[10px] text-emerald-400 font-mono flex items-center gap-1">
-                    <ShieldCheck className="w-3 h-3" /> Secure JWT
+                    <ShieldCheck className="w-3.5 h-3.5" /> Secure JWT
                   </span>
                 </div>
                 <p className="text-[10px] text-stone-400 truncate">{currentUser.email}</p>
@@ -255,9 +234,9 @@ export const Header: React.FC = () => {
                     logout();
                     setMobileMenuOpen(false);
                   }}
-                  className="w-full py-2 px-3 rounded-lg bg-red-950/60 border border-red-800/40 text-red-300 text-xs font-serif font-semibold flex items-center justify-center gap-2"
+                  className="w-full py-2.5 px-3 rounded-xl bg-red-950/60 border border-red-800/40 text-red-300 text-xs font-serif font-semibold flex items-center justify-center gap-2 min-h-[48px]"
                 >
-                  <LogOut className="w-3.5 h-3.5" />
+                  <LogOut className="w-4 h-4" />
                   <span>Sign Out</span>
                 </button>
               </div>
@@ -267,7 +246,7 @@ export const Header: React.FC = () => {
                   openAuthModal();
                   setMobileMenuOpen(false);
                 }}
-                className="w-full py-3 px-4 rounded-xl bg-amber-700 text-white font-serif font-bold text-xs flex items-center justify-center gap-2 shadow-md active:scale-98 min-h-[44px]"
+                className="w-full py-3 px-4 rounded-xl bg-amber-700 text-white font-serif font-bold text-xs flex items-center justify-center gap-2 shadow-md active:scale-98 min-h-[48px]"
               >
                 <User className="w-4 h-4" />
                 <span>Sign In / Register Account</span>
@@ -276,12 +255,6 @@ export const Header: React.FC = () => {
           </div>
         </div>
       )}
-
-      {/* Research Citation Exporter Modal */}
-      <ResearchCitationModal
-        isOpen={isCitationModalOpen}
-        onClose={() => setIsCitationModalOpen(false)}
-      />
     </header>
   );
 };

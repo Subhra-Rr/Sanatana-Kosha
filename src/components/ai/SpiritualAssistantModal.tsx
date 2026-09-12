@@ -146,21 +146,22 @@ export const SpiritualAssistantModal: React.FC = () => {
         </div>
 
         {/* Query Input Box */}
-        <div className="p-3 border-t border-amber-900/15 bg-stone-950/40 flex items-center gap-2">
+        <div className="p-3.5 border-t border-amber-900/15 bg-stone-950/40 flex items-center gap-2">
           <input
             type="text"
             value={inputQuery}
             onChange={(e) => setInputQuery(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSend()}
             placeholder="Ask e.g. 'Explain Karma Yoga in Bhagavad Gita'..."
-            className="flex-1 bg-stone-800 border border-amber-900/20 rounded-xl px-4 py-2.5 text-xs sm:text-sm outline-none font-serif text-stone-100 placeholder:text-stone-400"
+            className="flex-1 bg-stone-800 border border-amber-900/20 rounded-xl px-4 py-3 text-base outline-none font-serif text-stone-100 placeholder:text-stone-400 min-h-[48px]"
           />
           <button
             onClick={handleSend}
             disabled={!inputQuery.trim() || isLoading}
-            className="p-2.5 rounded-xl bg-amber-700 text-white hover:bg-amber-800 disabled:opacity-50 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center active:scale-95"
+            aria-label="Send message"
+            className="p-3 rounded-xl bg-amber-700 text-white hover:bg-amber-800 disabled:opacity-50 transition-colors min-w-[48px] min-h-[48px] flex items-center justify-center active:scale-95 shadow-sm"
           >
-            <Send className="w-4 h-4" />
+            <Send className="w-5 h-5" />
           </button>
         </div>
       </div>

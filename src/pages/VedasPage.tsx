@@ -40,7 +40,7 @@ export const VedasPage: React.FC = () => {
           <button
             key={v.id}
             onClick={() => setSelectedVedaId(v.id)}
-            className={`px-5 py-2.5 rounded-xl font-serif text-xs sm:text-sm transition-all min-h-[44px] flex items-center justify-center font-semibold active:scale-95 ${
+            className={`px-5 py-3 rounded-xl font-serif text-xs sm:text-sm transition-all min-h-[48px] flex items-center justify-center font-semibold active:scale-95 ${
               selectedVedaId === v.id
                 ? 'bg-amber-700 text-white font-bold shadow-md'
                 : 'bg-amber-100/60 dark:bg-stone-900 text-stone-800 dark:text-stone-200 hover:bg-amber-200'

@@ -58,34 +58,35 @@ export const SearchModal: React.FC = () => {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search Sanskrit words, verse numbers, chapters, Acharyas, temples, philosophical concepts..."
-            className="flex-1 bg-transparent border-none outline-none text-stone-100 placeholder:text-stone-400 font-serif text-sm sm:text-base min-h-[44px]"
+            className="flex-1 bg-transparent border-none outline-none text-stone-100 placeholder:text-stone-400 font-serif text-base min-h-[48px]"
             autoFocus
           />
           {query && (
             <button
               onClick={() => setQuery('')}
-              className="p-2 text-stone-400 hover:text-stone-200 min-w-[44px] min-h-[44px] flex items-center justify-center"
+              className="p-2 text-stone-400 hover:text-stone-200 min-w-[48px] min-h-[48px] flex items-center justify-center"
+              aria-label="Clear search input"
             >
               <X className="w-4 h-4" />
             </button>
           )}
           <button
             onClick={() => setIsSearchOpen(false)}
-            className="text-xs px-3 py-2 rounded-md bg-stone-800 text-stone-400 hover:bg-stone-700 min-h-[44px] flex items-center justify-center font-medium active:scale-95"
+            className="text-xs px-3 py-2 rounded-xl bg-stone-800 text-stone-400 hover:bg-stone-700 min-h-[48px] min-w-[48px] flex items-center justify-center font-medium active:scale-95"
           >
             Esc
           </button>
         </div>
 
         {/* Filter Pills */}
-        <div className="px-4 py-2 border-b border-amber-900/10 bg-stone-950/50 flex items-center gap-2 overflow-x-auto scrollbar-none text-xs">
+        <div className="px-4 py-2.5 border-b border-amber-900/10 bg-stone-950/50 flex items-center gap-2 overflow-x-auto scrollbar-none text-xs">
           {categories.map((cat) => (
             <button
               key={cat.id}
               onClick={() => setCategoryFilter(cat.id)}
-              className={`px-3.5 py-2 rounded-full whitespace-nowrap transition-colors min-h-[44px] flex items-center justify-center active:scale-95 ${
+              className={`px-4 py-2.5 rounded-full whitespace-nowrap transition-colors min-h-[48px] flex items-center justify-center active:scale-95 font-medium ${
                 categoryFilter === cat.id
-                  ? 'bg-amber-600 text-white font-medium shadow-sm'
+                  ? 'bg-amber-600 text-white shadow-sm'
                   : 'bg-stone-800 text-stone-300 hover:bg-stone-700'
               }`}
             >

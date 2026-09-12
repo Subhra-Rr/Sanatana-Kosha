@@ -79,12 +79,12 @@ export const HomePage: React.FC = () => {
               <span className="text-xs font-bold uppercase tracking-wider text-amber-300 flex items-center gap-1.5">
                 <Layers className="w-4 h-4 text-amber-400" /> The Four Vedas (चतुर्वेदाः)
               </span>
-              <div className="flex items-center gap-1.5 text-xs flex-wrap">
+              <div className="flex items-center gap-1.5 sm:gap-2 text-xs flex-wrap">
                 {VEDAS_DATA.map((veda, idx) => (
                   <button
                     key={veda.id}
                     onClick={() => setActiveVedaIdx(idx)}
-                    className={`px-3.5 py-2 rounded-lg font-serif transition-colors min-h-[44px] flex items-center justify-center ${
+                    className={`px-4 py-2.5 rounded-xl font-serif transition-colors min-h-[48px] flex items-center justify-center font-medium active:scale-95 ${
                       activeVedaIdx === idx
                         ? 'bg-amber-700 text-white font-bold shadow-sm'
                         : 'bg-stone-800 text-stone-300 hover:bg-stone-700'
@@ -331,7 +331,7 @@ export const HomePage: React.FC = () => {
               <button
                 key={idx}
                 onClick={() => openTopicModal(topic)}
-                className="px-3.5 py-2.5 min-h-[44px] rounded-xl bg-amber-500/15 hover:bg-amber-600 hover:text-white text-amber-200 border border-amber-800/15 hover:border-amber-600 font-medium transition-all shadow-sm hover:shadow-md cursor-pointer flex items-center gap-1.5 active:scale-95"
+                className="px-4 py-2.5 min-h-[48px] rounded-xl bg-amber-500/15 hover:bg-amber-600 hover:text-white text-amber-200 border border-amber-800/20 hover:border-amber-600 font-medium transition-all shadow-sm hover:shadow-md cursor-pointer flex items-center gap-1.5 active:scale-95"
               >
                 <span>{topic}</span>
                 <Sparkles className="w-3.5 h-3.5 text-amber-400 group-hover:text-white shrink-0" />
