@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Lock, Mail, User, ShieldCheck, AlertCircle, ArrowRight, CheckCircle2, Clock } from 'lucide-react';
+import { X, Lock, Mail, User, ShieldCheck, AlertCircle, ArrowRight, CheckCircle2, Clock, Eye, EyeOff } from 'lucide-react';
 import { authService, AuthUser } from '../../services/authService';
 import { Diya } from './Diya';
 
@@ -15,6 +15,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
@@ -59,8 +60,9 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
     setLoading(true);
 
     try {
+      const cleanEmail = email.trim().toLowerCase();
       if (mode === 'login') {
-        const res = await authService.login(email, password);
+        const res = await authService.login(cleanEmail, password);
         if (res.error) {
           setError(res.error);
           if (res.retryAfterSeconds) {
@@ -75,11 +77,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
           }, 800);
         }
       } else {
-        const res = await authService.register(name, email, password);
+        const res = await authService.register(name.trim(), cleanEmail, password);
         if (res.error) {
           setError(res.error);
         } else if (res.user) {
-          setSuccessMessage('Account registered and secured successfully.');
+          setSuccessMessage('Account registered and secured successfully! You are now signed in.');
           setTimeout(() => {
             onSuccess?.(res.user!);
             onClose();
@@ -207,6 +209,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
                 <input
                   type="text"
                   required
+                  autoComplete="name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="e.g., Ananda Sharma"
@@ -225,6 +228,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
               <input
                 type="email"
                 required
+                autoComplete="email"
+                autoCapitalize="none"
+                autoCorrect="off"
+                spellCheck={false}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="name@example.com"
@@ -240,13 +247,22 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
             <div className="relative">
               <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-500 pointer-events-none" />
               <input
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 required
+                autoComplete={mode === 'register' ? 'new-password' : 'current-password'}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder={mode === 'register' ? 'Min 8 chars, letters & numbers' : 'Enter your password'}
-                className="w-full pl-9 pr-4 py-3 bg-stone-950/70 border border-amber-900/30 rounded-xl text-stone-200 text-base font-serif outline-none focus:border-amber-600 transition-colors min-h-[48px]"
+                className="w-full pl-9 pr-12 py-3 bg-stone-950/70 border border-amber-900/30 rounded-xl text-stone-200 text-base font-serif outline-none focus:border-amber-600 transition-colors min-h-[48px]"
               />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 p-2 text-stone-400 hover:text-amber-200 transition-colors rounded-lg min-h-[40px] min-w-[40px] flex items-center justify-center"
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+              >
+                {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              </button>
             </div>
             {mode === 'register' && (
               <span className="text-[10px] text-stone-500 block">
@@ -263,12 +279,13 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-500 pointer-events-none" />
                 <input
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   required
+                  autoComplete="new-password"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="Re-enter your password"
-                  className="w-full pl-9 pr-4 py-3 bg-stone-950/70 border border-amber-900/30 rounded-xl text-stone-200 text-base font-serif outline-none focus:border-amber-600 transition-colors min-h-[48px]"
+                  className="w-full pl-9 pr-12 py-3 bg-stone-950/70 border border-amber-900/30 rounded-xl text-stone-200 text-base font-serif outline-none focus:border-amber-600 transition-colors min-h-[48px]"
                 />
               </div>
             </div>

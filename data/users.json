@@ -1,0 +1,22 @@
+[
+  {
+    "id": "user-83cc2747-21f1-4278-ada7-0f6c00e55f18",
+    "email": "seeker@sanatanakosha.org",
+    "name": "Sadhaka (Seeker)",
+    "passwordHash": "$2b$12$qY4j0u13DChX4Q33ZaKJmO0NgQ2m9WjoQKwwZ9BmM4kruimUOGh7C",
+    "createdAt": "2026-09-13T05:25:44.496Z",
+    "lastLoginAt": "2026-09-13T05:25:44.496Z",
+    "savedBookmarks": [],
+    "personalNotes": {}
+  },
+  {
+    "id": "user-90fe958d-488b-44b5-a585-0d179aad89da",
+    "name": "Test User",
+    "email": "testuser@example.com",
+    "passwordHash": "$2b$12$v.aczklc8hERjm4RbdcBY.8FVLd0OTP6yi59TMKIpMff3pE8577pa",
+    "createdAt": "2026-09-13T05:29:53.394Z",
+    "lastLoginAt": "2026-09-13T05:30:00.483Z",
+    "savedBookmarks": [],
+    "personalNotes": {}
+  }
+]

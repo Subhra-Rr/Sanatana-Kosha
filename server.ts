@@ -22,6 +22,9 @@ async function startServer() {
   const app = express();
   const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
 
+  // Configure reverse proxy trust for container environments
+  app.set('trust proxy', 1);
+
   // Initialize auth store
   await authStore.init();
 

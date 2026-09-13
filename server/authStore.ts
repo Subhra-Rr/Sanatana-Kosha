@@ -29,8 +29,29 @@ class AuthStore {
     this.filePath = path.join(dataDir, 'users.json');
   }
 
+  private loadFromDisk(): void {
+    try {
+      if (fs.existsSync(this.filePath)) {
+        const raw = fs.readFileSync(this.filePath, 'utf-8');
+        if (raw.trim()) {
+          const parsed: StoredUser[] = JSON.parse(raw);
+          for (const u of parsed) {
+            if (u && u.email) {
+              this.users.set(u.email.toLowerCase().trim(), u);
+            }
+          }
+        }
+      }
+    } catch (err) {
+      console.warn('AuthStore loadFromDisk warning:', err);
+    }
+  }
+
   public async init(): Promise<void> {
-    if (this.isInitialized) return;
+    if (this.isInitialized) {
+      this.loadFromDisk();
+      return;
+    }
 
     try {
       const dataDir = path.dirname(this.filePath);
@@ -39,11 +60,7 @@ class AuthStore {
       }
 
       if (fs.existsSync(this.filePath)) {
-        const raw = fs.readFileSync(this.filePath, 'utf-8');
-        const parsed: StoredUser[] = JSON.parse(raw);
-        for (const u of parsed) {
-          this.users.set(u.email.toLowerCase(), u);
-        }
+        this.loadFromDisk();
       } else {
         // Seed an initial demo seeker account with pre-encrypted password
         const demoEmail = 'seeker@sanatanakosha.org';
@@ -83,10 +100,22 @@ class AuthStore {
   }
 
   public findByEmail(email: string): StoredUser | undefined {
-    return this.users.get(email.toLowerCase().trim());
+    if (!email) return undefined;
+    const cleanEmail = email.toLowerCase().trim();
+    // Always check memory first, reload from disk if missing
+    let user = this.users.get(cleanEmail);
+    if (!user) {
+      this.loadFromDisk();
+      user = this.users.get(cleanEmail);
+    }
+    return user;
   }
 
   public findById(id: string): StoredUser | undefined {
+    for (const u of this.users.values()) {
+      if (u.id === id) return u;
+    }
+    this.loadFromDisk();
     for (const u of this.users.values()) {
       if (u.id === id) return u;
     }
@@ -98,7 +127,7 @@ class AuthStore {
     const normalizedEmail = email.toLowerCase().trim();
     const newUser: StoredUser = {
       id: 'user-' + crypto.randomUUID(),
-      name,
+      name: name.trim(),
       email: normalizedEmail,
       passwordHash,
       createdAt: new Date().toISOString(),
@@ -131,3 +160,4 @@ class AuthStore {
 }
 
 export const authStore = new AuthStore();
+

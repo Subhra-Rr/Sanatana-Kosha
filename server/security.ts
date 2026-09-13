@@ -2,6 +2,8 @@ import { Request, Response, NextFunction } from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
+import fs from 'fs';
+import path from 'path';
 
 // ============================================================================
 // SECURITY IMPLEMENTATION 1: SERVER-SIDE VALIDATION
@@ -300,11 +302,32 @@ export const GENERIC_ERRORS = {
 /**
  * Standard, battle-tested JWT (RFC 7519) authentication architecture.
  * Uses HMAC-SHA256 with strong entropy key and standard claims (sub, email, iat, exp).
+ * Persists key to disk in data directory so server restarts do not invalidate tokens.
  */
-const JWT_SECRET: string = process.env.JWT_SECRET || (() => {
-  // If not specified in environment, generate high-entropy crypto secret
-  return crypto.randomBytes(32).toString('hex');
-})();
+function getOrCreateJwtSecret(): string {
+  if (process.env.JWT_SECRET && process.env.JWT_SECRET.trim().length >= 16) {
+    return process.env.JWT_SECRET.trim();
+  }
+
+  try {
+    const dataDir = path.join(process.cwd(), 'data');
+    if (!fs.existsSync(dataDir)) {
+      fs.mkdirSync(dataDir, { recursive: true });
+    }
+    const secretPath = path.join(dataDir, '.jwt_secret');
+    if (fs.existsSync(secretPath)) {
+      const existing = fs.readFileSync(secretPath, 'utf-8').trim();
+      if (existing.length >= 32) return existing;
+    }
+    const newSecret = crypto.randomBytes(48).toString('hex');
+    fs.writeFileSync(secretPath, newSecret, 'utf-8');
+    return newSecret;
+  } catch {
+    return 'sanatana_kosha_jwt_default_secure_key_dharma_2026_salt_hash_v1';
+  }
+}
+
+const JWT_SECRET: string = getOrCreateJwtSecret();
 
 export interface TokenPayload {
   sub: string;
