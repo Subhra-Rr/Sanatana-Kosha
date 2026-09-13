@@ -71,21 +71,27 @@ async function startServer() {
       const sanitizedEmail = emailValidation.sanitizedValue!;
       const sanitizedName = nameValidation.sanitizedValue!;
 
-      // 4. Generic errors: prevent email enumeration
+      console.log(`[Server:Auth] Registration attempt for email: "${sanitizedEmail}", name: "${sanitizedName}"`);
+
+      // Check if user already exists
       const existingUser = authStore.findByEmail(sanitizedEmail);
       if (existingUser) {
-        return res.status(400).json({
-          error: 'An account with this email already exists or is unavailable. Please sign in instead.'
+        console.warn(`[Server:Auth] Registration rejected: User already exists for "${sanitizedEmail}"`);
+        return res.status(409).json({
+          error: `An account with email "${sanitizedEmail}" already exists. Please sign in instead.`,
+          code: 'USER_ALREADY_EXISTS',
+          email: sanitizedEmail
         });
       }
 
-      // 3. Encrypt the password using bcrypt with 12 salt rounds
+      // Encrypt password using bcrypt with 12 salt rounds
       const encryptedHash = await hashPassword(password);
 
-      // Store user safely
+      // Store user safely and persist immediately
       const newUser = await authStore.createUser(sanitizedName, sanitizedEmail, encryptedHash);
+      console.log(`[Server:Auth] Account created successfully for "${sanitizedEmail}" (User ID: ${newUser.id})`);
 
-      // 5. Do not build authentication your own: standard signed JWT
+      // Standard signed JWT
       const token = generateAuthToken({
         sub: newUser.id,
         email: newUser.email,
@@ -102,19 +108,14 @@ async function startServer() {
         }
       });
     } catch (err) {
-      console.error('Registration error:', err);
-      // 4. Generic error response
+      console.error('[Server:Auth] Registration error:', err);
       return res.status(500).json({ error: GENERIC_ERRORS.SERVER_ERROR });
     }
   });
 
   // ==========================================================================
   // AUTH ENDPOINT: LOGIN
-  // 1. Server-side validation
-  // 2. Limit the login rate (brute-force protection & Retry-After)
-  // 3. Encrypted password verification
-  // 4. Generic errors (anti-enumeration & timing attack protection)
-  // 5. Standard JWT token
+  // Provides clear, contextual error messaging (USER_NOT_FOUND vs INCORRECT_PASSWORD)
   // ==========================================================================
   app.post('/api/auth/login', async (req: Request, res: Response) => {
     try {
@@ -123,50 +124,68 @@ async function startServer() {
       // 1. Server-side validation
       const emailValidation = validateEmail(email);
       if (!emailValidation.isValid) {
-        return res.status(400).json({ error: emailValidation.error });
+        console.warn(`[Server:Auth] Login rejected: Invalid email format (${email})`);
+        return res.status(400).json({ error: emailValidation.error, code: 'INVALID_EMAIL' });
       }
 
       if (typeof password !== 'string' || !password) {
-        return res.status(400).json({ error: 'Password is required.' });
+        return res.status(400).json({ error: 'Password is required.', code: 'MISSING_PASSWORD' });
       }
 
       const sanitizedEmail = emailValidation.sanitizedValue!;
+      console.log(`[Server:Auth] Login attempt for email: "${sanitizedEmail}"`);
 
       // 2. Limit the login rate (Brute-force protection)
       const rateCheck = loginRateLimiter.checkLimit(req, sanitizedEmail);
       if (!rateCheck.allowed) {
-        const retryAfter = rateCheck.retryAfterSeconds || 900;
+        const retryAfter = rateCheck.retryAfterSeconds || 180;
         res.setHeader('Retry-After', retryAfter.toString());
+        console.warn(`[Server:Auth] Login blocked by rate limiter for "${sanitizedEmail}". Retry after: ${retryAfter}s`);
         return res.status(429).json({
-          error: GENERIC_ERRORS.RATE_LIMITED,
+          error: `Too many sign-in attempts. Please wait ${retryAfter} seconds before trying again.`,
+          code: 'RATE_LIMITED',
           retryAfterSeconds: retryAfter
         });
       }
 
       const user = authStore.findByEmail(sanitizedEmail);
 
-      // 4. Use generic errors & defeat timing attacks
+      // Contextual check: Account existence
       if (!user) {
-        // Run dummy timing comparison to prevent side-channel timing attacks
+        console.warn(`[Server:Auth] Login failed: No user found with email "${sanitizedEmail}"`);
         await dummyTimingSafeCompare(password);
-        // Record failed attempt against IP & email in rate limiter
         loginRateLimiter.recordFailure(req, sanitizedEmail);
-        return res.status(401).json({ error: GENERIC_ERRORS.INVALID_CREDENTIALS });
+        return res.status(404).json({
+          error: `No account found with email "${sanitizedEmail}". Please verify your email or create a new account.`,
+          code: 'USER_NOT_FOUND',
+          email: sanitizedEmail
+        });
       }
 
-      // 3. Encrypted password verification using bcrypt
-      const isPasswordValid = await verifyPassword(password, user.passwordHash);
+      console.log(`[Server:Auth] Account found for "${sanitizedEmail}" (User: ${user.name}, ID: ${user.id}). Verifying password...`);
+
+      // Robust password verification with trimmed fallback
+      let isPasswordValid = await verifyPassword(password, user.passwordHash);
+      if (!isPasswordValid && typeof password === 'string' && password !== password.trim()) {
+        isPasswordValid = await verifyPassword(password.trim(), user.passwordHash);
+      }
+
       if (!isPasswordValid) {
+        console.warn(`[Server:Auth] Login failed: Incorrect password for user "${sanitizedEmail}"`);
         loginRateLimiter.recordFailure(req, sanitizedEmail);
-        // 4. Generic error: never specify whether email or password was wrong
-        return res.status(401).json({ error: GENERIC_ERRORS.INVALID_CREDENTIALS });
+        return res.status(401).json({
+          error: 'Incorrect password for this account. Please verify your password or use "Forgot Password" to reset it.',
+          code: 'INCORRECT_PASSWORD',
+          email: sanitizedEmail
+        });
       }
 
       // Successful authentication: reset rate limiter counter
+      console.log(`[Server:Auth] Login SUCCESS for "${sanitizedEmail}" (${user.name})`);
       loginRateLimiter.recordSuccess(req, sanitizedEmail);
       authStore.updateLastLogin(user.id);
 
-      // 5. Standard JWT token generation
+      // Standard JWT token generation
       const token = generateAuthToken({
         sub: user.id,
         email: user.email,
@@ -186,7 +205,122 @@ async function startServer() {
         }
       });
     } catch (err) {
-      console.error('Login error:', err);
+      console.error('[Server:Auth] Login error:', err);
+      return res.status(500).json({ error: GENERIC_ERRORS.SERVER_ERROR });
+    }
+  });
+
+  // ==========================================================================
+  // AUTH ENDPOINT: FORGOT PASSWORD (REQUEST RECOVERY CODE)
+  // ==========================================================================
+  app.post('/api/auth/forgot-password', async (req: Request, res: Response) => {
+    try {
+      const { email } = req.body || {};
+      const emailValidation = validateEmail(email);
+      if (!emailValidation.isValid) {
+        return res.status(400).json({ error: emailValidation.error, code: 'INVALID_EMAIL' });
+      }
+
+      const sanitizedEmail = emailValidation.sanitizedValue!;
+      console.log(`[Server:Auth] Password recovery requested for: "${sanitizedEmail}"`);
+
+      const user = authStore.findByEmail(sanitizedEmail);
+      if (!user) {
+        console.warn(`[Server:Auth] Password recovery failed: User "${sanitizedEmail}" not found`);
+        return res.status(404).json({
+          error: `No account found with email "${sanitizedEmail}". Please check your email or register.`,
+          code: 'USER_NOT_FOUND',
+          email: sanitizedEmail
+        });
+      }
+
+      const resetData = authStore.createPasswordResetCode(sanitizedEmail);
+      if (!resetData) {
+        return res.status(500).json({ error: 'Unable to generate password recovery code.' });
+      }
+
+      console.log(`[Server:Auth] Generated recovery code for "${sanitizedEmail}": [ ${resetData.code} ]`);
+
+      return res.json({
+        success: true,
+        message: `Recovery code generated for ${sanitizedEmail}.`,
+        recoveryCode: resetData.code,
+        expiresInMinutes: 15,
+        email: sanitizedEmail
+      });
+    } catch (err) {
+      console.error('[Server:Auth] Forgot password error:', err);
+      return res.status(500).json({ error: GENERIC_ERRORS.SERVER_ERROR });
+    }
+  });
+
+  // ==========================================================================
+  // AUTH ENDPOINT: RESET PASSWORD (VERIFY CODE & UPDATE PASSWORD)
+  // ==========================================================================
+  app.post('/api/auth/reset-password', async (req: Request, res: Response) => {
+    try {
+      const { email, code, newPassword } = req.body || {};
+      const emailValidation = validateEmail(email);
+      if (!emailValidation.isValid) {
+        return res.status(400).json({ error: emailValidation.error, code: 'INVALID_EMAIL' });
+      }
+
+      const sanitizedEmail = emailValidation.sanitizedValue!;
+
+      if (typeof code !== 'string' || !code.trim()) {
+        return res.status(400).json({ error: 'Recovery code is required.', code: 'MISSING_CODE' });
+      }
+
+      const passwordValidation = validatePassword(newPassword);
+      if (!passwordValidation.isValid) {
+        return res.status(400).json({ error: passwordValidation.error, code: 'INVALID_PASSWORD' });
+      }
+
+      const isCodeValid = authStore.verifyResetCode(sanitizedEmail, code);
+      if (!isCodeValid) {
+        console.warn(`[Server:Auth] Invalid or expired recovery code submitted for "${sanitizedEmail}"`);
+        return res.status(400).json({
+          error: 'The recovery code is invalid or has expired (valid for 15 minutes). Please request a new code.',
+          code: 'INVALID_RESET_CODE'
+        });
+      }
+
+      const newHash = await hashPassword(passwordValidation.sanitizedValue!);
+      const updated = authStore.updatePassword(sanitizedEmail, newHash);
+      if (!updated) {
+        return res.status(500).json({ error: 'Failed to update account password.', code: 'UPDATE_FAILED' });
+      }
+
+      // Reset any login failure limits
+      loginRateLimiter.recordSuccess(req, sanitizedEmail);
+      loginRateLimiter.resetEmailAttempts(sanitizedEmail);
+
+      const user = authStore.findByEmail(sanitizedEmail)!;
+      console.log(`[Server:Auth] Password successfully updated for user "${sanitizedEmail}"`);
+
+      // Generate fresh token
+      const token = generateAuthToken({
+        sub: user.id,
+        email: user.email,
+        name: user.name
+      });
+
+      return res.json({
+        success: true,
+        message: 'Password reset successfully! You are now securely signed in.',
+        token,
+        user: {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          createdAt: user.createdAt,
+          lastLoginAt: user.lastLoginAt,
+          savedBookmarks: user.savedBookmarks || [],
+          personalNotes: user.personalNotes || {}
+        }
+      });
+    } catch (err) {
+      console.error('[Server:Auth] Reset password error:', err);
       return res.status(500).json({ error: GENERIC_ERRORS.SERVER_ERROR });
     }
   });

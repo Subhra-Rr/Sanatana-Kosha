@@ -138,20 +138,22 @@ class LoginRateLimiter {
   private ipRecords: Map<string, RateLimitRecord> = new Map();
   private emailRecords: Map<string, RateLimitRecord> = new Map();
 
-  private readonly maxFailedAttempts = 5;
-  private readonly windowMs = 15 * 60 * 1000; // 15 minutes window
-  private readonly lockoutDurationMs = 15 * 60 * 1000; // 15 minutes lockout
+  private readonly maxFailedAttempts = 10;
+  private readonly windowMs = 10 * 60 * 1000; // 10 minutes window
+  private readonly lockoutDurationMs = 3 * 60 * 1000; // 3 minutes lockout
 
   constructor() {
     // Periodically evict expired records to prevent unbounded memory growth
-    setInterval(() => this.cleanup(), 10 * 60 * 1000);
+    setInterval(() => this.cleanup(), 5 * 60 * 1000);
   }
 
-  private getKey(req: Request, email?: string): { ipKey: string; emailKey?: string } {
+  private getKey(req: Request, email?: string): { ipKey?: string; emailKey?: string } {
     const forwarded = req.headers['x-forwarded-for'];
-    const ip = typeof forwarded === 'string' ? forwarded.split(',')[0].trim() : req.socket.remoteAddress || '127.0.0.1';
+    const ip = typeof forwarded === 'string' ? forwarded.split(',')[0].trim() : req.socket.remoteAddress || '';
+    const isLoopback = !ip || ip === '127.0.0.1' || ip === '::1' || ip === '::ffff:127.0.0.1' || ip === 'localhost';
+
     return {
-      ipKey: `ip:${ip}`,
+      ipKey: isLoopback ? undefined : `ip:${ip}`,
       emailKey: email ? `email:${email.toLowerCase().trim()}` : undefined
     };
   }
@@ -164,7 +166,7 @@ class LoginRateLimiter {
     const { ipKey, emailKey } = this.getKey(req, email);
     const now = Date.now();
 
-    for (const key of [ipKey, emailKey].filter(Boolean) as string[]) {
+    for (const key of [emailKey, ipKey].filter(Boolean) as string[]) {
       const store = key.startsWith('ip:') ? this.ipRecords : this.emailRecords;
       const record = store.get(key);
 
@@ -194,7 +196,7 @@ class LoginRateLimiter {
     const { ipKey, emailKey } = this.getKey(req, email);
     const now = Date.now();
 
-    for (const key of [ipKey, emailKey].filter(Boolean) as string[]) {
+    for (const key of [emailKey, ipKey].filter(Boolean) as string[]) {
       const store = key.startsWith('ip:') ? this.ipRecords : this.emailRecords;
       const record = store.get(key);
 
@@ -219,9 +221,17 @@ class LoginRateLimiter {
    */
   public recordSuccess(req: Request, email?: string): void {
     const { ipKey, emailKey } = this.getKey(req, email);
-    this.ipRecords.delete(ipKey);
+    if (ipKey) {
+      this.ipRecords.delete(ipKey);
+    }
     if (emailKey) {
       this.emailRecords.delete(emailKey);
+    }
+  }
+
+  public resetEmailAttempts(email: string): void {
+    if (email) {
+      this.emailRecords.delete(`email:${email.toLowerCase().trim()}`);
     }
   }
 

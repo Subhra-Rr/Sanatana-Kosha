@@ -18,5 +18,25 @@
     "lastLoginAt": "2026-09-13T05:30:00.483Z",
     "savedBookmarks": [],
     "personalNotes": {}
+  },
+  {
+    "id": "user-99f4d4a4-8361-4bc8-8e23-d8e8b1e46fa4",
+    "name": "Subhradeet Sabat",
+    "email": "sdsabat2006@gmail.com",
+    "passwordHash": "$2b$12$f35ewaJXfDIWog4k1XnGaubdcM83QheQUYP2G6sonR532GMU.ABmi",
+    "createdAt": "2026-09-13T05:35:40.572Z",
+    "lastLoginAt": "2026-09-13T05:35:59.314Z",
+    "savedBookmarks": [],
+    "personalNotes": {}
+  },
+  {
+    "id": "user-ea74bf65-262e-4487-9625-a83d7b18229f",
+    "name": "Tester",
+    "email": "tester_1789285959444@example.com",
+    "passwordHash": "$2b$12$27DxrBW3inUhLK8xEvPfx.7G3sP96qzF4xn0Ljbte6AiBQuR0ZzW6",
+    "createdAt": "2026-09-13T07:52:39.876Z",
+    "lastLoginAt": "2026-09-13T07:52:41.483Z",
+    "savedBookmarks": [],
+    "personalNotes": {}
   }
 ]

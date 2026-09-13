@@ -141,6 +141,58 @@ class AuthStore {
     return newUser;
   }
 
+  // In-memory cache of active password reset codes: email -> { code, expiresAt }
+  private resetCodes: Map<string, { code: string; expiresAt: number }> = new Map();
+
+  public createPasswordResetCode(email: string): { code: string; expiresAt: number } | null {
+    if (!email) return null;
+    const cleanEmail = email.toLowerCase().trim();
+    const user = this.findByEmail(cleanEmail);
+    if (!user) return null;
+
+    // Generate secure 6-digit numeric recovery code
+    const code = Math.floor(100000 + Math.random() * 900000).toString();
+    const expiresAt = Date.now() + 15 * 60 * 1000; // 15 minutes validity
+    this.resetCodes.set(cleanEmail, { code, expiresAt });
+    console.log(`[Server:AuthStore] Generated recovery code for ${cleanEmail}: ${code} (expires in 15 mins)`);
+    return { code, expiresAt };
+  }
+
+  public verifyResetCode(email: string, code: string): boolean {
+    if (!email || !code) return false;
+    const cleanEmail = email.toLowerCase().trim();
+    const record = this.resetCodes.get(cleanEmail);
+    if (!record) {
+      console.warn(`[Server:AuthStore] No recovery code found for ${cleanEmail}`);
+      return false;
+    }
+    if (Date.now() > record.expiresAt) {
+      this.resetCodes.delete(cleanEmail);
+      console.warn(`[Server:AuthStore] Recovery code for ${cleanEmail} has expired`);
+      return false;
+    }
+    const isValid = record.code.trim() === code.trim();
+    console.log(`[Server:AuthStore] Code validation for ${cleanEmail}: ${isValid ? 'VALID' : 'INVALID'}`);
+    return isValid;
+  }
+
+  public updatePassword(email: string, newPasswordHash: string): boolean {
+    if (!email || !newPasswordHash) return false;
+    const cleanEmail = email.toLowerCase().trim();
+    const user = this.findByEmail(cleanEmail);
+    if (!user) {
+      console.warn(`[Server:AuthStore] Cannot update password: User ${cleanEmail} not found`);
+      return false;
+    }
+
+    user.passwordHash = newPasswordHash;
+    user.lastLoginAt = new Date().toISOString();
+    this.resetCodes.delete(cleanEmail);
+    this.persist();
+    console.log(`[Server:AuthStore] Successfully updated password for user ${cleanEmail} (id: ${user.id})`);
+    return true;
+  }
+
   public updateLastLogin(id: string): void {
     const user = this.findById(id);
     if (user) {

@@ -28,6 +28,7 @@ interface AppContextType {
   updateReadingProgress: (itemId: string, verseIndex: number, percentage: number) => Promise<void>;
   // Auth & Security state
   currentUser: AuthUser | null;
+  isAuthReady: boolean;
   isAuthModalOpen: boolean;
   openAuthModal: () => void;
   closeAuthModal: () => void;
@@ -45,7 +46,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [isDroneActive, setIsDroneActive] = useState(false);
   const [bookmarks, setBookmarks] = useState<UserBookmark[]>([]);
   const [readingProgress, setReadingProgress] = useState<Record<string, UserReadingProgress>>({});
-  const [currentUser, setCurrentUser] = useState<AuthUser | null>(authService.getUser());
+  const [currentUser, setCurrentUser] = useState<AuthUser | null>(() => {
+    const cached = authService.getUser();
+    console.log('[AppProvider] Initial auth state bootstrap from localStorage:', cached ? cached.email : 'No session');
+    return cached;
+  });
+  const [isAuthReady, setIsAuthReady] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
   useEffect(() => {
@@ -54,10 +60,27 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     document.documentElement.setAttribute('data-theme', 'lamp-night');
     document.documentElement.style.colorScheme = 'dark';
 
-    // Verify token validity and load current authenticated user
-    authService.checkSession().then((user) => {
-      if (user) setCurrentUser(user);
+    // Subscribe to multi-tab or runtime auth updates
+    const unsubscribeAuth = authService.subscribe((updatedUser) => {
+      console.log('[AppProvider] AuthService state changed. User:', updatedUser ? updatedUser.email : 'Logged out');
+      setCurrentUser(updatedUser);
     });
+
+    // Verify token validity and refresh current authenticated user
+    console.log('[AppProvider] Validating stored session with server...');
+    authService.checkSession()
+      .then((user) => {
+        console.log('[AppProvider] Server session validation result:', user ? `Authenticated as ${user.email}` : 'Guest');
+        if (user) {
+          setCurrentUser(user);
+        }
+      })
+      .catch((err) => {
+        console.warn('[AppProvider] Session check encountered error:', err);
+      })
+      .finally(() => {
+        setIsAuthReady(true);
+      });
 
     // Load initial storage data
     storageService.getBookmarks().then(setBookmarks);
@@ -71,7 +94,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       }
     };
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      unsubscribeAuth();
+    };
   }, []);
 
   const openAuthModal = () => setIsAuthModalOpen(true);
@@ -158,6 +184,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         readingProgress,
         updateReadingProgress,
         currentUser,
+        isAuthReady,
         isAuthModalOpen,
         openAuthModal,
         closeAuthModal,
