@@ -219,7 +219,7 @@ export const DailyShloka: React.FC = () => {
           <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between bg-stone-900/80 p-4 rounded-2xl border border-amber-800/20">
             {/* Category Filter Chips */}
             <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 text-xs font-serif">
-              {['All', 'Shiva', 'Vishnu & Avatars', 'Devi & Shakti', 'Ganesha & Hanuman', 'Vedic & Solar', 'Health & Wisdom'].map(cat => (
+              {['All', 'Vedic Suktas & Shanti', 'Classical Stotras', 'Shiva', 'Vishnu & Avatars', 'Devi & Shakti', 'Ganesha & Hanuman', 'Health & Wisdom'].map(cat => (
                 <button
                   key={cat}
                   onClick={() => setMantraCategory(cat)}
@@ -315,20 +315,86 @@ export const DailyShloka: React.FC = () => {
 
                     {/* Collapsible Details */}
                     {isExpanded && (
-                      <div className="space-y-2 pt-2 border-t border-amber-900/10 text-xs font-serif animate-fadeIn">
+                      <div className="space-y-3 pt-2 border-t border-amber-900/10 text-xs font-serif animate-fadeIn">
+                        {/* Textual & Vedic Metadata Bar */}
+                        {(m.rishi || m.devata || m.chandas || m.veda) && (
+                          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 p-2.5 rounded-xl bg-stone-950/60 border border-amber-900/20 text-[11px]">
+                            {m.rishi && (
+                              <div>
+                                <span className="text-amber-500 font-semibold block">Rishi (Seer):</span>
+                                <span className="text-stone-300">{m.rishi}</span>
+                              </div>
+                            )}
+                            {m.devata && (
+                              <div>
+                                <span className="text-amber-500 font-semibold block">Devata (Deity):</span>
+                                <span className="text-stone-300">{m.devata}</span>
+                              </div>
+                            )}
+                            {m.chandas && (
+                              <div>
+                                <span className="text-amber-500 font-semibold block">Chandas (Meter):</span>
+                                <span className="text-stone-300">{m.chandas}</span>
+                              </div>
+                            )}
+                            {m.veda && (
+                              <div>
+                                <span className="text-amber-500 font-semibold block">Veda & Shakha:</span>
+                                <span className="text-stone-300">{m.veda} {m.shakha ? `(${m.shakha})` : ''}</span>
+                              </div>
+                            )}
+                          </div>
+                        )}
+
+                        {/* Word-by-Word Analysis (Padaccheda & Anvaya) */}
+                        {m.wordByWord && m.wordByWord.length > 0 && (
+                          <div className="p-3 bg-stone-950/60 rounded-xl border border-amber-900/20 space-y-2">
+                            <span className="font-bold text-amber-300 block text-[11px] uppercase tracking-wider">
+                              Word-by-Word Analysis (पदच्छेद व अन्वय)
+                            </span>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px]">
+                              {m.wordByWord.map((w, idx) => (
+                                <div key={idx} className="p-1.5 rounded-lg bg-stone-900/80 border border-amber-950/50 flex flex-col gap-0.5">
+                                  <div className="flex items-baseline justify-between gap-1">
+                                    <span className="font-bold text-amber-200 sanskrit-font">{w.sanskrit}</span>
+                                    <span className="text-[10px] text-amber-400/80 italic font-mono">{w.iast}</span>
+                                  </div>
+                                  <span className="text-stone-300 text-[10.5px] leading-tight">{w.meaning}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
                         <div className="p-3 bg-amber-500/10 rounded-xl space-y-1">
                           <span className="font-bold text-amber-300 block">Significance:</span>
-                          <p className="text-stone-300">{m.significance}</p>
+                          <p className="text-stone-300 leading-relaxed">{m.significance}</p>
                         </div>
 
                         <div className="p-3 bg-amber-500/10 rounded-xl space-y-1">
                           <span className="font-bold text-amber-300 block">Benefits & Best Time:</span>
-                          <p className="text-stone-300">{m.chantingBenefits} {m.bestTime && `• Best Time: ${m.bestTime}`}</p>
+                          <p className="text-stone-300 leading-relaxed">{m.chantingBenefits} {m.bestTime && `• Best Time: ${m.bestTime}`}</p>
                         </div>
+
+                        {/* Related Tags */}
+                        {(m.relatedScriptures || m.relatedTemples) && (
+                          <div className="flex flex-wrap items-center gap-1.5 text-[10px] pt-1">
+                            {m.relatedScriptures?.map((s, idx) => (
+                              <span key={idx} className="px-2 py-0.5 rounded-md bg-amber-900/30 text-amber-300 border border-amber-800/30">
+                                📖 {s}
+                              </span>
+                            ))}
+                            {m.relatedTemples?.map((t, idx) => (
+                              <span key={idx} className="px-2 py-0.5 rounded-md bg-stone-800 text-stone-300 border border-stone-700">
+                                🛕 {t}
+                              </span>
+                            ))}
+                          </div>
+                        )}
 
                         {m.sourceScripture && (
                           <div className="text-right text-[10px] text-amber-400 font-medium">
-                            Scripture Source: {m.sourceScripture}
+                            Source Citation: {m.sourceScripture}
                           </div>
                         )}
                       </div>

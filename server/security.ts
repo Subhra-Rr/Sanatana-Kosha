@@ -252,6 +252,51 @@ class LoginRateLimiter {
 
 export const loginRateLimiter = new LoginRateLimiter();
 
+/**
+ * IP-based Rate Limiter for Gemini AI Assistant endpoints.
+ * Protects against bot scraping, API budget exhaustion, and DDoS attacks.
+ */
+class AiAssistantRateLimiter {
+  private ipRequests: Map<string, { count: number; resetTime: number }> = new Map();
+  private readonly maxRequestsPerMinute = 20;
+  private readonly windowMs = 60 * 1000;
+
+  constructor() {
+    setInterval(() => this.cleanup(), 60 * 1000);
+  }
+
+  public checkLimit(req: Request): { allowed: boolean; retryAfterSeconds?: number } {
+    const forwarded = req.headers['x-forwarded-for'];
+    const ip = typeof forwarded === 'string' ? forwarded.split(',')[0].trim() : req.socket.remoteAddress || 'unknown';
+    const now = Date.now();
+    const record = this.ipRequests.get(ip);
+
+    if (!record || now > record.resetTime) {
+      this.ipRequests.set(ip, { count: 1, resetTime: now + this.windowMs });
+      return { allowed: true };
+    }
+
+    if (record.count >= this.maxRequestsPerMinute) {
+      const retryAfterSeconds = Math.max(1, Math.ceil((record.resetTime - now) / 1000));
+      return { allowed: false, retryAfterSeconds };
+    }
+
+    record.count += 1;
+    return { allowed: true };
+  }
+
+  private cleanup(): void {
+    const now = Date.now();
+    for (const [ip, record] of this.ipRequests.entries()) {
+      if (now > record.resetTime) {
+        this.ipRequests.delete(ip);
+      }
+    }
+  }
+}
+
+export const aiAssistantRateLimiter = new AiAssistantRateLimiter();
+
 // ============================================================================
 // SECURITY IMPLEMENTATION 3: ENCRYPT THE PASSWORD (BCRYPT SALTED HASHING)
 // ============================================================================

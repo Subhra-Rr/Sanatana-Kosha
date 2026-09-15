@@ -14,6 +14,17 @@ export type ScriptureCategory =
   | 'festival' 
   | 'sanskrit';
 
+export type AttributionStatus = 
+  | 'Primary Text' 
+  | 'Traditional Attribution' 
+  | 'Commentarial Source' 
+  | 'Sectarian Tradition' 
+  | 'Regional Tradition' 
+  | 'Later Composition' 
+  | 'Scholarly Reconstruction' 
+  | 'Attribution Disputed' 
+  | 'Source Uncertain';
+
 export interface SourceCitation {
   id: string;
   sourceName: string;
@@ -22,6 +33,7 @@ export interface SourceCitation {
   historicalPeriod?: string;
   referenceUrl?: string;
   type: 'primary' | 'commentary' | 'academic' | 'manuscript' | 'archive';
+  attributionStatus?: AttributionStatus;
 }
 
 export interface VerseCommentary {
@@ -43,6 +55,20 @@ export interface Verse {
   keyConcepts?: string[];
   lifeLessons?: string[];
   citations?: SourceCitation[];
+  // Authentic textual metadata
+  veda?: string;
+  shakha?: string;
+  mandala?: number | string;
+  sukta?: number | string;
+  kanda?: number | string;
+  anuvaka?: number | string;
+  rishi?: string;
+  devata?: string;
+  chandas?: string;
+  svaraRecitation?: string;
+  attributionStatus?: AttributionStatus;
+  sourceProvenance?: string;
+  relatedConcepts?: string[];
 }
 
 export interface GitaChapter {
@@ -102,6 +128,9 @@ export interface UpanishadItem {
   sanskritName: string;
   associatedVeda: 'Rigveda' | 'Yajurveda' | 'Samaveda' | 'Atharvaveda';
   isPrincipal: boolean;
+  classification?: 'Mukhya (Principal)' | 'Samanya Vedanta' | 'Yoga' | 'Sannyasa' | 'Shaiva' | 'Vaishnava' | 'Shakta';
+  muktikaNumber?: number;
+  shakha?: string;
   mahavakya?: {
     sanskrit: string;
     transliteration: string;
@@ -113,6 +142,10 @@ export interface UpanishadItem {
   centralDialogue?: string;
   versesCount: number;
   citations: SourceCitation[];
+  majorConcepts?: string[];
+  commentarialTraditions?: { acharya: string; commentaryName: string; summary: string }[];
+  relatedGitaPassages?: string[];
+  attributionStatus?: AttributionStatus;
 }
 
 export interface EpicSection {
@@ -151,6 +184,14 @@ export interface PuranaItem {
   synopsis: string;
   notableStories: string[];
   citations: SourceCitation[];
+  iast?: string;
+  traditionalClassification?: string;
+  textualDivisions?: string[];
+  cosmologyThemes?: string[];
+  pilgrimageTirthas?: string[];
+  associatedFestivals?: string[];
+  associatedTemples?: string[];
+  attributionStatus?: AttributionStatus;
 }
 
 export interface PhilosophicalSchool {
@@ -170,6 +211,11 @@ export interface PhilosophicalSchool {
   pramanasAccepted?: string[];
   keyScripturalCitations: string[];
   majorCommentators: string[];
+  epistemologySummary?: string;
+  metaphysicsSummary?: string;
+  liberationView?: string;
+  majorCommentaries?: { commentator: string; work: string; century: string; contribution: string }[];
+  debatesWithOthers?: string[];
 }
 
 export interface ScripturalDebateTopic {

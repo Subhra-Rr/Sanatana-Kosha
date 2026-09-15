@@ -252,7 +252,7 @@ const KnowledgeNodeCard: React.FC<KnowledgeNodeCardProps> = ({
       {/* RECURSIVE CHILDREN RENDER */}
       {hasChildren && isExpanded && (
         <div
-          className="mt-3 space-y-3 pl-4 sm:pl-6 border-l-2 border-dashed border-amber-800/20 dark:border-amber-500/20"
+          className="mt-3 space-y-3 pl-2 sm:pl-4 md:pl-6 border-l-2 border-dashed border-amber-800/20 dark:border-amber-500/20"
         >
           {visibleChildren.map((childNode) => (
             <KnowledgeNodeCard

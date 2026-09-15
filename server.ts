@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import path from 'path';
 import { createServer as createViteServer } from 'vite';
 import { GoogleGenAI } from '@google/genai';
@@ -8,6 +8,7 @@ import {
   validateName,
   validatePrompt,
   loginRateLimiter,
+  aiAssistantRateLimiter,
   hashPassword,
   verifyPassword,
   dummyTimingSafeCompare,
@@ -22,7 +23,7 @@ async function startServer() {
   const app = express();
   const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
 
-  // Configure reverse proxy trust for container environments
+  // Configure reverse proxy trust for container environments & Render
   app.set('trust proxy', 1);
 
   // Initialize auth store
@@ -33,11 +34,32 @@ async function startServer() {
   app.use(express.static(path.join(process.cwd(), 'public')));
 
   // Standard Security Headers
-  app.use((_req, res, next) => {
+  // Note: We do NOT set X-Frame-Options or frame-ancestors: 'self'
+  // so the site works inside AI Studio iframe preview and embedded environments
+  app.use((_req: Request, res: Response, next: NextFunction) => {
     res.setHeader('X-Content-Type-Options', 'nosniff');
-    res.setHeader('X-Frame-Options', 'SAMEORIGIN');
     res.setHeader('X-XSS-Protection', '1; mode=block');
     res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+    res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=(), payment=()');
+    
+    // Strict yet compatible CSP for fonts, images, and Vite assets
+    res.setHeader(
+      'Content-Security-Policy',
+      "default-src 'self'; " +
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval'; " +
+      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
+      "font-src 'self' https://fonts.gstatic.com data:; " +
+      "img-src 'self' data: https: blob:; " +
+      "media-src 'self' data: blob:; " +
+      "connect-src 'self' https://generativelanguage.googleapis.com; " +
+      "object-src 'none'; " +
+      "base-uri 'self'; " +
+      "form-action 'self';"
+    );
+
+    if (process.env.NODE_ENV === 'production') {
+      res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+    }
     next();
   });
 
@@ -373,12 +395,25 @@ async function startServer() {
   // ==========================================================================
   // API Route for AI Spiritual Assistant with Gemini
   // 1. Server-side validation on prompt
+  // 2. IP-based rate limiting
+  // 3. Timeout protection (25s)
+  // 4. Secure proxying — GEMINI_API_KEY never leaves server
   // ==========================================================================
-  app.post('/api/ai-assistant', async (req, res) => {
+  app.post('/api/ai-assistant', async (req: Request, res: Response) => {
     try {
+      // 1. Rate limiting check
+      const rateLimitCheck = aiAssistantRateLimiter.checkLimit(req);
+      if (!rateLimitCheck.allowed) {
+        return res.status(429).json({
+          error: 'AI assistant request limit reached. Please wait a moment before sending another query.',
+          code: 'RATE_LIMITED',
+          retryAfterSeconds: rateLimitCheck.retryAfterSeconds || 30
+        });
+      }
+
       const { prompt } = req.body || {};
 
-      // 1. Server-side validation
+      // 2. Server-side validation
       const promptValidation = validatePrompt(prompt);
       if (!promptValidation.isValid) {
         return res.status(400).json({ error: promptValidation.error });
@@ -388,7 +423,7 @@ async function startServer() {
       const apiKey = process.env.GEMINI_API_KEY;
 
       if (!apiKey) {
-        return res.status(500).json({ error: 'GEMINI_API_KEY environment variable is missing.' });
+        return res.status(500).json({ error: 'AI spiritual assistant service is temporarily unconfigured.' });
       }
 
       const ai = new GoogleGenAI({
@@ -413,14 +448,20 @@ When answering ANY user query:
 
 Never return only citations or brief bullet stubs. Always deliver a rich, comprehensive, illuminating answer first.`;
 
-      const response = await ai.models.generateContent({
-        model: 'gemini-3.6-flash',
+      // Timeout safety: 25 seconds
+      const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('UPSTREAM_TIMEOUT')), 25000)
+      );
+
+      const generatePromise = ai.models.generateContent({
+        model: 'gemini-3.8-flash',
         contents: sanitizedPrompt,
         config: {
           systemInstruction
         }
       });
 
+      const response = await Promise.race([generatePromise, timeoutPromise]) as { text?: string };
       const reply = response.text || 'No response generated.';
       
       // Extract citations if present or supply formatted list
@@ -434,13 +475,16 @@ Never return only citations or brief bullet stubs. Always deliver a rich, compre
           .slice(0, 5);
       }
 
-      res.json({
+      return res.json({
         reply,
         citations
       });
     } catch (err: unknown) {
-      console.error('Gemini API Error:', err);
-      res.status(500).json({ error: 'Failed to process spiritual knowledge query.' });
+      console.error('[Server:AI Assistant Error]', err instanceof Error ? err.message : err);
+      if (err instanceof Error && err.message === 'UPSTREAM_TIMEOUT') {
+        return res.status(504).json({ error: 'Upstream response timed out. Please try your query again.' });
+      }
+      return res.status(500).json({ error: 'Unable to process spiritual knowledge inquiry at this moment.' });
     }
   });
 
@@ -463,6 +507,14 @@ Never return only citations or brief bullet stubs. Always deliver a rich, compre
       res.sendFile(path.join(distPath, 'index.html'));
     });
   }
+
+  // Global Error Handler Middleware
+  app.use((err: unknown, _req: Request, res: Response, _next: NextFunction) => {
+    console.error('[Server:GlobalError]', err);
+    if (!res.headersSent) {
+      res.status(500).json({ error: GENERIC_ERRORS.SERVER_ERROR });
+    }
+  });
 
   app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running on http://localhost:${PORT}`);

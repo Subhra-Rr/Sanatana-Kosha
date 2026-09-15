@@ -13,11 +13,12 @@ import { TEMPLES_DATA } from '../data/temples';
 import { FESTIVALS_DATA } from '../data/festivals';
 import { HISTORICAL_TIMELINE_DATA } from '../data/timelines';
 import { GENEALOGY_DATA } from '../data/genealogy';
+import { MANTRAS_DATA } from '../data/mantras';
 import { ScriptureCategory } from '../types';
 
 export interface SearchResultItem {
   id: string;
-  type: ScriptureCategory | 'character' | 'timeline' | 'genealogy' | 'peetha';
+  type: ScriptureCategory | 'character' | 'timeline' | 'genealogy' | 'peetha' | 'mantra';
   title: string;
   sanskritTitle?: string;
   subtitle?: string;
@@ -275,6 +276,21 @@ function compileMasterDataset(): SearchResultItem[] {
       snippet: g.summary,
       categoryName: 'Genealogy',
       linkUrl: `/genealogy`
+    });
+  });
+
+  // Mantras, Suktas & Stotras
+  MANTRAS_DATA.forEach(m => {
+    master.push({
+      id: m.id,
+      type: 'mantra',
+      title: m.title,
+      sanskritTitle: m.deitySanskrit,
+      subtitle: `${m.category} • ${m.deity}`,
+      snippet: `${m.translation} — ${m.significance}`,
+      categoryName: m.category === 'Vedic Suktas & Shanti' ? 'Vedic Sukta / Shanti Mantra' : (m.category === 'Classical Stotras' ? 'Classical Stotra' : 'Sacred Mantra'),
+      tags: [m.deity, m.category, ...(m.relatedConcepts || []), ...(m.relatedScriptures || [])],
+      linkUrl: `/?tab=mantras&id=${m.id}`
     });
   });
 

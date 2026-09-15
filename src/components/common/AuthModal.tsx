@@ -243,11 +243,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-md bg-stone-900 border border-amber-800/40 rounded-3xl shadow-2xl overflow-hidden my-auto"
+        className="relative w-full max-w-md bg-stone-900 border border-amber-800/40 rounded-3xl shadow-2xl overflow-hidden my-auto max-h-[92dvh] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Sacred Header Accent */}
-        <div className="bg-gradient-to-r from-amber-950 via-stone-900 to-amber-950 p-5 sm:p-6 border-b border-amber-800/30 relative">
+        <div className="bg-gradient-to-r from-amber-950 via-stone-900 to-amber-950 p-5 sm:p-6 border-b border-amber-800/30 relative shrink-0">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <Diya size="sm" />
@@ -279,6 +279,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
           </div>
         </div>
 
+        <div className="flex-1 overflow-y-auto overscroll-contain">
         {/* Mode Toggle Tabs (Shown during Login / Register) */}
         {(mode === 'login' || mode === 'register') && (
           <div className="flex border-b border-amber-900/20 bg-stone-950/50 p-1">
@@ -732,6 +733,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
             <li><strong>Session Persistence:</strong> Persistent JWT architecture resilient across tab and browser reloads.</li>
             <li><strong>Salted Encryption:</strong> Blowfish-based bcrypt hashing (12 rounds of cryptographic salt).</li>
           </ul>
+        </div>
         </div>
       </div>
     </div>
