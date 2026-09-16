@@ -14,7 +14,7 @@ export const AcharyasPage: React.FC = () => {
   const activeLineage = GURU_PARAMPARA_DATA.find(l => l.id === selectedLineageId) || GURU_PARAMPARA_DATA[0];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 animate-fade-in">
+    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 animate-fade-in">
       {/* Title */}
       <div className="text-center space-y-3">
         <h1 className="font-serif text-3xl sm:text-5xl font-bold text-amber-950 dark:text-amber-100 sanskrit-font">
@@ -26,7 +26,7 @@ export const AcharyasPage: React.FC = () => {
       </div>
 
       {/* Tabs */}
-      <div className="max-w-4xl mx-auto bg-amber-100/60 dark:bg-stone-900/80 border border-amber-800/20 rounded-2xl p-2.5 sm:p-3 shadow-xl backdrop-blur-sm">
+      <div className="w-full max-w-4xl mx-auto bg-amber-100/60 dark:bg-stone-900/80 border border-amber-800/20 rounded-2xl p-2.5 sm:p-3 shadow-xl backdrop-blur-sm">
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 text-xs sm:text-sm font-serif">
           <button
             onClick={() => setActiveTab('acharyas')}

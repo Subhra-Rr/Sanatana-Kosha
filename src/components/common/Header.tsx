@@ -45,20 +45,29 @@ export const Header: React.FC = () => {
   return (
     <header className="sticky top-0 z-40 w-full backdrop-blur-md bg-stone-950/90 border-b border-amber-500/20 transition-colors">
       {/* Top Utility Bar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2">
+      <div className="w-full max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-1.5 sm:gap-4">
         {/* Brand Logo & Name */}
-        <Link to="/" className="flex items-center gap-3 group shrink-0">
-          <Diya size="sm" />
-          <div className="flex flex-col">
-            <div className="flex items-center gap-2">
-              <span className="font-serif text-xl sm:text-2xl font-bold tracking-tight text-amber-100 group-hover:text-amber-400 transition-colors sanskrit-font">
+        <Link to="/" className="flex items-center gap-2 sm:gap-3 group shrink-0 min-w-0">
+          <div className="relative flex items-center justify-center shrink-0">
+            {/* Luminous Pulsing Saffron/Amber Divine Aura Halo */}
+            <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-amber-500/40 via-yellow-400/40 to-orange-500/40 blur-md opacity-75 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500 animate-pulse" />
+            <img
+              src="/favicon.svg"
+              alt="Sanatana Kosha Glowing Sacred AUM Emblem"
+              className="relative z-10 w-8 h-8 sm:w-10 sm:h-10 rounded-xl shadow-[0_0_15px_rgba(245,158,11,0.55)] border border-amber-400/50 group-hover:border-amber-300 transition-all duration-300 group-hover:scale-105"
+              referrerPolicy="no-referrer"
+            />
+          </div>
+          <div className="flex flex-col min-w-0">
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              <span className="font-serif text-lg sm:text-2xl font-bold tracking-tight text-amber-100 group-hover:text-amber-400 transition-colors sanskrit-font truncate">
                 सनातन कोष
               </span>
-              <span className="hidden sm:inline-block text-[10px] uppercase font-semibold tracking-widest px-2 py-0.5 rounded border border-amber-700/30 text-amber-300 bg-amber-500/10">
+              <span className="hidden sm:inline-block text-[10px] uppercase font-semibold tracking-widest px-2 py-0.5 rounded border border-amber-700/30 text-amber-300 bg-amber-500/10 shrink-0">
                 Treasury
               </span>
             </div>
-            <span className="text-[10px] text-amber-300/80 font-medium tracking-wide">
+            <span className="text-[9px] sm:text-[10px] text-amber-300/80 font-medium tracking-wide truncate">
               SANATANA KOSHA
             </span>
           </div>
@@ -67,24 +76,25 @@ export const Header: React.FC = () => {
         {/* Search Bar Trigger */}
         <button
           onClick={() => setIsSearchOpen(true)}
-          className="hidden md:flex items-center gap-3 px-4 py-1.5 rounded-full border border-amber-500/30 bg-stone-900/80 text-stone-300 hover:border-amber-600 transition-all text-xs w-64 lg:w-80 shadow-inner"
+          className="hidden md:flex items-center gap-3 px-4 py-1.5 rounded-full border border-amber-500/30 bg-stone-900/80 text-stone-300 hover:border-amber-600 transition-all text-xs w-60 lg:w-80 shadow-inner"
         >
-          <Search className="w-3.5 h-3.5 text-amber-400" />
-          <span className="flex-1 text-left font-serif">Search verses, acharyas, temples...</span>
+          <Search className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+          <span className="flex-1 text-left font-serif truncate">Search verses, acharyas, temples...</span>
           <kbd className="hidden lg:inline-block text-[10px] px-1.5 py-0.5 rounded bg-stone-800 text-stone-400 border border-stone-700 font-mono">
             ⌘K
           </kbd>
         </button>
 
         {/* Utility Controls */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1 sm:gap-2 shrink-0">
           {/* AI Spiritual Assistant Trigger */}
           <button
             onClick={() => setIsAiAssistantOpen(true)}
-            className="flex items-center gap-1.5 px-3 py-2 rounded-full bg-gradient-to-r from-amber-700 to-amber-900 text-amber-100 hover:from-amber-600 hover:to-amber-800 text-xs font-medium shadow-md transition-all border border-amber-400/30 active:scale-95 min-h-[48px] min-w-[48px] justify-center"
+            className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-full bg-gradient-to-r from-amber-700 to-amber-900 text-amber-100 hover:from-amber-600 hover:to-amber-800 text-xs font-medium shadow-md transition-all border border-amber-400/30 active:scale-95 min-h-[44px] min-w-[44px] justify-center"
+            title="Ask AI Spiritual Assistant"
           >
-            <Sparkles className="w-3.5 h-3.5 text-amber-300 animate-spin" style={{ animationDuration: '6s' }} />
-            <span className="inline">Ask AI</span>
+            <Sparkles className="w-3.5 h-3.5 text-amber-300 shrink-0 animate-spin" style={{ animationDuration: '6s' }} />
+            <span className="hidden sm:inline">Ask AI</span>
           </button>
 
           {/* User Account / Sign In Control */}
@@ -92,7 +102,7 @@ export const Header: React.FC = () => {
             <div className="relative">
               <button
                 onClick={() => setUserMenuOpen(!userMenuOpen)}
-                className="flex items-center gap-1.5 px-3 py-2 rounded-full bg-amber-950/80 hover:bg-amber-900/80 border border-amber-500/40 text-amber-200 text-xs font-serif font-medium transition-all min-h-[48px] min-w-[48px] justify-center"
+                className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-full bg-amber-950/80 hover:bg-amber-900/80 border border-amber-500/40 text-amber-200 text-xs font-serif font-medium transition-all min-h-[44px] min-w-[44px] justify-center"
                 title={`Signed in as ${currentUser.name}`}
               >
                 <div className="w-6 h-6 rounded-full bg-amber-700/60 text-amber-200 flex items-center justify-center text-[11px] font-bold">
@@ -114,7 +124,7 @@ export const Header: React.FC = () => {
                   <Link
                     to="/my-library"
                     onClick={() => setUserMenuOpen(false)}
-                    className="flex items-center gap-2 p-2.5 rounded-xl text-stone-300 hover:bg-amber-900/30 hover:text-amber-200 transition-colors min-h-[48px]"
+                    className="flex items-center gap-2 p-2.5 rounded-xl text-stone-300 hover:bg-amber-900/30 hover:text-amber-200 transition-colors min-h-[44px]"
                   >
                     <Bookmark className="w-4 h-4 text-amber-400" />
                     <span>My Library & Notes</span>
@@ -124,7 +134,7 @@ export const Header: React.FC = () => {
                       logout();
                       setUserMenuOpen(false);
                     }}
-                    className="w-full flex items-center gap-2 p-2.5 rounded-xl text-red-300 hover:bg-red-950/40 transition-colors text-left font-serif min-h-[48px]"
+                    className="w-full flex items-center gap-2 p-2.5 rounded-xl text-red-300 hover:bg-red-950/40 transition-colors text-left font-serif min-h-[44px]"
                   >
                     <LogOut className="w-4 h-4 text-red-400" />
                     <span>Sign Out (निर्गमनम्)</span>
@@ -135,7 +145,7 @@ export const Header: React.FC = () => {
           ) : (
             <button
               onClick={openAuthModal}
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-stone-900 hover:bg-stone-800 border border-amber-600/40 text-amber-300 text-xs font-serif font-semibold transition-all min-h-[48px] min-w-[48px] justify-center active:scale-95 shadow-sm"
+              className="flex items-center gap-1.5 px-3 py-1.5 sm:py-2 rounded-full bg-stone-900 hover:bg-stone-800 border border-amber-600/40 text-amber-300 text-xs font-serif font-semibold transition-all min-h-[44px] min-w-[44px] justify-center active:scale-95 shadow-sm"
               title="Sign in or create account"
             >
               <User className="w-3.5 h-3.5 text-amber-400" />
@@ -147,7 +157,7 @@ export const Header: React.FC = () => {
           <button
             onClick={() => setIsSearchOpen(true)}
             aria-label="Search"
-            className="md:hidden p-2.5 rounded-full text-amber-300 hover:bg-amber-500/10 active:scale-95 min-w-[48px] min-h-[48px] flex items-center justify-center"
+            className="md:hidden p-2 rounded-full text-amber-300 hover:bg-amber-500/10 active:scale-95 min-w-[44px] min-h-[44px] flex items-center justify-center"
           >
             <Search className="w-5 h-5" />
           </button>
@@ -156,7 +166,7 @@ export const Header: React.FC = () => {
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
-            className="lg:hidden p-2.5 rounded-full text-amber-300 hover:bg-amber-500/10 active:scale-95 min-w-[48px] min-h-[48px] flex items-center justify-center"
+            className="lg:hidden p-2 rounded-full text-amber-300 hover:bg-amber-500/10 active:scale-95 min-w-[44px] min-h-[44px] flex items-center justify-center"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -165,7 +175,7 @@ export const Header: React.FC = () => {
 
       {/* Primary Navigation Desktop Bar */}
       <nav className="hidden lg:block border-t border-amber-500/10 bg-stone-900/40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between text-xs">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between text-xs">
           <div className="flex items-center gap-1 overflow-x-auto py-2 scrollbar-none">
             {navLinks.map((link) => {
               const Icon = link.icon;
@@ -191,11 +201,26 @@ export const Header: React.FC = () => {
 
       {/* Mobile Navigation Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-stone-950/98 backdrop-blur-lg border-b border-amber-900/30 p-4 space-y-1 animate-fade-in shadow-xl max-h-[80vh] overflow-y-auto">
-          <div className="pb-2 mb-2 border-b border-amber-500/10">
-            <span className="text-xs font-serif font-bold text-amber-300 uppercase tracking-widest">
-              Navigation Treasury
-            </span>
+        <div className="lg:hidden bg-stone-950/98 backdrop-blur-lg border-b border-amber-900/30 p-4 space-y-1 animate-fade-in shadow-xl max-h-[85vh] overflow-y-auto">
+          {/* Mobile Drawer Brand Header */}
+          <div className="flex items-center gap-3 pb-3 mb-3 border-b border-amber-500/20">
+            <div className="relative flex items-center justify-center shrink-0">
+              <div className="absolute -inset-1 rounded-xl bg-amber-500/40 blur-sm animate-pulse" />
+              <img
+                src="/favicon.svg"
+                alt="Sanatana Kosha Glowing AUM"
+                className="relative z-10 w-9 h-9 rounded-xl border border-amber-400/60 shadow-[0_0_12px_rgba(245,158,11,0.6)]"
+                referrerPolicy="no-referrer"
+              />
+            </div>
+            <div>
+              <div className="font-serif text-base font-bold text-amber-100 sanskrit-font leading-tight">
+                सनातन कोष
+              </div>
+              <div className="text-[10px] text-amber-400/80 font-medium tracking-wider">
+                THE ETERNAL KNOWLEDGE TREASURY
+              </div>
+            </div>
           </div>
 
           {navLinks.map((link) => {

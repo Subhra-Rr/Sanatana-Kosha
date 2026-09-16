@@ -192,7 +192,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setCurrentUser
       }}
     >
-      <div className="theme-lamp-night dark min-h-screen bg-stone-950 text-amber-100 font-sans">
+      <div className="theme-lamp-night dark min-h-screen w-full max-w-full bg-stone-950 text-amber-100 font-sans overflow-x-hidden">
         {children}
         <AuthModal
           isOpen={isAuthModalOpen}

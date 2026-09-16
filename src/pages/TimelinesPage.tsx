@@ -12,7 +12,7 @@ export const TimelinesPage: React.FC = () => {
   );
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
       {/* Title */}
       <div className="text-center space-y-3">
         <h1 className="font-serif text-3xl sm:text-5xl font-bold text-amber-950 dark:text-amber-100 sanskrit-font">
@@ -24,7 +24,7 @@ export const TimelinesPage: React.FC = () => {
       </div>
 
       {/* Filter Category */}
-      <div className="max-w-3xl mx-auto bg-amber-100/60 dark:bg-stone-900/80 border border-amber-800/20 rounded-2xl p-4 sm:p-5 shadow-xl backdrop-blur-sm text-left sm:text-center space-y-3">
+      <div className="w-full max-w-3xl mx-auto bg-amber-100/60 dark:bg-stone-900/80 border border-amber-800/20 rounded-2xl p-4 sm:p-5 shadow-xl backdrop-blur-sm text-left sm:text-center space-y-3">
         <div className="flex items-center justify-between border-b border-amber-900/10 pb-2.5">
           <span className="text-xs font-bold uppercase tracking-wider text-amber-900 dark:text-amber-300 flex items-center gap-1.5">
             <Tag className="w-3.5 h-3.5 text-amber-600" /> Filter Eras & Topics

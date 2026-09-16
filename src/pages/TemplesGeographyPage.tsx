@@ -34,7 +34,7 @@ export const TemplesGeographyPage: React.FC = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-8 sm:space-y-10 overflow-x-hidden animate-fade-in">
+    <div className="w-full max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-8 sm:space-y-10 overflow-x-hidden animate-fade-in">
       {/* Title */}
       <div className="text-center space-y-3 px-2">
         <h1 className="font-serif text-2xl sm:text-4xl md:text-5xl font-bold text-amber-950 dark:text-amber-100 sanskrit-font leading-tight">
@@ -46,7 +46,7 @@ export const TemplesGeographyPage: React.FC = () => {
       </div>
 
       {/* Filter Category Bar */}
-      <div className="max-w-3xl mx-auto bg-amber-100/60 dark:bg-stone-900/80 border border-amber-800/20 rounded-2xl p-3.5 sm:p-4 shadow-xl backdrop-blur-sm">
+      <div className="w-full max-w-3xl mx-auto bg-amber-100/60 dark:bg-stone-900/80 border border-amber-800/20 rounded-2xl p-3.5 sm:p-4 shadow-xl backdrop-blur-sm">
         <div className="flex flex-wrap items-center justify-center gap-2 text-xs font-serif">
           {['all', 'char dham', 'jyotirlinga', 'shakti peetha', 'ancient temple'].map((cat) => (
             <button

@@ -49,13 +49,13 @@ export const HomePage: React.FC = () => {
 
 
   return (
-    <div className="space-y-16 pb-16">
+    <div className="w-full max-w-full space-y-16 pb-16 overflow-x-hidden">
       {/* Hero Section with Ancient Temple Atmosphere */}
-      <section className="relative min-h-[85vh] flex items-center justify-center pt-8 pb-16 px-4 bg-mandala border-b border-amber-900/15 overflow-hidden">
+      <section className="relative w-full min-h-[85vh] flex flex-col items-center justify-center pt-8 pb-16 px-4 bg-mandala border-b border-amber-900/15 overflow-hidden">
         {/* Soft Ambient Light Glow */}
         <div className="absolute inset-0 bg-gradient-to-b from-amber-500/10 via-amber-700/5 to-transparent pointer-events-none" />
 
-        <div className="relative max-w-5xl mx-auto text-center space-y-8 z-10">
+        <div className="relative w-full max-w-5xl mx-auto text-center space-y-8 z-10">
           {/* Animated Diya Banner */}
           <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-800/20 text-amber-200 text-xs font-serif shadow-sm">
             <Diya size="sm" />
@@ -64,17 +64,27 @@ export const HomePage: React.FC = () => {
           </div>
 
           {/* Main Title */}
-          <div className="space-y-3">
-            <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-amber-100 sanskrit-font leading-tight">
+          <div className="space-y-4 flex flex-col items-center">
+            {/* Glowing Sacred AUM Emblem in Hero */}
+            <div className="relative flex items-center justify-center my-1">
+              <div className="absolute -inset-3 rounded-full bg-gradient-to-r from-amber-500/30 via-yellow-400/30 to-orange-500/30 blur-xl animate-pulse" />
+              <img
+                src="/favicon.svg"
+                alt="Sanatana Kosha Sacred Glowing AUM"
+                className="relative z-10 w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-2xl shadow-[0_0_30px_rgba(245,158,11,0.6)] border border-amber-400/60 transition-transform duration-500 hover:scale-105"
+                referrerPolicy="no-referrer"
+              />
+            </div>
+            <h1 className="font-serif text-3xl sm:text-6xl md:text-7xl font-bold tracking-tight text-amber-100 sanskrit-font leading-tight">
               सनातन कोषः
             </h1>
-            <p className="text-sm sm:text-base md:text-lg text-amber-300/90 max-w-2xl mx-auto font-serif leading-relaxed">
+            <p className="text-xs sm:text-base md:text-lg text-amber-300/90 max-w-2xl mx-auto font-serif leading-relaxed px-2">
               The world's most comprehensive digital platform for Hindu philosophy, Vedic literature, scriptures, traditions, sacred geography, and spiritual heritage.
             </p>
           </div>
 
           {/* Rotating Vedas Selector Card */}
-          <div className="max-w-3xl mx-auto bg-stone-900/80 border border-amber-800/20 rounded-2xl p-4 sm:p-6 shadow-xl backdrop-blur-sm text-left">
+          <div className="w-full max-w-3xl mx-auto bg-stone-900/80 border border-amber-800/20 rounded-2xl p-4 sm:p-6 shadow-xl backdrop-blur-sm text-left">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4 border-b border-amber-900/10 pb-3">
               <span className="text-xs font-bold uppercase tracking-wider text-amber-300 flex items-center gap-1.5">
                 <Layers className="w-4 h-4 text-amber-400" /> The Four Vedas (चतुर्वेदाः)
@@ -146,7 +156,7 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* Today's Panchang & Comprehensive Daily Shloka / Mantra Hub */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         {/* Panchang Bar */}
         <div className="bg-stone-900/80 border border-amber-800/20 rounded-2xl p-5 shadow-md">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -198,7 +208,7 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* Main Knowledge Hub Modules Grid */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         <div className="text-center space-y-2">
           <h2 className="font-serif text-2xl sm:text-3xl font-bold text-amber-100 sanskrit-font">
             ज्ञानकोषविभागाः • Knowledge Sections
@@ -305,13 +315,13 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* Recursive Knowledge Graph Relationship Map */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <KnowledgeGraph />
       </section>
 
       {/* Interactive Popular Topics Knowledge Grid */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-        <div className="p-8 rounded-3xl bg-stone-900 border border-amber-800/20 shadow-xl space-y-6">
+      <section className="w-full max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 space-y-6">
+        <div className="p-4 sm:p-8 rounded-2xl sm:rounded-3xl bg-stone-900 border border-amber-800/20 shadow-xl space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-amber-900/15 pb-4">
             <div>
               <span className="text-xs font-bold uppercase tracking-widest text-amber-400">

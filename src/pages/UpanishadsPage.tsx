@@ -29,7 +29,7 @@ export const UpanishadsPage: React.FC = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
       {/* Title Header */}
       <div className="text-center space-y-3">
         <h1 className="font-serif text-3xl sm:text-5xl font-bold text-amber-950 dark:text-amber-100 sanskrit-font">
@@ -41,7 +41,7 @@ export const UpanishadsPage: React.FC = () => {
       </div>
 
       {/* Filter Tabs by Associated Veda */}
-      <div className="max-w-3xl mx-auto bg-amber-100/60 dark:bg-stone-900/80 border border-amber-800/20 rounded-2xl p-3.5 sm:p-4 shadow-xl backdrop-blur-sm">
+      <div className="w-full max-w-3xl mx-auto bg-amber-100/60 dark:bg-stone-900/80 border border-amber-800/20 rounded-2xl p-3.5 sm:p-4 shadow-xl backdrop-blur-sm">
         <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 text-xs font-serif">
           {['all', 'rigveda', 'yajurveda', 'samaveda', 'atharvaveda'].map((veda) => (
             <button

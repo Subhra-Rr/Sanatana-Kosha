@@ -8,7 +8,7 @@ export const EpicsPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'ramayana' | 'mahabharata' | 'characters'>('ramayana');
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
       {/* Title */}
       <div className="text-center space-y-3">
         <h1 className="font-serif text-3xl sm:text-5xl font-bold text-amber-950 dark:text-amber-100 sanskrit-font">

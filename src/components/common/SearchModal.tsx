@@ -48,17 +48,17 @@ export const SearchModal: React.FC = () => {
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-24 px-4 bg-stone-950/70 backdrop-blur-sm animate-fade-in">
-      <div className="w-full max-w-3xl bg-stone-900 border border-amber-900/30 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[80vh]">
+    <div className="fixed inset-0 z-50 flex items-start justify-center pt-4 sm:pt-20 px-2 sm:px-4 bg-stone-950/75 backdrop-blur-sm animate-fade-in">
+      <div className="w-full max-w-3xl bg-stone-900 border border-amber-900/30 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] sm:max-h-[80vh]">
         {/* Search Header */}
-        <div className="p-4 border-b border-amber-900/15 flex items-center gap-3">
+        <div className="p-3 sm:p-4 border-b border-amber-900/15 flex items-center gap-2 sm:gap-3">
           <Search className="w-5 h-5 text-amber-400 shrink-0" />
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search Sanskrit words, verse numbers, chapters, Acharyas, temples, philosophical concepts..."
-            className="flex-1 bg-transparent border-none outline-none text-stone-100 placeholder:text-stone-400 font-serif text-base min-h-[48px]"
+            placeholder="Search verses, acharyas, temples, concepts..."
+            className="flex-1 bg-transparent border-none outline-none text-stone-100 placeholder:text-stone-400 font-serif text-sm sm:text-base min-h-[44px]"
             autoFocus
           />
           {query && (

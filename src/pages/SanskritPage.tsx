@@ -52,7 +52,7 @@ export const SanskritPage: React.FC = () => {
   });
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8 animate-fade-in">
+    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8 animate-fade-in">
       {/* Title Header */}
       <div className="text-center space-y-3 max-w-3xl mx-auto">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-600/30 text-amber-800 dark:text-amber-300 text-xs font-serif font-semibold">
@@ -165,7 +165,7 @@ export const SanskritPage: React.FC = () => {
               </div>
               <button
                 onClick={() => audioService.speakSanskrit(selectedDictEntry.sanskrit)}
-                className="p-3 rounded-full bg-amber-700 text-white hover:bg-amber-600 transition-all shadow shrink-0 self-start sm:self-auto"
+                className="p-3 rounded-full bg-amber-700 text-white hover:bg-amber-600 transition-all shadow shrink-0 self-start sm:self-auto min-w-[44px] min-h-[44px] flex items-center justify-center"
                 title="Listen Pronunciation"
               >
                 <Volume2 className="w-5 h-5" />

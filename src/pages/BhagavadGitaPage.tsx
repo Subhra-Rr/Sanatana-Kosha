@@ -27,7 +27,7 @@ export const BhagavadGitaPage: React.FC = () => {
   const isBm = isBookmarked(`gita-${currentChapter.chapterNumber}-${currentVerse.verseNumber}`);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
       {/* Page Title */}
       <div className="text-center space-y-3">
         <h1 className="font-serif text-3xl sm:text-5xl font-bold text-amber-950 dark:text-amber-100 sanskrit-font">
@@ -148,7 +148,7 @@ export const BhagavadGitaPage: React.FC = () => {
 
           {/* Active Verse Detailed Showcase Card */}
           {currentVerse && (
-            <div className="bg-amber-50/90 dark:bg-stone-900 border border-amber-800/20 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+            <div className="bg-amber-50/90 dark:bg-stone-900 border border-amber-800/20 rounded-2xl p-4 sm:p-8 shadow-xl space-y-6">
               {/* Verse Header Actions */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-amber-900/10 pb-4">
                 <span className="font-serif text-sm font-bold text-amber-900 dark:text-amber-300 min-w-0">

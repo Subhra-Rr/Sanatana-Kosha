@@ -55,12 +55,12 @@ export const TopicKnowledgeModal: React.FC = () => {
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Header */}
-        <div className="px-6 py-5 bg-gradient-to-r from-amber-900 via-amber-950 to-stone-900 text-amber-100 flex items-start justify-between border-b border-amber-700/30 gap-3">
+        <div className="px-4 sm:px-6 py-4 sm:py-5 bg-gradient-to-r from-amber-900 via-amber-950 to-stone-900 text-amber-100 flex items-start justify-between border-b border-amber-700/30 gap-3">
           <div className="space-y-1 min-w-0 flex-1">
             <span className="text-[10px] font-bold uppercase tracking-widest text-amber-300/90 px-2 py-0.5 rounded bg-amber-800/40 border border-amber-600/30 inline-block">
               {item.category}
             </span>
-            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-amber-50 sanskrit-font leading-snug">
+            <h2 className="font-serif text-xl sm:text-3xl font-bold text-amber-50 sanskrit-font leading-snug">
               {item.title}
             </h2>
             {item.sanskritTitle && (
@@ -72,14 +72,14 @@ export const TopicKnowledgeModal: React.FC = () => {
 
           <button
             onClick={closeTopicModal}
-            className="p-2.5 rounded-lg text-amber-200/80 hover:text-white hover:bg-amber-800/50 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
+            className="p-2 sm:p-2.5 rounded-lg text-amber-200/80 hover:text-white hover:bg-amber-800/50 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center shrink-0"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Modal Scrollable Content */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-6 text-stone-200 font-serif text-sm">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4 sm:space-y-6 text-stone-200 font-serif text-sm">
           {/* Origin / Scriptural Text Badge */}
           {item.originOrText && (
             <div className="text-xs font-semibold text-amber-300 flex items-center gap-2 p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/15">
@@ -194,25 +194,25 @@ export const TopicKnowledgeModal: React.FC = () => {
         </div>
 
         {/* Modal Footer Actions */}
-        <div className="px-6 py-4 bg-stone-950/70 border-t border-amber-900/30 flex flex-wrap items-center justify-between gap-3">
+        <div className="px-4 sm:px-6 py-3 sm:py-4 bg-stone-950/70 border-t border-amber-900/30 flex flex-wrap items-center justify-between gap-3">
           <button
             onClick={handleToggleBookmark}
-            className={`px-4 py-2.5 min-h-[44px] rounded-xl text-xs font-medium flex items-center gap-1.5 transition-colors active:scale-95 ${
+            className={`px-3.5 sm:px-4 py-2 sm:py-2.5 min-h-[44px] rounded-xl text-xs font-medium flex items-center gap-1.5 transition-colors active:scale-95 ${
               isSaved
                 ? 'bg-amber-700 text-white font-bold shadow-sm'
                 : 'bg-amber-500/10 hover:bg-amber-500/20 text-amber-200'
             }`}
           >
             <Bookmark className="w-4 h-4" />
-            <span>{isSaved ? 'Saved in My Library' : 'Bookmark Topic'}</span>
+            <span>{isSaved ? 'Saved in Library' : 'Bookmark Topic'}</span>
           </button>
 
           <button
             onClick={handleAskAi}
-            className="px-5 py-2.5 min-h-[44px] rounded-xl bg-gradient-to-r from-amber-700 to-amber-900 text-amber-50 hover:from-amber-800 hover:to-amber-950 text-xs font-semibold shadow-md flex items-center gap-2 transition-all active:scale-95"
+            className="px-4 sm:px-5 py-2 sm:py-2.5 min-h-[44px] rounded-xl bg-gradient-to-r from-amber-700 to-amber-900 text-amber-50 hover:from-amber-800 hover:to-amber-950 text-xs font-semibold shadow-md flex items-center gap-2 transition-all active:scale-95"
           >
             <Sparkles className="w-4 h-4 text-amber-300" />
-            <span>Inquire further with AI Assistant</span>
+            <span>Ask AI Assistant</span>
           </button>
         </div>
       </div>

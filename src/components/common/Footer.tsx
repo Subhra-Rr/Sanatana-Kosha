@@ -5,12 +5,20 @@ import { BookOpen, Heart, Shield, Sparkles } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="mt-20 border-t border-amber-900/20 bg-gradient-to-b from-stone-950 to-stone-900 text-stone-200 py-12 px-4 sm:px-6 lg:px-8 transition-colors">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+    <footer className="w-full mt-20 border-t border-amber-900/20 bg-gradient-to-b from-stone-950 to-stone-900 text-stone-200 py-12 px-4 sm:px-6 lg:px-8 transition-colors">
+      <div className="w-full max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         {/* Col 1: Logo & Vision */}
         <div className="space-y-3">
-          <div className="flex items-center gap-2">
-            <Diya size="sm" />
+          <div className="flex items-center gap-2.5">
+            <div className="relative flex items-center justify-center">
+              <div className="absolute -inset-1 rounded-xl bg-amber-500/30 blur-sm animate-pulse" />
+              <img
+                src="/favicon.svg"
+                alt="Sanatana Kosha Glowing Sacred AUM Emblem"
+                className="relative z-10 w-8 h-8 rounded-lg border border-amber-400/50 shadow-[0_0_10px_rgba(245,158,11,0.5)]"
+                referrerPolicy="no-referrer"
+              />
+            </div>
             <span className="font-serif text-xl font-bold text-amber-100 sanskrit-font">
               सनातन कोष
             </span>
@@ -67,7 +75,7 @@ export const Footer: React.FC = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto mt-8 pt-6 border-t border-amber-900/15 flex flex-col sm:flex-row items-center justify-between text-xs text-stone-500 gap-3">
+      <div className="w-full max-w-7xl mx-auto mt-8 pt-6 border-t border-amber-900/15 flex flex-col sm:flex-row items-center justify-between text-xs text-stone-500 gap-3">
         <p>© {new Date().getFullYear()} Sanatana Kosha — The Eternal Knowledge Treasury. Built for lifelong learning and preservation.</p>
         <div className="flex items-center gap-4">
           <span className="flex items-center gap-1"><Shield className="w-3.5 h-3.5 text-amber-600" /> Public Knowledge Vault</span>

@@ -23,7 +23,6 @@
     text-size-adjust: 100%;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    scrollbar-gutter: stable;
     scroll-behavior: smooth;
   }
 
@@ -83,6 +82,15 @@ html, body, #root {
   background-color: #0c0a09 !important;
   color: #fef3c7 !important;
   color-scheme: dark !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  overflow-x: clip;
 }
 
 /* Override any accidental light mode background utility classes on non-dark device viewports */

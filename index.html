@@ -34,17 +34,21 @@
     <meta name="twitter:description" content="Explore Sanatana Kosha: The world's most comprehensive digital platform for Hindu philosophy, Vedic literature, scriptures, traditions, sacred geography, and spiritual heritage." />
     <meta name="twitter:image" content="https://sanatana-kosha.onrender.com/og-image.jpg" />
 
-    <!-- Favicons -->
-    <link rel="icon" type="image/jpeg" href="/og-image.jpg" />
-    <link rel="apple-touch-icon" href="/og-image.jpg" />
+    <!-- Favicons & App Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+    <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64.png" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.json" />
 
     <!-- Universal Cross-OS Google Fonts (Clean rendering across Windows, macOS, iOS, Android) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet" />
   </head>
-  <body class="bg-stone-950 text-amber-100 min-h-screen overflow-x-hidden antialiased selection:bg-amber-600 selection:text-white" style="color-scheme: dark !important; background-color: #0c0a09 !important; color: #fef3c7 !important;">
-    <div id="root" class="min-h-screen flex flex-col bg-stone-950 text-amber-100"></div>
+  <body class="bg-stone-950 text-amber-100 min-h-screen w-full max-w-full overflow-x-hidden antialiased selection:bg-amber-600 selection:text-white" style="color-scheme: dark !important; background-color: #0c0a09 !important; color: #fef3c7 !important;">
+    <div id="root" class="min-h-screen w-full max-w-full flex flex-col bg-stone-950 text-amber-100 overflow-x-hidden"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

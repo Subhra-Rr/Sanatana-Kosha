@@ -111,7 +111,7 @@ export const SpiritualAssistantModal: React.FC = () => {
                     : 'bg-stone-800 text-stone-100 border border-amber-900/10 rounded-bl-none'
                 }`}
               >
-                <div className="whitespace-pre-line font-serif leading-relaxed text-stone-100">
+                <div className="whitespace-pre-line break-words font-serif leading-relaxed text-stone-100">
                   {m.text}
                 </div>
 
