@@ -2,13 +2,17 @@ import React, { useState } from 'react';
 import { TEMPLES_DATA } from '../data/temples';
 import { SACRED_GEOGRAPHY_ROUTES_DATA } from '../data/sacredGeographyRoutes';
 import { useApp } from '../context/AppContext';
-import { MapPin, Compass, ExternalLink, Bookmark, Sparkles, Navigation, Globe } from 'lucide-react';
+import { audioService } from '../services/audioService';
+import { Diya } from '../components/common/Diya';
+import { MapPin, Compass, ExternalLink, Bookmark, Sparkles, Navigation, Globe, Bell } from 'lucide-react';
 
 export const TemplesGeographyPage: React.FC = () => {
   const { openTopicModal, toggleBookmark, isBookmarked } = useApp();
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedTempleId, setSelectedTempleId] = useState<string>(TEMPLES_DATA[0].id);
   const [activeRouteCategory, setActiveRouteCategory] = useState<'all' | 'Sapta Puri' | 'Ramayana Yatra' | 'Ancient University'>('all');
+
+  const [mobileTab, setMobileTab] = useState<'list' | 'details'>('details');
 
   const filteredTemples = TEMPLES_DATA.filter(t =>
     selectedCategory === 'all' || t.category.toLowerCase().includes(selectedCategory)
@@ -64,15 +68,44 @@ export const TemplesGeographyPage: React.FC = () => {
         </div>
       </div>
 
+      {/* Mobile View Switcher (Only visible on screens < lg) */}
+      <div className="lg:hidden flex items-center justify-center gap-2 bg-stone-900 p-1.5 rounded-2xl border border-amber-800/25 max-w-md mx-auto">
+        <button
+          onClick={() => setMobileTab('list')}
+          className={`flex-1 py-2.5 px-3 rounded-xl font-serif text-xs font-semibold flex items-center justify-center gap-1.5 transition-all min-h-[44px] active:scale-95 ${
+            mobileTab === 'list'
+              ? 'bg-amber-700 text-white shadow'
+              : 'text-stone-400 hover:text-amber-200'
+          }`}
+        >
+          <MapPin className="w-3.5 h-3.5 text-amber-400" />
+          <span>Temple List ({filteredTemples.length})</span>
+        </button>
+        <button
+          onClick={() => setMobileTab('details')}
+          className={`flex-1 py-2.5 px-3 rounded-xl font-serif text-xs font-semibold flex items-center justify-center gap-1.5 transition-all min-h-[44px] active:scale-95 ${
+            mobileTab === 'details'
+              ? 'bg-amber-700 text-white shadow'
+              : 'text-stone-400 hover:text-amber-200'
+          }`}
+        >
+          <Compass className="w-3.5 h-3.5 text-amber-400" />
+          <span>Temple Details</span>
+        </button>
+      </div>
+
       {/* Main Temple Explorer & Details split view */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Temple List */}
-        <div className="space-y-3 max-h-[600px] overflow-y-auto pr-1 scrollbar-none">
+        <div className={`space-y-3 max-h-[600px] overflow-y-auto pr-1 scrollbar-none ${mobileTab === 'details' ? 'hidden lg:block' : 'block'}`}>
           {filteredTemples.map(t => (
             <button
               key={t.id}
-              onClick={() => setSelectedTempleId(t.id)}
-              className={`w-full p-4 rounded-2xl text-left border transition-all flex items-center justify-between ${
+              onClick={() => {
+                setSelectedTempleId(t.id);
+                setMobileTab('details');
+              }}
+              className={`w-full p-4 rounded-2xl text-left border transition-all flex items-center justify-between min-h-[48px] active:scale-98 ${
                 selectedTempleId === t.id
                   ? 'bg-amber-800 text-white border-amber-600 shadow-md'
                   : 'bg-amber-50/90 dark:bg-stone-900/90 text-stone-800 dark:text-stone-200 border-amber-800/15 hover:border-amber-600'
@@ -95,7 +128,18 @@ export const TemplesGeographyPage: React.FC = () => {
         </div>
 
         {/* Temple Active Details Card */}
-        <div className="lg:col-span-2 p-6 sm:p-8 rounded-3xl bg-amber-50/90 dark:bg-stone-900 border border-amber-800/20 shadow-xl space-y-6">
+        <div className={`lg:col-span-2 p-6 sm:p-8 rounded-3xl bg-amber-50/90 dark:bg-stone-900 border border-amber-800/20 shadow-xl space-y-6 ${mobileTab === 'list' ? 'hidden lg:block' : 'block'}`}>
+          {/* Mobile Back Button to Temple List */}
+          <div className="lg:hidden pb-3 border-b border-amber-900/15 flex items-center justify-between">
+            <button
+              onClick={() => setMobileTab('list')}
+              className="text-xs font-serif font-semibold text-amber-400 hover:text-amber-200 flex items-center gap-1.5 py-1 px-2.5 rounded-lg bg-stone-800"
+            >
+              ← Back to Temple List ({filteredTemples.length})
+            </button>
+            <span className="text-[10px] text-stone-400 font-serif">Swipe/Tap to switch</span>
+          </div>
+
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-amber-900/15 pb-4">
             <div>
               <span className="text-[10px] font-bold uppercase tracking-widest text-amber-800 dark:text-amber-400">
@@ -110,6 +154,13 @@ export const TemplesGeographyPage: React.FC = () => {
             </div>
 
             <div className="flex items-center gap-2">
+              <button
+                onClick={() => audioService.playTempleBell()}
+                className="p-2.5 rounded-full bg-stone-200 dark:bg-stone-800 text-stone-700 dark:text-stone-300 border border-amber-800/20 hover:bg-amber-600 hover:text-white transition-all min-w-[44px] min-h-[44px] flex items-center justify-center active:scale-95"
+                title="Ring Temple Bell (घण्टानाद)"
+              >
+                <Bell className="w-4 h-4 text-amber-400" />
+              </button>
               <button
                 onClick={handleToggleTempleBookmark}
                 className={`p-2.5 rounded-full border transition-all min-w-[44px] min-h-[44px] flex items-center justify-center ${

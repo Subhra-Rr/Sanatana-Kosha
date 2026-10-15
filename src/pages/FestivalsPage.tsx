@@ -1,22 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FESTIVALS_DATA } from '../data/festivals';
 import { useApp } from '../context/AppContext';
-import { Calendar, Sun, CheckCircle2, ExternalLink } from 'lucide-react';
+import { Diya } from '../components/common/Diya';
+import { RitualSanctuary } from '../components/spiritual/RitualSanctuary';
+import { Calendar, Sun, CheckCircle2, ExternalLink, Sparkles } from 'lucide-react';
 
 export const FestivalsPage: React.FC = () => {
   const { openTopicModal } = useApp();
+  const [showSanctuary, setShowSanctuary] = useState(false);
 
   return (
     <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
       {/* Title */}
       <div className="text-center space-y-3">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-800/20 text-amber-200 text-xs font-serif font-semibold">
+          <Diya size="sm" />
+          <span>Vedic Calendar & Sacred Observances</span>
+          <Diya size="sm" />
+        </div>
         <h1 className="font-serif text-3xl sm:text-5xl font-bold text-amber-950 dark:text-amber-100 sanskrit-font">
           पर्वोत्सव-पञ्चाङ्गम् • Festivals & Vratas
         </h1>
         <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-300 font-serif max-w-2xl mx-auto leading-relaxed">
           Sacred celebrations calculated via the ancient luni-solar Hindu calendar (Panchang). Click any festival card to explore detailed knowledge.
         </p>
+
+        {/* Toggle Ritual Sanctuary */}
+        <div className="pt-2">
+          <button
+            onClick={() => setShowSanctuary(!showSanctuary)}
+            className="px-4 py-2 rounded-xl bg-amber-500/15 text-amber-200 hover:bg-amber-500/25 border border-amber-600/30 font-serif text-xs font-semibold inline-flex items-center gap-2 transition-all shadow-sm"
+          >
+            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+            <span>{showSanctuary ? 'Hide Ritual Practice Sanctuary' : 'Open Sacred Ritual Sanctuary (Aarti, Offerings & Japa)'}</span>
+          </button>
+        </div>
       </div>
+
+      {/* Optional Interactive Ritual Sanctuary */}
+      {showSanctuary && (
+        <div className="animate-sacred-reveal">
+          <RitualSanctuary />
+        </div>
+      )}
 
       {/* Festivals Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

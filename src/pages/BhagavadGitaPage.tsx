@@ -3,6 +3,7 @@ import { GITA_CHAPTERS_DATA } from '../data/bhagavadGita';
 import { useApp } from '../context/AppContext';
 import { Verse, SourceCitation } from '../types';
 import { CitationBadge } from '../components/common/CitationBadge';
+import { SacredVerseExperience } from '../components/spiritual/SacredVerseExperience';
 import { BookOpen, Bookmark, Volume2, Share2, Layers, CheckCircle2, ExternalLink } from 'lucide-react';
 
 export const BhagavadGitaPage: React.FC = () => {
@@ -38,12 +39,57 @@ export const BhagavadGitaPage: React.FC = () => {
         </p>
       </div>
 
+      {/* Mobile Chapter Selector (Visible on mobile/tablets < lg) */}
+      <div className="lg:hidden bg-stone-900 border border-amber-800/30 rounded-2xl p-4 shadow-md space-y-3">
+        <div className="flex items-center justify-between">
+          <span className="font-serif font-bold text-amber-200 text-xs uppercase tracking-wider">
+            Select Chapter (अध्यायः)
+          </span>
+          <span className="text-xs text-amber-400 font-mono">
+            Ch {selectedChapterNumber} of 18 • {currentChapter.versesCount} Verses
+          </span>
+        </div>
+        <select
+          value={selectedChapterNumber}
+          onChange={(e) => {
+            setSelectedChapterNumber(Number(e.target.value));
+            setSelectedVerseIndex(0);
+          }}
+          className="w-full p-3 rounded-xl bg-stone-800 border border-amber-800/40 text-amber-100 font-serif text-sm focus:outline-none focus:border-amber-500 min-h-[48px]"
+        >
+          {GITA_CHAPTERS_DATA.map((ch) => (
+            <option key={ch.chapterNumber} value={ch.chapterNumber}>
+              Ch {ch.chapterNumber}: {ch.title} ({ch.sanskritTitle}) — {ch.versesCount} Verses
+            </option>
+          ))}
+        </select>
+        {/* Horizontal Chapter Quick-Jump Pills for smooth finger swiping */}
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
+          {GITA_CHAPTERS_DATA.map((ch) => (
+            <button
+              key={ch.chapterNumber}
+              onClick={() => {
+                setSelectedChapterNumber(ch.chapterNumber);
+                setSelectedVerseIndex(0);
+              }}
+              className={`px-3 py-1.5 rounded-lg text-xs font-serif whitespace-nowrap min-h-[38px] flex items-center justify-center active:scale-95 transition-all ${
+                selectedChapterNumber === ch.chapterNumber
+                  ? 'bg-amber-700 text-white font-bold shadow'
+                  : 'bg-stone-800 text-stone-300 hover:bg-stone-700'
+              }`}
+            >
+              Ch {ch.chapterNumber}
+            </button>
+          ))}
+        </div>
+      </div>
+
       {/* Main Grid: Chapter List & Verse Viewer */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Chapter Selection Column */}
-        <div className="bg-amber-50/90 dark:bg-stone-900 border border-amber-800/20 rounded-2xl p-4 shadow-md space-y-3 max-h-[75vh] overflow-y-auto">
+        {/* Chapter Selection Column (Desktop only) */}
+        <div className="hidden lg:block bg-stone-900 border border-amber-800/20 rounded-2xl p-4 shadow-md space-y-3 max-h-[75vh] overflow-y-auto">
           <div className="flex items-center justify-between border-b border-amber-900/10 pb-2 px-2">
-            <span className="font-serif font-bold text-amber-950 dark:text-amber-100 text-sm">
+            <span className="font-serif font-bold text-amber-100 text-sm">
               अध्यायाः (18 Chapters)
             </span>
           </div>
@@ -59,7 +105,7 @@ export const BhagavadGitaPage: React.FC = () => {
                 className={`w-full text-left p-3.5 rounded-xl transition-all border flex items-center justify-between min-h-[48px] active:scale-98 ${
                   selectedChapterNumber === ch.chapterNumber
                     ? 'bg-amber-700 text-white font-bold border-amber-500 shadow-md'
-                    : 'bg-stone-100 dark:bg-stone-800/60 text-stone-800 dark:text-stone-200 border-amber-900/10 hover:bg-amber-200'
+                    : 'bg-stone-800/60 text-stone-200 border-amber-900/10 hover:bg-stone-700'
                 }`}
               >
                 <div>
@@ -70,7 +116,7 @@ export const BhagavadGitaPage: React.FC = () => {
                     {ch.sanskritTitle}
                   </div>
                 </div>
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-500/20 text-stone-900 dark:text-amber-100 shrink-0 ml-2">
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-500/20 text-amber-100 shrink-0 ml-2">
                   {ch.versesCount} Verses
                 </span>
               </button>
@@ -146,86 +192,21 @@ export const BhagavadGitaPage: React.FC = () => {
             ))}
           </div>
 
-          {/* Active Verse Detailed Showcase Card */}
+          {/* Active Verse Detailed Showcase via SacredVerseExperience */}
           {currentVerse && (
-            <div className="bg-amber-50/90 dark:bg-stone-900 border border-amber-800/20 rounded-2xl p-4 sm:p-8 shadow-xl space-y-6">
-              {/* Verse Header Actions */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-amber-900/10 pb-4">
-                <span className="font-serif text-sm font-bold text-amber-900 dark:text-amber-300 min-w-0">
-                  VERSE {currentChapter.chapterNumber}.{currentVerse.verseNumber}
-                </span>
-
-                <div className="flex items-center gap-2 flex-wrap shrink-0">
-                  <button
-                    onClick={() => playVerseAudio(currentVerse.sanskrit)}
-                    className="p-2 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-900 dark:text-amber-200 text-xs font-medium flex items-center gap-1.5 transition-colors"
-                  >
-                    <Volume2 className="w-4 h-4" /> Recite Sanskrit
-                  </button>
-                  <button
-                    onClick={handleToggleBm}
-                    className={`p-2 rounded-xl text-xs font-medium flex items-center gap-1.5 transition-colors ${
-                      isBm
-                        ? 'bg-amber-700 text-white font-bold'
-                        : 'bg-amber-500/10 hover:bg-amber-500/20 text-amber-900 dark:text-amber-200'
-                    }`}
-                  >
-                    <Bookmark className="w-4 h-4" /> {isBm ? 'Saved' : 'Bookmark'}
-                  </button>
-                </div>
-              </div>
-
-              {/* Sanskrit Verse Text */}
-              <div className="p-6 bg-amber-100/50 dark:bg-stone-800/80 rounded-2xl border border-amber-900/15 text-center space-y-3">
-                <p className="font-serif text-xl sm:text-2xl font-bold text-amber-950 dark:text-amber-100 sanskrit-font leading-relaxed whitespace-pre-line">
-                  {currentVerse.sanskrit}
-                </p>
-                <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-300 font-serif italic">
-                  {currentVerse.transliteration}
-                </p>
-              </div>
-
-              {/* Word by Word Analysis */}
-              {currentVerse.wordByWord && currentVerse.wordByWord.length > 0 && (
-                <div className="space-y-2">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-amber-800 dark:text-amber-400">
-                    Word-by-Word Sanskrit Analysis (Padachheda & Anvaya)
-                  </span>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                    {currentVerse.wordByWord.map((wbw, idx) => (
-                      <div key={idx} className="p-2 bg-stone-100 dark:bg-stone-800/50 rounded-xl border border-amber-900/10 text-xs space-y-0.5">
-                        <span className="font-bold text-amber-950 dark:text-amber-100 block sanskrit-font">{wbw.sanskrit}</span>
-                        <span className="text-stone-600 dark:text-stone-300 block">{wbw.meaning}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Translation */}
-              <div className="space-y-1">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-amber-800 dark:text-amber-400">
-                  English Translation
-                </span>
-                <p className="text-sm sm:text-base font-serif text-stone-900 dark:text-stone-100 leading-relaxed p-4 bg-amber-500/5 rounded-xl border border-amber-500/10">
-                  "{currentVerse.translation}"
-                </p>
-              </div>
-
-              {/* Life Lessons & Practical Application */}
-              {currentVerse.lifeLessons && currentVerse.lifeLessons.length > 0 && (
-                <div className="space-y-2 pt-2 border-t border-amber-900/10">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-amber-800 dark:text-amber-400">
-                    Practical Life Lessons & Mindfulness
-                  </span>
-                  <ul className="list-disc list-inside space-y-1 text-xs sm:text-sm text-stone-700 dark:text-stone-300 font-serif">
-                    {currentVerse.lifeLessons.map((lesson, idx) => (
-                      <li key={idx}>{lesson}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
+            <SacredVerseExperience
+              title={`Bhagavad Gita ${currentChapter.chapterNumber}.${currentVerse.verseNumber}`}
+              subtitle={`Chapter ${currentChapter.chapterNumber}: ${currentChapter.title} (${currentChapter.sanskritTitle})`}
+              sanskrit={currentVerse.sanskrit}
+              transliteration={currentVerse.transliteration}
+              translation={currentVerse.translation}
+              significance={currentVerse.lifeLessons?.[0]}
+              sourceScripture={`Mahabharata Bhishma Parva • Gita ${currentChapter.chapterNumber}.${currentVerse.verseNumber}`}
+              wordByWord={currentVerse.wordByWord}
+              onSpeak={() => playVerseAudio(currentVerse.sanskrit)}
+              onBookmark={handleToggleBm}
+              isBookmarked={isBm}
+            />
           )}
         </div>
       </div>

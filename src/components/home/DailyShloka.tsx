@@ -4,6 +4,7 @@ import { panchangService } from '../../services/panchangService';
 import { audioService } from '../../services/audioService';
 import { MANTRAS_DATA } from '../../data/mantras';
 import { Diya } from '../common/Diya';
+import { SacredVerseExperience } from '../spiritual/SacredVerseExperience';
 import {
   Sparkles,
   Volume2,
@@ -49,6 +50,7 @@ export const DailyShloka: React.FC = () => {
   const [mantraCategory, setMantraCategory] = useState<string>('All');
   const [mantraSearch, setMantraSearch] = useState<string>('');
   const [expandedMantraId, setExpandedMantraId] = useState<string | null>(null);
+  const [chamberMantraId, setChamberMantraId] = useState<string | null>(null);
 
   const handleSpeak = (text: string) => {
     audioService.speakSanskrit(text);
@@ -118,98 +120,27 @@ export const DailyShloka: React.FC = () => {
 
       {/* ================= TAB 1: DAILY SHLOKA ================= */}
       {activeTab === 'daily' && (
-        <div className="space-y-6">
-          <div className="bg-stone-900/90 border border-amber-800/20 rounded-2xl p-6 sm:p-8 shadow-inner space-y-6 relative overflow-hidden">
-            {/* Top Bar Controls */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-amber-900/10 pb-4">
-              <div className="flex items-center gap-2 min-w-0 flex-1">
-                <span className="w-2.5 h-2.5 rounded-full bg-amber-600 animate-pulse shrink-0" />
-                <span className="text-xs font-bold uppercase tracking-wider text-amber-300 font-serif break-words">
-                  {currentShloka.title} • {panchang.dateString}
-                </span>
-              </div>
-
-              <div className="flex items-center gap-2 flex-wrap shrink-0">
-                <button
-                  onClick={() => handleSpeak(currentShloka.sanskrit)}
-                  title="Recite Shloka in Sanskrit"
-                  className="px-3.5 py-2.5 rounded-xl bg-amber-500/20 text-amber-200 hover:bg-amber-500/30 font-serif text-xs font-semibold flex items-center gap-1.5 transition-all min-h-[44px]"
-                >
-                  <Volume2 className="w-4 h-4 text-amber-300" />
-                  <span>Recite</span>
-                </button>
-
-                <button
-                  onClick={() => handleCopy(`${currentShloka.sanskrit}\n\n${currentShloka.translation}`)}
-                  title="Copy Shloka Text"
-                  className="p-2.5 rounded-xl bg-amber-500/20 text-amber-200 hover:bg-amber-500/30 transition-all min-w-[44px] min-h-[44px] flex items-center justify-center"
-                >
-                  {copied ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
-                </button>
-
-                <button
-                  onClick={() =>
-                    toggleBookmark({
-                      id: `daily-shloka-${currentShloka.title}`,
-                      itemId: `daily-shloka-${currentShloka.title}`,
-                      itemType: 'gita',
-                      title: currentShloka.title,
-                      subtitle: currentShloka.translation
-                    })
-                  }
-                  title="Bookmark Shloka"
-                  className="p-2.5 rounded-xl bg-amber-500/20 text-amber-200 hover:bg-amber-500/30 transition-all min-w-[44px] min-h-[44px] flex items-center justify-center"
-                >
-                  <Bookmark
-                    className={`w-4 h-4 ${
-                      isBookmarked(`daily-shloka-${currentShloka.title}`) ? 'fill-current text-amber-400' : ''
-                    }`}
-                  />
-                </button>
-              </div>
-            </div>
-
-            {/* Devanagari Sanskrit Display Box */}
-            <div className="p-6 bg-gradient-to-br from-stone-800/90 to-stone-900/90 rounded-2xl border border-amber-800/25 text-center space-y-3 shadow-md">
-              <p className="font-serif text-2xl sm:text-3xl font-bold text-amber-100 sanskrit-font whitespace-pre-line leading-relaxed">
-                {currentShloka.sanskrit}
-              </p>
-
-              {currentShloka.transliteration && (
-                <p className="text-xs sm:text-sm text-amber-300/90 italic font-serif">
-                  {currentShloka.transliteration}
-                </p>
-              )}
-            </div>
-
-            {/* Translation & Significance */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2 font-serif text-xs sm:text-sm">
-              <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-800/15 space-y-1.5">
-                <span className="font-bold text-amber-300 block uppercase tracking-wider text-[11px]">
-                  ENGLISH TRANSLATION
-                </span>
-                <p className="text-stone-200 leading-relaxed italic">
-                  "{currentShloka.translation}"
-                </p>
-              </div>
-
-              <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-800/15 space-y-1.5">
-                <span className="font-bold text-amber-300 block uppercase tracking-wider text-[11px]">
-                  SPIRITUAL SIGNIFICANCE & LIFE LESSON
-                </span>
-                <p className="text-stone-200 leading-relaxed">
-                  {currentShloka.significance}
-                </p>
-              </div>
-            </div>
-
-            {currentShloka.sourceScripture && (
-              <div className="text-right text-[11px] text-amber-400 font-serif font-medium pt-2 border-t border-amber-900/10">
-                Source: <span className="font-bold">{currentShloka.sourceScripture}</span>
-              </div>
-            )}
-          </div>
-        </div>
+        <SacredVerseExperience
+          title={currentShloka.title}
+          subtitle={`पञ्चाङ्ग दैनिक श्लोकम् • ${panchang.dateString}`}
+          sanskrit={currentShloka.sanskrit}
+          transliteration={currentShloka.transliteration}
+          translation={currentShloka.translation}
+          significance={currentShloka.significance}
+          sourceScripture={currentShloka.sourceScripture}
+          wordByWord={todayDefaultVerse.wordByWord || []}
+          onSpeak={handleSpeak}
+          onBookmark={() =>
+            toggleBookmark({
+              id: `daily-shloka-${currentShloka.title}`,
+              itemId: `daily-shloka-${currentShloka.title}`,
+              itemType: 'gita',
+              title: currentShloka.title,
+              subtitle: currentShloka.translation
+            })
+          }
+          isBookmarked={isBookmarked(`daily-shloka-${currentShloka.title}`)}
+        />
       )}
 
       {/* ================= TAB 2: GODS & GODDESSES MANTRA TREASURY ================= */}
@@ -251,6 +182,52 @@ export const DailyShloka: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {filteredMantras.map(m => {
               const isExpanded = expandedMantraId === m.id;
+              const isChamber = chamberMantraId === m.id;
+
+              if (isChamber) {
+                return (
+                  <div key={m.id} className="lg:col-span-2 space-y-2 animate-sacred-reveal">
+                    <div className="flex justify-between items-center px-1">
+                      <span className="text-xs font-serif text-amber-400 font-semibold">
+                        Sacred Chanting Chamber • {m.deitySanskrit}
+                      </span>
+                      <button
+                        onClick={() => setChamberMantraId(null)}
+                        className="text-xs font-serif text-amber-300 hover:text-amber-100 hover:underline px-3 py-1 rounded-lg bg-stone-800"
+                      >
+                        ✕ Return to Cards
+                      </button>
+                    </div>
+                    <SacredVerseExperience
+                      title={m.title}
+                      subtitle={`${m.category} • ${m.deitySanskrit}`}
+                      sanskrit={m.sanskrit}
+                      transliteration={m.transliteration}
+                      translation={m.translation}
+                      significance={m.significance}
+                      sourceScripture={m.sourceScripture}
+                      wordByWord={m.wordByWord}
+                      rishi={m.rishi}
+                      devata={m.devata}
+                      chandas={m.chandas}
+                      veda={m.veda}
+                      shakha={m.shakha}
+                      onSpeak={handleSpeak}
+                      onBookmark={() =>
+                        toggleBookmark({
+                          id: m.id,
+                          itemId: m.id,
+                          itemType: 'gita',
+                          title: m.title,
+                          subtitle: m.translation
+                        })
+                      }
+                      isBookmarked={isBookmarked(m.id)}
+                    />
+                  </div>
+                );
+              }
+
               return (
                 <div
                   key={m.id}
@@ -401,7 +378,7 @@ export const DailyShloka: React.FC = () => {
                     )}
                   </div>
 
-                  {/* Card Toggle Action */}
+                  {/* Card Toggle Actions */}
                   <div className="pt-3 border-t border-amber-900/10 flex items-center justify-between text-xs font-serif">
                     <button
                       onClick={() => setExpandedMantraId(isExpanded ? null : m.id)}
@@ -409,6 +386,14 @@ export const DailyShloka: React.FC = () => {
                     >
                       <span>{isExpanded ? 'Hide Details' : 'View Significance & Benefits'}</span>
                       {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+                    </button>
+
+                    <button
+                      onClick={() => setChamberMantraId(m.id)}
+                      className="px-2.5 py-1 rounded-lg bg-amber-500/15 text-amber-200 hover:bg-amber-500/25 border border-amber-600/30 flex items-center gap-1 text-[11px]"
+                    >
+                      <Sparkles className="w-3 h-3 text-amber-400" />
+                      <span>Sacred Chamber</span>
                     </button>
                   </div>
                 </div>

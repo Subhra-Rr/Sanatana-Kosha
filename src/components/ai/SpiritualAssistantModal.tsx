@@ -75,8 +75,14 @@ export const SpiritualAssistantModal: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-950/70 backdrop-blur-sm animate-fade-in">
-      <div className="w-full max-w-2xl bg-stone-900 border border-amber-900/30 rounded-2xl shadow-2xl overflow-hidden flex flex-col h-[85vh] sm:h-[75vh]">
+    <div
+      onClick={() => setIsAiAssistantOpen(false)}
+      className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 bg-stone-950/80 backdrop-blur-sm animate-fade-in"
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="w-full max-w-2xl bg-stone-900 border border-amber-900/30 rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col h-[90dvh] sm:h-[78vh] overscroll-contain"
+      >
         {/* Modal Header */}
         <div className="px-5 py-4 bg-gradient-to-r from-amber-900 to-amber-950 text-amber-100 flex items-center justify-between border-b border-amber-700/30">
           <div className="flex items-center gap-2.5">

@@ -46,17 +46,39 @@
     }
   }
 
-  /* Standard touch target baseline across mobile viewports */
+  /* Universal Cross-Platform Touch Optimization (iOS Safari, Android Chrome) */
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* iOS & Android momentum scrolling */
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Standard touch target baseline across mobile touch viewports */
   @media (pointer: coarse) {
     button,
-    a,
     input,
     select,
     textarea,
     [role="button"] {
-      min-height: 48px;
+      min-height: 44px;
       touch-action: manipulation;
     }
+    nav a,
+    header a,
+    footer a:not(.inline-link) {
+      touch-action: manipulation;
+    }
+  }
+
+  /* iOS Safe Area Padding Utilities */
+  .safe-area-bottom {
+    padding-bottom: max(env(safe-area-inset-bottom, 0px), 1rem);
+  }
+  .safe-area-top {
+    padding-top: max(env(safe-area-inset-top, 0px), 0.5rem);
   }
 
   /* Temple Night (Oil Lamp Theme - Immutable) */
@@ -186,12 +208,141 @@ img, svg, video, iframe, canvas {
   scrollbar-width: none;
 }
 
-/* Diya Flicker Animation */
+/* Diya & Sacred Flame Animations (Refined, organic, non-flashing) */
 @keyframes diyaFlicker {
-  0%, 100% { opacity: 0.9; transform: scale(1); filter: drop-shadow(0 0 6px #F39C12); }
-  50% { opacity: 1; transform: scale(1.08); filter: drop-shadow(0 0 12px #E67E22); }
+  0%, 100% { opacity: 0.92; transform: scaleY(1) scaleX(1); filter: drop-shadow(0 0 5px rgba(245, 158, 11, 0.6)); }
+  35% { opacity: 0.98; transform: scaleY(1.05) scaleX(0.97) rotate(0.8deg); filter: drop-shadow(0 0 7px rgba(245, 158, 11, 0.7)); }
+  70% { opacity: 0.94; transform: scaleY(0.98) scaleX(1.02) rotate(-0.8deg); filter: drop-shadow(0 0 6px rgba(217, 119, 6, 0.65)); }
+}
+
+@keyframes sacredFlame {
+  0%, 100% {
+    transform: scaleY(1) scaleX(1) rotate(0deg);
+  }
+  25% {
+    transform: scaleY(1.04) scaleX(0.97) rotate(1deg);
+  }
+  55% {
+    transform: scaleY(0.97) scaleX(1.02) rotate(-0.8deg);
+  }
+  80% {
+    transform: scaleY(1.02) scaleX(0.99) rotate(0.5deg);
+  }
+}
+
+@keyframes diyaAura {
+  0%, 100% {
+    opacity: 0.75;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes sacredManuscriptUnveil {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes templeBellSwing {
+  0% { transform: rotate(0deg); }
+  20% { transform: rotate(-7deg); }
+  45% { transform: rotate(5.5deg); }
+  70% { transform: rotate(-3deg); }
+  85% { transform: rotate(1.5deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes dhoopaWisp {
+  0% {
+    opacity: 0;
+    transform: translateY(0) translateX(0) scaleX(0.8);
+  }
+  30% {
+    opacity: 0.55;
+    transform: translateY(-16px) translateX(3px) scaleX(1.1);
+  }
+  70% {
+    opacity: 0.35;
+    transform: translateY(-36px) translateX(-4px) scaleX(1.3);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-56px) translateX(2px) scaleX(1.6);
+  }
+}
+
+@keyframes pushpaFall {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px) rotate(0deg);
+  }
+  20% {
+    opacity: 0.95;
+  }
+  80% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(48px) rotate(22deg);
+  }
 }
 
 .diya-flame {
-  animation: diyaFlicker 2.5s infinite ease-in-out;
+  animation: diyaFlicker 3s infinite ease-in-out;
+}
+
+.animate-sacred-flame {
+  animation: sacredFlame 3.2s infinite ease-in-out;
+}
+
+.animate-diya-aura {
+  animation: diyaAura 4s infinite ease-in-out;
+}
+
+.animate-sacred-reveal {
+  animation: sacredManuscriptUnveil 0.42s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-bell-swing {
+  animation: templeBellSwing 2.4s cubic-bezier(0.25, 1, 0.5, 1);
+  transform-origin: 50% 0%;
+}
+
+.animate-dhoopa {
+  animation: dhoopaWisp 4.5s infinite linear;
+}
+
+.animate-pushpa {
+  animation: pushpaFall 3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* Reduced Motion Override: Disables non-essential movement across the entire motion system */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .animate-sacred-flame,
+  .diya-flame,
+  .animate-diya-aura,
+  .animate-dhoopa,
+  .animate-pushpa,
+  .animate-bell-swing {
+    animation: none !important;
+    transform: none !important;
+  }
 }

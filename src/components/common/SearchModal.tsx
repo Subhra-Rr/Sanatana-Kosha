@@ -48,8 +48,14 @@ export const SearchModal: React.FC = () => {
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-4 sm:pt-20 px-2 sm:px-4 bg-stone-950/75 backdrop-blur-sm animate-fade-in">
-      <div className="w-full max-w-3xl bg-stone-900 border border-amber-900/30 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] sm:max-h-[80vh]">
+    <div
+      onClick={() => setIsSearchOpen(false)}
+      className="fixed inset-0 z-50 flex items-start justify-center pt-3 sm:pt-16 px-2.5 sm:px-4 bg-stone-950/80 backdrop-blur-sm animate-fade-in"
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="w-full max-w-3xl bg-stone-900 border border-amber-900/30 rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90dvh] sm:max-h-[82vh] overscroll-contain"
+      >
         {/* Search Header */}
         <div className="p-3 sm:p-4 border-b border-amber-900/15 flex items-center gap-2 sm:gap-3">
           <Search className="w-5 h-5 text-amber-400 shrink-0" />

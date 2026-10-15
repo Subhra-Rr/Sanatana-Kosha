@@ -1,6 +1,7 @@
 import React from 'react';
 import { useApp } from '../../context/AppContext';
 import { getTopicKnowledge, TopicKnowledgeItem } from '../../data/topicKnowledge';
+import { SacredVerseExperience } from '../spiritual/SacredVerseExperience';
 import {
   X,
   BookOpen,
@@ -49,9 +50,12 @@ export const TopicKnowledgeModal: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-stone-950/75 backdrop-blur-sm animate-fade-in overflow-y-auto">
+    <div
+      onClick={closeTopicModal}
+      className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 bg-stone-950/80 backdrop-blur-sm animate-fade-in overflow-y-auto"
+    >
       <div
-        className="relative w-full max-w-3xl my-6 bg-stone-900 border border-amber-800/30 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
+        className="relative w-full max-w-3xl my-auto bg-stone-900 border border-amber-800/30 rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[92dvh] sm:max-h-[88vh] overscroll-contain"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Header */}
@@ -115,35 +119,17 @@ export const TopicKnowledgeModal: React.FC = () => {
             </div>
           )}
 
-          {/* Mantra or Shloka Card */}
+          {/* Key Shloka / Mantra with Sacred Verse Experience */}
           {item.mantraOrShloka && (
-            <div className="p-4 sm:p-5 rounded-2xl bg-stone-950/80 border border-amber-800/25 space-y-3 shadow-inner">
-              <div className="flex items-center justify-between border-b border-amber-900/20 pb-2">
-                <span className="text-xs font-bold uppercase tracking-wider text-amber-300 flex items-center gap-1.5">
-                  <Sparkles className="w-4 h-4 text-amber-400" /> Key Shloka / Mantra
-                </span>
-                <button
-                  onClick={() => playVerseAudio(item.mantraOrShloka!.sanskrit)}
-                  className="px-3 py-1 rounded-lg bg-amber-700 text-white hover:bg-amber-800 text-xs font-medium flex items-center gap-1.5 shadow-sm transition-colors"
-                >
-                  <Volume2 className="w-3.5 h-3.5" /> Recite Sanskrit
-                </button>
-              </div>
-
-              <div className="text-center space-y-2 py-2">
-                <p className="font-serif text-base sm:text-lg font-bold text-amber-100 sanskrit-font leading-relaxed whitespace-pre-line">
-                  {item.mantraOrShloka.sanskrit}
-                </p>
-                <p className="text-xs text-amber-300 italic">
-                  {item.mantraOrShloka.transliteration}
-                </p>
-              </div>
-
-              <div className="pt-2 border-t border-amber-900/20 text-xs text-stone-300 leading-relaxed">
-                <span className="font-bold text-amber-200">Meaning: </span>
-                "{item.mantraOrShloka.translation}"
-              </div>
-            </div>
+            <SacredVerseExperience
+              title="Key Shloka / Mantra"
+              sanskrit={item.mantraOrShloka.sanskrit}
+              transliteration={item.mantraOrShloka.transliteration}
+              translation={item.mantraOrShloka.translation}
+              sourceScripture={item.originOrText}
+              onSpeak={() => playVerseAudio(item.mantraOrShloka!.sanskrit)}
+              className="border-amber-800/30 bg-stone-950/70"
+            />
           )}
 
           {/* Spiritual Significance & Application */}
