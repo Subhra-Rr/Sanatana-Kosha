@@ -196,6 +196,22 @@ export const RitualSanctuary: React.FC<{ className?: string }> = ({ className = 
               <span className="text-[10px] text-amber-300/80 font-serif mt-1 tracking-widest uppercase">गर्भगृह • Sanctum Sanctorum</span>
             </div>
 
+            {/* Fixed Sacred Pradakshina Orbit Track (Centered in the Chamber) */}
+            {isAartiActive && (
+              <div
+                aria-hidden="true"
+                className="absolute pointer-events-none rounded-full border border-amber-500/20"
+                style={{
+                  width: 136,
+                  height: 60,
+                  top: 'calc(50% + 40px)',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  boxShadow: '0 0 25px rgba(245, 158, 11, 0.05)'
+                }}
+              />
+            )}
+
             {/* Aarti Lamp moving in slow graceful clockwise orbit */}
             <div
               className="relative z-10 transition-transform duration-75 flex flex-col items-center"
@@ -203,26 +219,29 @@ export const RitualSanctuary: React.FC<{ className?: string }> = ({ className = 
                 transform: `translate3d(${aartiPos.x}px, ${aartiPos.y + 40}px, 0)`
               }}
             >
-              <div className="relative">
+              {/* Concentric Warm Flame Aura directly centered with the burning flames */}
+              <div
+                aria-hidden="true"
+                className="absolute -top-3 left-1/2 -translate-x-1/2 pointer-events-none rounded-full animate-diya-aura"
+                style={{
+                  width: 100,
+                  height: 54,
+                  background: 'radial-gradient(ellipse at 50% 55%, rgba(245, 158, 11, 0.4) 0%, rgba(217, 119, 6, 0.15) 50%, transparent 75%)',
+                  filter: 'blur(3px)'
+                }}
+              />
+
+              <div className="relative z-10">
                 {/* Five-wick Pancha Pradeep Aarti Lamp representation */}
                 <div className="flex items-end justify-center -space-x-1.5 mb-[-2px]">
                   <Diya size="sm" showAura={false} />
-                  <Diya size="md" showAura={true} />
+                  <Diya size="md" showAura={false} />
                   <Diya size="sm" showAura={false} />
                 </div>
                 {/* Traditional Brass Aarti Handle */}
                 <div className="w-12 h-2 bg-gradient-to-r from-amber-700 via-amber-400 to-amber-800 rounded-full mx-auto shadow-sm" />
                 <div className="w-1.5 h-6 bg-gradient-to-b from-amber-600 to-amber-900 mx-auto rounded-b" />
               </div>
-
-              {/* Orbit tracer guide (subtle, peaceful, not overwhelming) */}
-              {isAartiActive && (
-                <div
-                  aria-hidden="true"
-                  className="absolute -inset-10 rounded-full border border-amber-500/10 pointer-events-none"
-                  style={{ width: 140, height: 70, left: -46, top: -20 }}
-                />
-              )}
             </div>
 
             {/* Status Indicator */}

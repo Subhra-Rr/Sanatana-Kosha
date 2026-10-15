@@ -347,10 +347,10 @@ export const HomePage: React.FC = () => {
               <button
                 key={idx}
                 onClick={() => openTopicModal(topic)}
-                className="px-4 py-2.5 min-h-[48px] rounded-xl bg-amber-500/15 hover:bg-amber-600 hover:text-white text-amber-200 border border-amber-800/20 hover:border-amber-600 font-medium transition-all shadow-sm hover:shadow-md cursor-pointer flex items-center gap-1.5 active:scale-95"
+                className="px-4 py-2.5 min-h-[44px] rounded-xl bg-stone-900 border border-amber-700/35 text-amber-200 font-medium transition-colors shadow-sm hover:border-amber-500 hover:bg-stone-850 hover:text-amber-100 cursor-pointer flex items-center gap-1.5 active:scale-95 active:bg-amber-900/40"
               >
                 <span>{topic}</span>
-                <Sparkles className="w-3.5 h-3.5 text-amber-400 group-hover:text-white shrink-0" />
+                <Sparkles className="w-3.5 h-3.5 text-amber-400 shrink-0" />
               </button>
             ))}
           </div>
