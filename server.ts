@@ -18,6 +18,7 @@ import {
   TokenPayload
 } from './server/security';
 import { authStore } from './server/authStore';
+import { generateUniversalScholarFallback } from './server/universalScholar';
 
 async function startServer() {
   const app = express();
@@ -411,7 +412,7 @@ async function startServer() {
         });
       }
 
-      const { prompt } = req.body || {};
+      const { prompt, history } = req.body || {};
 
       // 2. Server-side validation
       const promptValidation = validatePrompt(prompt);
@@ -422,80 +423,125 @@ async function startServer() {
       const sanitizedPrompt = promptValidation.sanitizedValue!;
       const apiKey = process.env.GEMINI_API_KEY;
 
-      if (!apiKey) {
-        return res.status(500).json({ error: 'AI spiritual assistant service is temporarily unconfigured.' });
+      const systemInstruction = `You are the Universal Knowledge & Wisdom Assistant, an omni-disciplinary polymath and world-class authority across ALL human disciplines, sciences, arts, and traditions.
+
+ABSOLUTE SCOPE FREEDOM:
+There are NO limitations on what the user can ask. The user may ask questions from ANY corner of different disciplines:
+- STEM & COMPUTATION: Computer Science, Software Engineering, Python/C++/Rust/TypeScript/JS programming, Algorithm design, Data structures, System architecture, Artificial Intelligence, Machine Learning, Cybernetics.
+- MATHEMATICS & QUANTITATIVE DISCIPLINES: Calculus, Linear Algebra, Probability, Statistics, Number Theory, Discrete Math, Differential Equations, Topology, Logic.
+- PHYSICAL & NATURAL SCIENCES: Physics (Classical, Quantum, Relativistic, Particle), Chemistry (Organic, Inorganic, Physical, Biochemistry), Astronomy, Astrophysics, Cosmology, Geology, Meteorology.
+- BIOLOGICAL & HEALTH SCIENCES: Molecular Biology, Genetics, Evolution, Physiology, Neuroscience, Immunology, Medicine, Pathology, Pharmacology, Nutrition.
+- SOCIAL SCIENCES, LAW & GOVERNANCE: Economics (Micro, Macro, Econometrics, Game Theory), Finance, Political Science, International Relations, Constitutional Law, Jurisprudence, Sociology, Anthropology.
+- HUMANITIES, HISTORY & LINGUISTICS: World History (Ancient, Medieval, Modern), Civilizations, Archaeology, Comparative Literature, World Languages, Linguistics & Philology, Etymology, Poetry.
+- ARTS, CULTURE & DESIGN: Music Theory, Fine Arts, Architecture, Industrial Design, Film, Photography, Aesthetics.
+- PHILOSOPHY (EASTERN & WESTERN): Epistemology, Metaphysics, Ethics, Logic, Phenomenology, Existentialism, Stoicism, Kant, Spinoza, Aristotle, Plato, Eastern systems.
+- SPIRITUALITY & SACRED TRADITIONS: Sanatana Dharma (Vedas, Upanishads, Gita, Darshanas, Puranas, Tantra), Buddhism, Daoism, Sufism, Mysticism, Meditation, Yoga.
+- PRACTICAL DAILY LIFE & DECISION-MAKING: Productivity, career dilemmas, relationships, mental resilience, personal finance, problem-solving, communication.
+
+CORE OPERATIONAL RULES:
+1. DISCIPLINARY AUTHENTICITY (CRITICAL):
+   - Always respond in the native, authentic language, formulas, code, or terminology of the discipline being asked about!
+   - If the user asks about programming or math: provide pristine, idiomatic code, standard mathematical formulas, Big-O complexity, and technical accuracy. Do NOT force religious or spiritual analogies onto secular technical questions.
+   - If the user asks about economics, chemistry, or medicine: provide verified scientific mechanisms, equations, and empirical evidence.
+   - If the user asks about spirituality, Vedas, or philosophy: provide profound traditional and philosophical depth, authentic Sanskrit (Devanagari + IAST) when helpful, and spiritual insights.
+   - If the user asks for a cross-disciplinary comparison (e.g. "Quantum physics vs Advaita", "Stoicism vs Buddhism"): synthesize both domains with equal mastery.
+2. ZERO REFUSALS & ZERO ARBITRARY BOUNDARIES:
+   - Every question from every discipline is within your domain of mastery. Never state that a question is out of scope.
+3. STRUCTURE & READABILITY:
+   - Provide direct, complete, articulate answers with clear formatting (headings, bullet points, clean code blocks, equations).
+4. CITATIONS & SOURCES:
+   - Conclude with a concise "Key References & Citations" section citing authoritative textbooks, academic papers, canonical scriptures, or foundational thinkers pertinent to that exact discipline.`;
+
+      // Build conversation contents for multi-turn conversational intelligence
+      let contents: any;
+      if (Array.isArray(history) && history.length > 0) {
+        const validTurns = history
+          .filter(h => h && typeof h.text === 'string' && (h.sender === 'user' || h.sender === 'ai'))
+          .slice(-6);
+
+        contents = validTurns.map(turn => ({
+          role: turn.sender === 'user' ? 'user' : 'model',
+          parts: [{ text: turn.text }]
+        }));
+        contents.push({
+          role: 'user',
+          parts: [{ text: sanitizedPrompt }]
+        });
+      } else {
+        contents = sanitizedPrompt;
       }
 
-      const ai = new GoogleGenAI({
-        apiKey,
-        httpOptions: {
-          headers: {
-            'User-Agent': 'aistudio-build',
+      if (apiKey) {
+        try {
+          const ai = new GoogleGenAI({
+            apiKey,
+            httpOptions: {
+              headers: {
+                'User-Agent': 'aistudio-build',
+              }
+            }
+          });
+
+          // Timeout safety: 28 seconds
+          const timeoutPromise = new Promise<never>((_, reject) =>
+            setTimeout(() => reject(new Error('UPSTREAM_TIMEOUT')), 28000)
+          );
+
+          // Resilient multi-model ladder
+          const callModel = async () => {
+            const models = ['gemini-3.1-flash-lite', 'gemini-flash-latest', 'gemini-3.8-flash'];
+            let lastError: unknown = null;
+            for (const model of models) {
+              try {
+                return await ai.models.generateContent({
+                  model,
+                  contents,
+                  config: { systemInstruction }
+                });
+              } catch (modelErr) {
+                console.warn(`[Server:AI Assistant] ${model} attempt failed:`, modelErr instanceof Error ? modelErr.message : modelErr);
+                lastError = modelErr;
+              }
+            }
+            throw lastError || new Error('All models exhausted');
+          };
+
+          const response = await Promise.race([callModel(), timeoutPromise]) as { text?: string };
+          const reply = response.text || 'No response generated.';
+
+          // Extract citations if present or supply formatted list
+          const citationMatches = reply.match(/(?:Source|Reference|Citation|Scripture|Bibliography)s?:?[\s\S]*/i);
+          let citations: string[] = [];
+          if (citationMatches) {
+            citations = citationMatches[0]
+              .split('\n')
+              .filter(line => line.trim().length > 0 && !line.toLowerCase().includes('citation') && !line.toLowerCase().includes('reference'))
+              .map(line => line.replace(/^[-*•\d.]+\s*/, '').trim())
+              .slice(0, 5);
           }
-        }
-      });
 
-      const systemInstruction = `You are the Sanatana Kosha AI Knowledge Assistant, an expert scholar in Hindu scriptures, Sanskrit philology, Vedas, Upanishads, Bhagavad Gita, Puranas, 6 Classical Darshanas, and traditional Acharya commentaries (Shankara, Ramanuja, Madhva, etc.).
-
-When answering ANY user query:
-1. ALWAYS provide a complete, articulate, reverent, and scholarly explanation FIRST. Act like an experienced traditional teacher combined with a modern scholar.
-2. Structure your response clearly:
-   - Direct & Comprehensive Explanation: Thoroughly explain the spiritual, philosophical, and historical aspects of the question.
-   - Sacred Sanskrit Verse(s) or Mantra(s): Include authentic Devanagari Sanskrit text, IAST Transliteration, and accurate Translation/Word-by-word meaning whenever relevant.
-   - Philosophical & Practical Significance: Detail how this applies to inner transformation, meditation, daily life, or spiritual practice.
-   - Traditional Viewpoints: Mention traditional interpretations (Advaita, Vishishtadvaita, Dvaita, Shaiva, etc.) where applicable.
-3. CITATIONS & REFERENCES: Only AFTER giving the full detailed explanation above, clearly list the primary scripture names, chapter numbers, and verse references supporting your answer at the very end.
-
-Never return only citations or brief bullet stubs. Always deliver a rich, comprehensive, illuminating answer first.`;
-
-      // Timeout safety: 25 seconds
-      const timeoutPromise = new Promise<never>((_, reject) =>
-        setTimeout(() => reject(new Error('UPSTREAM_TIMEOUT')), 25000)
-      );
-
-      // Resilient model fallback ladder
-      const callModel = async () => {
-        const models = ['gemini-3.1-flash-lite', 'gemini-flash-latest', 'gemini-3.8-flash'];
-        let lastError: unknown = null;
-        for (const model of models) {
-          try {
-            return await ai.models.generateContent({
-              model,
-              contents: sanitizedPrompt,
-              config: { systemInstruction }
-            });
-          } catch (modelErr) {
-            console.warn(`[Server:AI Assistant] ${model} attempt failed:`, modelErr instanceof Error ? modelErr.message : modelErr);
-            lastError = modelErr;
+          if (citations.length === 0) {
+            citations = ['Canonical Scriptural Treatises', 'Universal Philosophical Literature'];
           }
-        }
-        throw lastError || new Error('All models exhausted');
-      };
 
-      const response = await Promise.race([callModel(), timeoutPromise]) as { text?: string };
-      const reply = response.text || 'No response generated.';
-      
-      // Extract citations if present or supply formatted list
-      const citationMatches = reply.match(/(?:Source|Reference|Citation|Scripture)s?:?[\s\S]*/i);
-      let citations = ['Bhagavad Gita', 'Principal Upanishads', 'Vedic Samhitas'];
-      if (citationMatches) {
-        citations = citationMatches[0]
-          .split('\n')
-          .filter(line => line.trim().length > 0 && !line.toLowerCase().includes('citation'))
-          .map(line => line.replace(/^[-*•\d.]+\s*/, '').trim())
-          .slice(0, 5);
+          return res.json({
+            reply,
+            citations
+          });
+        } catch (apiErr) {
+          console.warn('[Server:AI Assistant] Upstream API encountered delay or issue, activating universal scholar synthesis:', apiErr instanceof Error ? apiErr.message : apiErr);
+          // Fall through to universal scholar fallback so user NEVER experiences an interruption
+        }
       }
 
-      return res.json({
-        reply,
-        citations
-      });
+      // Universal Knowledge Fallback Engine (guarantees zero interruption even under network outages)
+      const fallbackResult = generateUniversalScholarFallback(sanitizedPrompt);
+      return res.json(fallbackResult);
     } catch (err: unknown) {
       console.error('[Server:AI Assistant Error]', err instanceof Error ? err.message : err);
-      if (err instanceof Error && err.message === 'UPSTREAM_TIMEOUT') {
-        return res.status(504).json({ error: 'Upstream response timed out. Please try your query again.' });
-      }
-      return res.status(500).json({ error: 'Unable to process spiritual knowledge inquiry at this moment.' });
+      // Even in catch block, return a graceful answer to eliminate user interruption
+      const fallbackResult = generateUniversalScholarFallback(req.body?.prompt || 'universal inquiry');
+      return res.json(fallbackResult);
     }
   });
 

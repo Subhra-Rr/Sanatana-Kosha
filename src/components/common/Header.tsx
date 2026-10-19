@@ -87,11 +87,11 @@ export const Header: React.FC = () => {
 
         {/* Utility Controls */}
         <div className="flex items-center gap-1 sm:gap-2 shrink-0">
-          {/* AI Spiritual Assistant Trigger */}
+          {/* AI Universal Knowledge Assistant Trigger */}
           <button
             onClick={() => setIsAiAssistantOpen(true)}
             className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-full bg-gradient-to-r from-amber-700 to-amber-900 text-amber-100 hover:from-amber-600 hover:to-amber-800 text-xs font-medium shadow-md transition-all border border-amber-400/30 active:scale-95 min-h-[44px] min-w-[44px] justify-center"
-            title="Ask AI Spiritual Assistant"
+            title="Ask AI Assistant (Spirituality, Philosophy, Sciences & Beyond)"
           >
             <Sparkles className="w-3.5 h-3.5 text-amber-300 shrink-0 animate-spin" style={{ animationDuration: '6s' }} />
             <span className="hidden sm:inline">Ask AI</span>

@@ -258,7 +258,7 @@ export const loginRateLimiter = new LoginRateLimiter();
  */
 class AiAssistantRateLimiter {
   private ipRequests: Map<string, { count: number; resetTime: number }> = new Map();
-  private readonly maxRequestsPerMinute = 20;
+  private readonly maxRequestsPerMinute = 40;
   private readonly windowMs = 60 * 1000;
 
   constructor() {
