@@ -26,7 +26,7 @@ export const EpicsPage: React.FC = () => {
           className={`px-4 sm:px-5 py-2.5 rounded-xl font-serif text-xs sm:text-sm font-semibold transition-all min-h-[44px] flex items-center justify-center active:scale-95 ${
             activeTab === 'ramayana'
               ? 'bg-amber-700 text-white font-bold shadow-md'
-              : 'bg-amber-100/60 dark:bg-stone-900 text-stone-800 dark:text-stone-200 hover:bg-amber-200'
+              : 'bg-stone-800 text-stone-300 hover:bg-stone-700 hover:text-amber-200 border border-amber-900/20'
           }`}
         >
           Valmiki Ramayana (7 Kandas)
@@ -36,7 +36,7 @@ export const EpicsPage: React.FC = () => {
           className={`px-4 sm:px-5 py-2.5 rounded-xl font-serif text-xs sm:text-sm font-semibold transition-all min-h-[44px] flex items-center justify-center active:scale-95 ${
             activeTab === 'mahabharata'
               ? 'bg-amber-700 text-white font-bold shadow-md'
-              : 'bg-amber-100/60 dark:bg-stone-900 text-stone-800 dark:text-stone-200 hover:bg-amber-200'
+              : 'bg-stone-800 text-stone-300 hover:bg-stone-700 hover:text-amber-200 border border-amber-900/20'
           }`}
         >
           Mahabharata (18 Parvas)
@@ -46,7 +46,7 @@ export const EpicsPage: React.FC = () => {
           className={`px-4 sm:px-5 py-2.5 rounded-xl font-serif text-xs sm:text-sm font-semibold transition-all min-h-[44px] flex items-center justify-center active:scale-95 ${
             activeTab === 'characters'
               ? 'bg-amber-700 text-white font-bold shadow-md'
-              : 'bg-amber-100/60 dark:bg-stone-900 text-stone-800 dark:text-stone-200 hover:bg-amber-200'
+              : 'bg-stone-800 text-stone-300 hover:bg-stone-700 hover:text-amber-200 border border-amber-900/20'
           }`}
         >
           Epic Personalities & Figures
@@ -56,11 +56,11 @@ export const EpicsPage: React.FC = () => {
       {/* Ramayana View */}
       {activeTab === 'ramayana' && (
         <div className="space-y-6">
-          <div className="p-6 bg-amber-100/50 dark:bg-stone-900 border border-amber-800/20 rounded-2xl space-y-2">
-            <h2 className="font-serif text-2xl font-bold text-amber-950 dark:text-amber-100 sanskrit-font">
+          <div className="p-6 bg-stone-900/90 border border-amber-800/20 rounded-2xl space-y-2">
+            <h2 className="font-serif text-2xl font-bold text-amber-100 sanskrit-font">
               श्रीमद्वाल्मीकीयरामायणम् • The Journey of Sri Rama
             </h2>
-            <p className="text-xs sm:text-sm text-stone-700 dark:text-stone-300 font-serif leading-relaxed">
+            <p className="text-xs sm:text-sm text-stone-300 font-serif leading-relaxed">
               Composed by Adi Kavi Maharshi Valmiki in 24,000 verses across 7 Kandas (books), Ramayana presents Maryada Purushottama Sri Rama as the living embodiment of righteousness.
             </p>
           </div>
@@ -70,26 +70,26 @@ export const EpicsPage: React.FC = () => {
               <div
                 key={kanda.id}
                 onClick={() => openTopicModal(kanda.sectionName)}
-                className="p-5 sm:p-6 rounded-2xl bg-amber-50 dark:bg-stone-900 border border-amber-800/20 shadow-md space-y-3 flex flex-col justify-between hover:border-amber-600 transition-all hover:-translate-y-1 cursor-pointer group"
+                className="p-5 sm:p-6 rounded-2xl bg-stone-900 border border-amber-800/20 shadow-md space-y-3 flex flex-col justify-between hover:border-amber-600 transition-all hover:-translate-y-1 cursor-pointer group"
               >
                 <div className="space-y-2">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2 border-b border-amber-900/10 pb-2.5">
-                    <span className="font-serif text-lg font-bold text-amber-950 dark:text-amber-100 group-hover:text-amber-700 transition-colors flex items-center gap-1 break-words">
+                    <span className="font-serif text-lg font-bold text-amber-100 group-hover:text-amber-300 transition-colors flex items-center gap-1 break-words">
                       <span>{kanda.sectionName}</span>
                       <ExternalLink className="w-3.5 h-3.5 text-amber-600 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
                     </span>
-                    <span className="text-xs text-amber-800 dark:text-amber-300 font-serif sanskrit-font shrink-0">
+                    <span className="text-xs text-amber-300 font-serif sanskrit-font shrink-0">
                       ({kanda.sanskritName})
                     </span>
                   </div>
 
-                  <p className="text-xs text-stone-700 dark:text-stone-300 leading-relaxed font-serif break-words">
+                  <p className="text-xs text-stone-300 leading-relaxed font-serif break-words">
                     {kanda.summary}
                   </p>
                 </div>
 
                 <div className="pt-3 border-t border-amber-900/10 space-y-1.5">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-amber-800 dark:text-amber-400 block">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400 block">
                     Key Events & Milestones (Click to read)
                   </span>
                   <div className="flex flex-wrap gap-2 text-xs">
@@ -100,7 +100,7 @@ export const EpicsPage: React.FC = () => {
                           evt.stopPropagation();
                           openTopicModal(e);
                         }}
-                        className="px-3 py-2 rounded-xl bg-amber-500/15 text-amber-900 dark:text-amber-200 hover:bg-amber-600 hover:text-white transition-all text-left min-h-[44px] flex items-center font-medium active:scale-95 break-words"
+                        className="px-3 py-2 rounded-xl bg-amber-500/15 text-amber-200 hover:bg-amber-600 hover:text-white transition-all text-left min-h-[44px] flex items-center font-medium active:scale-95 break-words"
                       >
                         • {e}
                       </button>
@@ -116,11 +116,11 @@ export const EpicsPage: React.FC = () => {
       {/* Mahabharata View */}
       {activeTab === 'mahabharata' && (
         <div className="space-y-6">
-          <div className="p-6 bg-amber-100/50 dark:bg-stone-900 border border-amber-800/20 rounded-2xl space-y-2">
-            <h2 className="font-serif text-2xl font-bold text-amber-950 dark:text-amber-100 sanskrit-font">
+          <div className="p-6 bg-stone-900 border border-amber-800/20 rounded-2xl space-y-2">
+            <h2 className="font-serif text-2xl font-bold text-amber-100 sanskrit-font">
               महाभारतम् • The Great Epic of Bharat
             </h2>
-            <p className="text-xs sm:text-sm text-stone-700 dark:text-stone-300 font-serif leading-relaxed">
+            <p className="text-xs sm:text-sm text-stone-300 font-serif leading-relaxed">
               Composed by Maharshi Veda Vyasa containing 100,000 verses across 18 Parvas (books), Mahabharata contains the Bhagavad Gita, Sanatsujatiya, Anugita, and Vishnu Sahasranama.
             </p>
           </div>
@@ -130,26 +130,26 @@ export const EpicsPage: React.FC = () => {
               <div
                 key={parva.id}
                 onClick={() => openTopicModal(parva.sectionName)}
-                className="p-5 sm:p-6 rounded-2xl bg-amber-50 dark:bg-stone-900 border border-amber-800/20 shadow-md space-y-3 flex flex-col justify-between hover:border-amber-600 transition-all hover:-translate-y-1 cursor-pointer group"
+                className="p-5 sm:p-6 rounded-2xl bg-stone-900 border border-amber-800/20 shadow-md space-y-3 flex flex-col justify-between hover:border-amber-600 transition-all hover:-translate-y-1 cursor-pointer group"
               >
                 <div className="space-y-2">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2 border-b border-amber-900/10 pb-2.5">
-                    <span className="font-serif text-lg font-bold text-amber-950 dark:text-amber-100 group-hover:text-amber-700 transition-colors flex items-center gap-1 break-words">
+                    <span className="font-serif text-lg font-bold text-amber-100 group-hover:text-amber-300 transition-colors flex items-center gap-1 break-words">
                       <span>{parva.sectionName}</span>
                       <ExternalLink className="w-3.5 h-3.5 text-amber-600 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
                     </span>
-                    <span className="text-xs text-amber-800 dark:text-amber-300 font-serif sanskrit-font shrink-0">
+                    <span className="text-xs text-amber-300 font-serif sanskrit-font shrink-0">
                       ({parva.sanskritName})
                     </span>
                   </div>
 
-                  <p className="text-xs text-stone-700 dark:text-stone-300 leading-relaxed font-serif break-words">
+                  <p className="text-xs text-stone-300 leading-relaxed font-serif break-words">
                     {parva.summary}
                   </p>
                 </div>
 
                 <div className="pt-3 border-t border-amber-900/10 space-y-1.5">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-amber-800 dark:text-amber-400 block">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400 block">
                     Notable Episodes (Click to read)
                   </span>
                   <div className="flex flex-wrap gap-2 text-xs">
@@ -160,7 +160,7 @@ export const EpicsPage: React.FC = () => {
                           evt.stopPropagation();
                           openTopicModal(e);
                         }}
-                        className="px-3 py-2 rounded-xl bg-amber-500/15 text-amber-900 dark:text-amber-200 hover:bg-amber-600 hover:text-white transition-all text-left min-h-[44px] flex items-center font-medium active:scale-95 break-words"
+                        className="px-3 py-2 rounded-xl bg-amber-500/15 text-amber-200 hover:bg-amber-600 hover:text-white transition-all text-left min-h-[44px] flex items-center font-medium active:scale-95 break-words"
                       >
                         • {e}
                       </button>
@@ -180,40 +180,40 @@ export const EpicsPage: React.FC = () => {
             <div
               key={char.id}
               onClick={() => openTopicModal(char.name)}
-              className="p-5 sm:p-6 rounded-2xl bg-amber-50 dark:bg-stone-900 border border-amber-800/20 shadow-md space-y-3 flex flex-col justify-between hover:border-amber-600 transition-all hover:-translate-y-1 cursor-pointer group"
+              className="p-5 sm:p-6 rounded-2xl bg-stone-900 border border-amber-800/20 shadow-md space-y-3 flex flex-col justify-between hover:border-amber-600 transition-all hover:-translate-y-1 cursor-pointer group"
             >
               <div className="space-y-2">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-2 border-b border-amber-900/10 pb-2.5">
                   <div className="min-w-0">
-                    <h3 className="font-serif text-xl font-bold text-amber-950 dark:text-amber-100 group-hover:text-amber-700 transition-colors flex items-center gap-1.5 break-words">
+                    <h3 className="font-serif text-xl font-bold text-amber-100 group-hover:text-amber-300 transition-colors flex items-center gap-1.5 break-words">
                       <span>{char.name}</span>
                       <ExternalLink className="w-3.5 h-3.5 text-amber-600 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
                     </h3>
-                    <span className="text-xs text-amber-800 dark:text-amber-300 font-serif sanskrit-font block break-words">
+                    <span className="text-xs text-amber-300 font-serif sanskrit-font block break-words">
                       ({char.sanskritName})
                     </span>
                   </div>
-                  <span className="text-[10px] px-2.5 py-1 rounded-full bg-amber-600/20 text-amber-900 dark:text-amber-200 font-medium shrink-0 self-start sm:self-auto whitespace-nowrap">
+                  <span className="text-[10px] px-2.5 py-1 rounded-full bg-amber-600/20 text-amber-200 font-medium shrink-0 self-start sm:self-auto whitespace-nowrap">
                     {char.epic}
                   </span>
                 </div>
 
-                <div className="text-[11px] font-semibold text-amber-800 dark:text-amber-400 break-words">
+                <div className="text-[11px] font-semibold text-amber-400 break-words">
                   Lineage: {char.lineage}
                 </div>
 
-                <p className="text-xs text-stone-700 dark:text-stone-300 leading-relaxed font-serif break-words">
+                <p className="text-xs text-stone-300 leading-relaxed font-serif break-words">
                   {char.bio}
                 </p>
               </div>
 
               <div className="pt-3 border-t border-amber-900/10 space-y-1">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-amber-800 dark:text-amber-400 block">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400 block">
                   Key Qualities
                 </span>
                 <div className="flex flex-wrap gap-1.5 text-xs">
                   {char.keyQualities.map((q, idx) => (
-                    <span key={idx} className="px-2.5 py-1 rounded-lg bg-amber-500/10 text-amber-900 dark:text-amber-200 break-words">
+                    <span key={idx} className="px-2.5 py-1 rounded-lg bg-amber-500/10 text-amber-200 break-words">
                       {q}
                     </span>
                   ))}

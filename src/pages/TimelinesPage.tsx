@@ -71,12 +71,12 @@ export const TimelinesPage: React.FC = () => {
                     <ExternalLink className="w-4 h-4 text-amber-600 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
                   </h3>
                 </div>
-                <span className="text-xs font-bold px-3 py-1.5 rounded-full bg-amber-600/20 text-amber-900 dark:text-amber-200 self-start sm:self-auto shrink-0 whitespace-nowrap">
+                <span className="text-xs font-bold px-3 py-1.5 rounded-full bg-amber-600/20 text-amber-200 self-start sm:self-auto shrink-0 whitespace-nowrap">
                   {evt.yearBCEorCE}
                 </span>
               </div>
 
-              <p className="text-xs sm:text-sm text-stone-700 dark:text-stone-300 leading-relaxed font-serif break-words">
+              <p className="text-xs sm:text-sm text-stone-300 leading-relaxed font-serif break-words">
                 {evt.description}
               </p>
 
@@ -88,7 +88,7 @@ export const TimelinesPage: React.FC = () => {
                       e.stopPropagation();
                       openTopicModal(fig);
                     }}
-                    className="px-3 py-2 rounded-xl bg-amber-500/15 text-amber-900 dark:text-amber-200 hover:bg-amber-600 hover:text-white transition-all text-left font-medium min-h-[44px] flex items-center active:scale-95 break-words"
+                    className="px-3 py-2 rounded-xl bg-amber-500/15 text-amber-200 hover:bg-amber-600 hover:text-white transition-all text-left font-medium min-h-[44px] flex items-center active:scale-95 break-words border border-amber-900/20"
                   >
                     {fig}
                   </button>

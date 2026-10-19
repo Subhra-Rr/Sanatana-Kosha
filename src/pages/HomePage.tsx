@@ -68,11 +68,18 @@ export const HomePage: React.FC = () => {
           <div className="space-y-4 flex flex-col items-center">
             {/* Glowing Sacred AUM Emblem in Hero */}
             <div className="relative flex items-center justify-center my-1">
-              <div className="absolute -inset-3 rounded-full bg-gradient-to-r from-amber-500/30 via-yellow-400/30 to-orange-500/30 blur-xl animate-pulse" />
+              <div
+                aria-hidden="true"
+                className="absolute -inset-4 rounded-full pointer-events-none animate-diya-aura"
+                style={{
+                  background: 'radial-gradient(circle, rgba(245, 158, 11, 0.45) 0%, rgba(217, 119, 6, 0.2) 50%, transparent 75%)',
+                  filter: 'blur(10px)'
+                }}
+              />
               <img
                 src="/favicon.svg"
                 alt="Sanatana Kosha Sacred Glowing AUM"
-                className="relative z-10 w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-2xl shadow-[0_0_30px_rgba(245,158,11,0.6)] border border-amber-400/60 transition-transform duration-500 hover:scale-105"
+                className="relative z-10 w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-2xl shadow-[0_0_30px_rgba(245,158,11,0.4)] transition-transform duration-500 hover:scale-105"
                 referrerPolicy="no-referrer"
               />
             </div>

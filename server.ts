@@ -449,19 +449,30 @@ When answering ANY user query:
 Never return only citations or brief bullet stubs. Always deliver a rich, comprehensive, illuminating answer first.`;
 
       // Timeout safety: 25 seconds
-      const timeoutPromise = new Promise((_, reject) =>
+      const timeoutPromise = new Promise<never>((_, reject) =>
         setTimeout(() => reject(new Error('UPSTREAM_TIMEOUT')), 25000)
       );
 
-      const generatePromise = ai.models.generateContent({
-        model: 'gemini-3.8-flash',
-        contents: sanitizedPrompt,
-        config: {
-          systemInstruction
+      // Resilient model fallback ladder
+      const callModel = async () => {
+        const models = ['gemini-3.1-flash-lite', 'gemini-flash-latest', 'gemini-3.8-flash'];
+        let lastError: unknown = null;
+        for (const model of models) {
+          try {
+            return await ai.models.generateContent({
+              model,
+              contents: sanitizedPrompt,
+              config: { systemInstruction }
+            });
+          } catch (modelErr) {
+            console.warn(`[Server:AI Assistant] ${model} attempt failed:`, modelErr instanceof Error ? modelErr.message : modelErr);
+            lastError = modelErr;
+          }
         }
-      });
+        throw lastError || new Error('All models exhausted');
+      };
 
-      const response = await Promise.race([generatePromise, timeoutPromise]) as { text?: string };
+      const response = await Promise.race([callModel(), timeoutPromise]) as { text?: string };
       const reply = response.text || 'No response generated.';
       
       // Extract citations if present or supply formatted list

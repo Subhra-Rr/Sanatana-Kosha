@@ -115,13 +115,25 @@ html, body {
   overflow-x: clip;
 }
 
-/* Override any accidental light mode background utility classes on non-dark device viewports */
+/* Absolute Enforcement of Oil Lamp / Deepam Dark Sanctuary Identity */
+.bg-amber-50,
+.bg-amber-100,
+.bg-stone-100,
+.bg-stone-200,
+.bg-white,
 :not(.dark) .bg-amber-50,
 :not(.dark) .bg-amber-100,
 :not(.dark) .bg-stone-100,
 :not(.dark) .bg-stone-200,
 :not(.dark) .bg-white {
   background-color: #1c1917 !important;
+  color: #fef3c7 !important;
+}
+
+:not(.dark) .text-amber-950,
+:not(.dark) .text-amber-900,
+:not(.dark) .text-stone-800,
+:not(.dark) .text-stone-900 {
   color: #fef3c7 !important;
 }
 

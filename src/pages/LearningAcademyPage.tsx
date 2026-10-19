@@ -29,10 +29,10 @@ export const LearningAcademyPage: React.FC = () => {
           <GraduationCap className="w-4 h-4 text-amber-600" />
           <span>Sanatana Kosha Learning Academy</span>
         </div>
-        <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-amber-950 dark:text-amber-100 sanskrit-font">
+        <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-amber-100 sanskrit-font">
           विद्या गुरुकुलम्
         </h1>
-        <p className="text-stone-700 dark:text-stone-300 text-sm sm:text-base font-serif leading-relaxed">
+        <p className="text-stone-300 text-sm sm:text-base font-serif leading-relaxed">
           Structured learning pathways, authentic scriptural lessons, and interactive knowledge quizzes.
         </p>
       </div>
@@ -49,21 +49,21 @@ export const LearningAcademyPage: React.FC = () => {
             className={`p-5 rounded-2xl text-left border transition-all flex flex-col justify-between space-y-3 ${
               selectedCourseId === course.id
                 ? 'bg-amber-800 text-white border-amber-600 shadow-xl ring-2 ring-amber-500/50'
-                : 'bg-amber-50/90 dark:bg-stone-900 text-stone-800 dark:text-stone-200 border-amber-800/20 hover:border-amber-600'
+                : 'bg-stone-900 text-stone-200 border-amber-800/20 hover:border-amber-600'
             }`}
           >
             <div>
               <div className="flex items-center justify-between text-xs mb-1">
                 <span className={`px-2 py-0.5 rounded font-bold uppercase text-[10px] ${
-                  selectedCourseId === course.id ? 'bg-amber-600 text-white' : 'bg-amber-500/20 text-amber-900 dark:text-amber-300'
+                  selectedCourseId === course.id ? 'bg-amber-600 text-white' : 'bg-amber-500/20 text-amber-300'
                 }`}>
                   {course.category}
                 </span>
                 <span className="opacity-80 font-mono text-[11px]">{course.estimatedDuration}</span>
               </div>
-              <h3 className="font-serif text-lg font-bold mt-1">{course.courseTitle}</h3>
-              <span className="text-xs opacity-80 sanskrit-font">({course.sanskritTitle})</span>
-              <p className="text-xs opacity-90 font-serif mt-2 line-clamp-2">{course.description}</p>
+              <h3 className="font-serif text-lg font-bold mt-1 text-amber-100">{course.courseTitle}</h3>
+              <span className="text-xs opacity-80 sanskrit-font text-amber-300">({course.sanskritTitle})</span>
+              <p className="text-xs opacity-90 font-serif mt-2 line-clamp-2 text-stone-300">{course.description}</p>
             </div>
 
             <div className="flex items-center justify-between pt-2 border-t border-current/10 text-xs font-serif">
@@ -122,19 +122,19 @@ export const LearningAcademyPage: React.FC = () => {
               )}
             </div>
 
-            <p className="text-stone-800 dark:text-stone-200 font-serif text-sm sm:text-base leading-relaxed">
+            <p className="text-stone-300 font-serif text-sm sm:text-base leading-relaxed">
               {activeLesson.summary}
             </p>
 
             {/* Key Insights List */}
             <div className="space-y-2">
-              <h4 className="font-serif font-bold text-xs uppercase tracking-widest text-amber-900 dark:text-amber-300">
+              <h4 className="font-serif font-bold text-xs uppercase tracking-widest text-amber-300">
                 Key Lesson Insights
               </h4>
               <ul className="space-y-2">
                 {activeLesson.keyPoints.map((point, idx) => (
-                  <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm font-serif text-stone-700 dark:text-stone-300">
-                    <CheckCircle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                  <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm font-serif text-stone-300">
+                    <CheckCircle className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
                     <span>{point}</span>
                   </li>
                 ))}
@@ -143,9 +143,9 @@ export const LearningAcademyPage: React.FC = () => {
 
             {/* Optional Sanskrit Shloka Box */}
             {activeLesson.sanskritShloka && (
-              <div className="p-5 rounded-2xl bg-amber-200/50 dark:bg-stone-950/80 border border-amber-800/20 space-y-3">
+              <div className="p-5 rounded-2xl bg-stone-950/80 border border-amber-800/20 space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-amber-900 dark:text-amber-300">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-amber-300">
                     Sacred Verse Study
                   </span>
                   <button
@@ -155,10 +155,10 @@ export const LearningAcademyPage: React.FC = () => {
                     <Play className="w-3.5 h-3.5" /> Listen Audio
                   </button>
                 </div>
-                <p className="font-serif text-sm sm:text-base font-bold text-amber-950 dark:text-amber-100 sanskrit-font leading-relaxed">
+                <p className="font-serif text-sm sm:text-base font-bold text-amber-100 sanskrit-font leading-relaxed">
                   {activeLesson.sanskritShloka.text}
                 </p>
-                <p className="text-xs font-serif italic text-stone-700 dark:text-stone-300">
+                <p className="text-xs font-serif italic text-stone-300">
                   Translation: "{activeLesson.sanskritShloka.translation}"
                 </p>
               </div>
@@ -167,8 +167,8 @@ export const LearningAcademyPage: React.FC = () => {
             {/* Interactive Lesson Quiz */}
             {activeLesson.quiz.length > 0 && (
               <div className="pt-6 border-t border-amber-900/15 space-y-6">
-                <div className="flex items-center gap-2 font-serif font-bold text-lg text-amber-950 dark:text-amber-200">
-                  <Award className="w-5 h-5 text-amber-600" />
+                <div className="flex items-center gap-2 font-serif font-bold text-lg text-amber-200">
+                  <Award className="w-5 h-5 text-amber-400" />
                   <span>Knowledge Check Quiz</span>
                 </div>
 

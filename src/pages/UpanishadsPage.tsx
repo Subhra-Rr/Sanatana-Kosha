@@ -120,7 +120,7 @@ export const UpanishadsPage: React.FC = () => {
                 className={`p-2.5 rounded-xl text-xs font-medium flex items-center gap-1.5 transition-colors self-start sm:self-auto ${
                   isBm
                     ? 'bg-amber-700 text-white font-bold shadow-sm'
-                    : 'bg-amber-500/10 hover:bg-amber-500/20 text-amber-900 dark:text-amber-200'
+                    : 'bg-amber-500/10 hover:bg-amber-500/20 text-amber-200'
                 }`}
               >
                 <Bookmark className="w-4 h-4" /> {isBm ? 'Saved to Library' : 'Bookmark Upanishad'}
@@ -129,24 +129,24 @@ export const UpanishadsPage: React.FC = () => {
 
             {/* Mahavakya Highlight Card if available */}
             {activeUpanishad.mahavakya && (
-              <div className="p-6 bg-gradient-to-r from-amber-100/90 to-amber-200/50 dark:from-stone-800 dark:to-stone-900 border border-amber-800/20 rounded-2xl space-y-3 shadow-inner">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-amber-900 dark:text-amber-400">
+              <div className="p-6 bg-gradient-to-r from-amber-950/60 via-stone-900 to-amber-950/60 border border-amber-800/30 rounded-2xl space-y-3 shadow-inner">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-amber-400">
                   SACRED MAHAVAKYA (GREAT VEDANTIC DECLARATION)
                 </span>
-                <div className="text-xl sm:text-2xl font-serif font-bold text-amber-950 dark:text-amber-100 sanskrit-font flex items-center justify-between">
+                <div className="text-xl sm:text-2xl font-serif font-bold text-amber-100 sanskrit-font flex items-center justify-between">
                   <span>{activeUpanishad.mahavakya.sanskrit}</span>
                   <button
                     onClick={() => playVerseAudio(activeUpanishad.mahavakya!.sanskrit)}
-                    className="p-2 rounded-full bg-amber-500/20 hover:bg-amber-500/30 text-amber-900 dark:text-amber-200"
+                    className="p-2 rounded-full bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 transition-colors"
                     title="Recite Mahavakya"
                   >
                     <Volume2 className="w-4 h-4" />
                   </button>
                 </div>
-                <p className="text-xs text-stone-600 dark:text-stone-300 font-serif italic">
+                <p className="text-xs text-stone-300 font-serif italic">
                   Transliteration: {activeUpanishad.mahavakya.transliteration}
                 </p>
-                <p className="text-xs sm:text-sm font-bold text-amber-950 dark:text-amber-200 font-serif border-t border-amber-900/10 pt-2">
+                <p className="text-xs sm:text-sm font-bold text-amber-200 font-serif border-t border-amber-900/20 pt-2">
                   Meaning: "{activeUpanishad.mahavakya.translation}" — {activeUpanishad.mahavakya.meaning}
                 </p>
               </div>
@@ -154,10 +154,10 @@ export const UpanishadsPage: React.FC = () => {
 
             {/* Overview & Teachings */}
             <div className="space-y-4">
-              <span className="text-xs font-bold uppercase tracking-wider text-amber-900 dark:text-amber-300 block border-b border-amber-900/10 pb-1">
+              <span className="text-xs font-bold uppercase tracking-wider text-amber-300 block border-b border-amber-900/10 pb-1">
                 Summary & Philosophical Essence
               </span>
-              <p className="text-xs sm:text-sm text-stone-700 dark:text-stone-300 leading-relaxed font-serif">
+              <p className="text-xs sm:text-sm text-stone-300 leading-relaxed font-serif">
                 {activeUpanishad.summary}
               </p>
             </div>
@@ -165,10 +165,10 @@ export const UpanishadsPage: React.FC = () => {
             {/* Central Dialogue if present */}
             {activeUpanishad.centralDialogue && (
               <div className="p-4 bg-amber-500/10 rounded-xl border border-amber-500/20 space-y-1">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-amber-800 dark:text-amber-400">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400">
                   Famous Dialogue Frame
                 </span>
-                <p className="text-xs font-serif text-stone-800 dark:text-stone-200">
+                <p className="text-xs font-serif text-stone-200">
                   {activeUpanishad.centralDialogue}
                 </p>
               </div>
@@ -176,13 +176,13 @@ export const UpanishadsPage: React.FC = () => {
 
             {/* Key Teachings Bullet Points */}
             <div className="space-y-2 pt-2 border-t border-amber-900/10">
-              <span className="text-xs font-bold uppercase tracking-wider text-amber-900 dark:text-amber-300 block">
+              <span className="text-xs font-bold uppercase tracking-wider text-amber-300 block">
                 Key Spiritual Teachings
               </span>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {activeUpanishad.keyTeachings.map((t, idx) => (
-                  <div key={idx} className="p-3 bg-stone-100 dark:bg-stone-800/50 rounded-xl border border-amber-900/10 text-xs font-serif text-stone-800 dark:text-stone-200 flex items-start gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                  <div key={idx} className="p-3 bg-stone-800/50 rounded-xl border border-amber-900/20 text-xs font-serif text-stone-200 flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
                     <span>{t}</span>
                   </div>
                 ))}

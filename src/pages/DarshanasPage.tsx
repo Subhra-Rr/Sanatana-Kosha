@@ -50,35 +50,35 @@ export const DarshanasPage: React.FC = () => {
             <div
               key={d.id}
               onClick={() => openTopicModal(d.name)}
-              className="p-5 sm:p-6 rounded-2xl bg-amber-50/90 dark:bg-stone-900 border border-amber-800/20 shadow-md space-y-4 flex flex-col justify-between hover:border-amber-600 transition-all hover:-translate-y-1 cursor-pointer group"
+              className="p-5 sm:p-6 rounded-2xl bg-stone-900 border border-amber-800/20 shadow-md space-y-4 flex flex-col justify-between hover:border-amber-600 transition-all hover:-translate-y-1 cursor-pointer group"
             >
               <div className="space-y-3">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 border-b border-amber-900/10 pb-2.5">
                   <div className="min-w-0">
-                    <h3 className="font-serif text-xl sm:text-2xl font-bold text-amber-950 dark:text-amber-100 group-hover:text-amber-700 transition-colors flex items-center gap-1.5 break-words">
+                    <h3 className="font-serif text-xl sm:text-2xl font-bold text-amber-100 group-hover:text-amber-300 transition-colors flex items-center gap-1.5 break-words">
                       <span>{d.name}</span>
                       <ExternalLink className="w-3.5 h-3.5 text-amber-600 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
                     </h3>
-                    <span className="text-xs text-amber-800 dark:text-amber-300 font-serif sanskrit-font block break-words">
+                    <span className="text-xs text-amber-300 font-serif sanskrit-font block break-words">
                       ({d.sanskritName})
                     </span>
                   </div>
-                  <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-amber-600/20 text-amber-900 dark:text-amber-200 shrink-0 self-start sm:self-auto whitespace-nowrap">
+                  <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-amber-600/20 text-amber-200 shrink-0 self-start sm:self-auto whitespace-nowrap">
                     {d.type}
                   </span>
                 </div>
 
-                <div className="text-xs font-semibold text-amber-800 dark:text-amber-400 break-words">
+                <div className="text-xs font-semibold text-amber-400 break-words">
                   Founder / Rishi: {d.founderOrKeyRishi} • Sutra: {d.foundationalSutraText || d.foundationalText}
                 </div>
 
-                <p className="text-xs sm:text-sm text-stone-700 dark:text-stone-300 leading-relaxed font-serif break-words">
+                <p className="text-xs sm:text-sm text-stone-300 leading-relaxed font-serif break-words">
                   {d.centralPremise}
                 </p>
 
                 {d.pramanasAccepted && d.pramanasAccepted.length > 0 && (
                   <div className="space-y-1.5 pt-2">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-amber-800 dark:text-amber-400 block">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400 block">
                       Epistemological Means of Knowledge (Pramanas)
                     </span>
                     <div className="flex flex-wrap gap-2 text-xs">
@@ -89,7 +89,7 @@ export const DarshanasPage: React.FC = () => {
                             evt.stopPropagation();
                             openTopicModal(pramana);
                           }}
-                          className="px-3 py-2 rounded-xl bg-amber-500/15 text-amber-900 dark:text-amber-200 hover:bg-amber-600 hover:text-white transition-all text-left min-h-[44px] flex items-center font-medium active:scale-95 break-words"
+                          className="px-3 py-2 rounded-xl bg-amber-500/15 text-amber-200 hover:bg-amber-600 hover:text-white transition-all text-left min-h-[44px] flex items-center font-medium active:scale-95 break-words"
                         >
                           {pramana}
                         </button>
@@ -99,8 +99,8 @@ export const DarshanasPage: React.FC = () => {
                 )}
               </div>
 
-              <div className="pt-3 border-t border-amber-900/10 text-xs text-stone-600 dark:text-stone-400 font-serif italic break-words">
-                <span className="font-bold font-sans not-italic text-amber-900 dark:text-amber-300">View on Moksha:</span> {d.viewOnMoksha}
+              <div className="pt-3 border-t border-amber-900/10 text-xs text-stone-300 font-serif italic break-words">
+                <span className="font-bold font-sans not-italic text-amber-300">View on Moksha:</span> {d.viewOnMoksha}
               </div>
             </div>
           ))}
@@ -123,18 +123,18 @@ export const DarshanasPage: React.FC = () => {
               <div
                 key={deb.id}
                 onClick={() => openTopicModal(deb.topic)}
-                className="p-5 sm:p-6 rounded-2xl bg-amber-50 dark:bg-stone-900 border border-amber-800/20 shadow-md space-y-4 flex flex-col justify-between hover:border-amber-600 transition-all cursor-pointer group"
+                className="p-5 sm:p-6 rounded-2xl bg-stone-900 border border-amber-800/20 shadow-md space-y-4 flex flex-col justify-between hover:border-amber-600 transition-all cursor-pointer group"
               >
                 <div className="space-y-3">
                   <div className="border-b border-amber-900/10 pb-3">
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-amber-800 dark:text-amber-400 block mb-0.5 break-words">
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-amber-400 block mb-0.5 break-words">
                       TOPIC: {deb.sanskritTerm}
                     </span>
-                    <h3 className="font-serif text-xl font-bold text-amber-950 dark:text-amber-100 mt-0.5 group-hover:text-amber-700 transition-colors flex items-center justify-between gap-2 break-words">
+                    <h3 className="font-serif text-xl font-bold text-amber-100 mt-0.5 group-hover:text-amber-300 transition-colors flex items-center justify-between gap-2 break-words">
                       <span>{deb.topic}</span>
                       <ExternalLink className="w-4 h-4 text-amber-600 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
                     </h3>
-                    <p className="text-xs text-stone-600 dark:text-stone-300 mt-1.5 font-serif leading-relaxed break-words">
+                    <p className="text-xs text-stone-300 mt-1.5 font-serif leading-relaxed break-words">
                       {deb.description}
                     </p>
                   </div>
@@ -149,11 +149,11 @@ export const DarshanasPage: React.FC = () => {
                         }}
                         className="p-3.5 bg-amber-500/10 hover:bg-amber-500/20 rounded-xl border border-amber-500/15 transition-all cursor-pointer group/pos min-h-[44px]"
                       >
-                        <div className="flex items-center justify-between gap-1 font-bold text-amber-900 dark:text-amber-200 group-hover/pos:text-amber-700">
+                        <div className="flex items-center justify-between gap-1 font-bold text-amber-200 group-hover/pos:text-amber-300">
                           <span className="break-words">{pos.schoolName}</span>
                           <ExternalLink className="w-3 h-3 text-amber-600 opacity-0 group-hover/pos:opacity-100 transition-opacity shrink-0" />
                         </div>
-                        <p className="text-stone-700 dark:text-stone-300 mt-1 leading-relaxed break-words">
+                        <p className="text-stone-300 mt-1 leading-relaxed break-words">
                           {pos.viewpoint}
                         </p>
                         {pos.keyVerses && pos.keyVerses.length > 0 && (
@@ -165,7 +165,7 @@ export const DarshanasPage: React.FC = () => {
                                   evt.stopPropagation();
                                   openTopicModal(verse);
                                 }}
-                                className="px-2.5 py-1 rounded-md bg-amber-600/15 text-[10px] font-semibold text-amber-950 dark:text-amber-200 hover:bg-amber-700 hover:text-white transition-colors min-h-[32px] flex items-center break-words"
+                                className="px-2.5 py-1 rounded-md bg-amber-600/15 text-[10px] font-semibold text-amber-200 hover:bg-amber-700 hover:text-white transition-colors min-h-[32px] flex items-center break-words"
                               >
                                 {verse}
                               </button>
@@ -177,8 +177,8 @@ export const DarshanasPage: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="p-3.5 bg-amber-500/10 rounded-xl border border-amber-500/20 text-xs text-stone-800 dark:text-stone-200 font-serif break-words">
-                  <span className="font-bold text-amber-900 dark:text-amber-300">Synthesis:</span> {deb.neutralSynthesis}
+                <div className="p-3.5 bg-amber-500/10 rounded-xl border border-amber-500/20 text-xs text-stone-200 font-serif break-words">
+                  <span className="font-bold text-amber-300">Synthesis:</span> {deb.neutralSynthesis}
                 </div>
               </div>
             ))}

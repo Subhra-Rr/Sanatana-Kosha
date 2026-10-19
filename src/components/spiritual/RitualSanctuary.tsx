@@ -49,8 +49,8 @@ export const RitualSanctuary: React.FC<{ className?: string }> = ({ className = 
       }
 
       // Elliptical gentle path simulating the priest's respectful circular waving
-      const radiusX = 64;
-      const radiusY = 28;
+      const radiusX = 76;
+      const radiusY = 38;
       const x = Math.sin(aartiAngleRef.current) * radiusX;
       const y = -Math.cos(aartiAngleRef.current) * radiusY;
 
@@ -187,65 +187,79 @@ export const RitualSanctuary: React.FC<{ className?: string }> = ({ className = 
       {activeRitual === 'aarti' && (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
           {/* Visual Stage */}
-          <div className="lg:col-span-7 relative h-72 sm:h-80 bg-gradient-to-b from-stone-950 via-stone-900 to-stone-950 rounded-2xl border border-amber-800/25 p-6 flex flex-col items-center justify-center overflow-hidden shadow-inner">
-            {/* Center Sacred Focus (Subtle Deity / Sanctum Shrine Light) */}
-            <div className="absolute top-8 flex flex-col items-center pointer-events-none opacity-85">
-              <div className="w-16 h-16 rounded-full bg-amber-500/10 border border-amber-400/30 flex items-center justify-center shadow-[0_0_20px_rgba(245,158,11,0.15)]">
-                <span className="font-serif text-2xl font-bold text-amber-200 sanskrit-font select-none">ॐ</span>
-              </div>
-              <span className="text-[10px] text-amber-300/80 font-serif mt-1 tracking-widest uppercase">गर्भगृह • Sanctum Sanctorum</span>
-            </div>
-
-            {/* Fixed Sacred Pradakshina Orbit Track (Centered in the Chamber) */}
-            {isAartiActive && (
-              <div
-                aria-hidden="true"
-                className="absolute pointer-events-none rounded-full border border-amber-500/20"
-                style={{
-                  width: 136,
-                  height: 60,
-                  top: 'calc(50% + 40px)',
-                  left: '50%',
-                  transform: 'translate(-50%, -50%)',
-                  boxShadow: '0 0 25px rgba(245, 158, 11, 0.05)'
-                }}
-              />
-            )}
-
-            {/* Aarti Lamp moving in slow graceful clockwise orbit */}
+          <div className="lg:col-span-7 relative h-72 sm:h-80 bg-gradient-to-b from-stone-950 via-stone-900 to-stone-950 rounded-2xl border border-amber-800/25 p-6 overflow-hidden shadow-inner flex flex-col items-center justify-center">
+            {/* Center Sacred Focus (Deity / Sanctum Shrine Light) - Perfectly centered in the chamber */}
             <div
-              className="relative z-10 transition-transform duration-75 flex flex-col items-center"
+              className="absolute flex flex-col items-center pointer-events-none opacity-90 z-0"
               style={{
-                transform: `translate3d(${aartiPos.x}px, ${aartiPos.y + 40}px, 0)`
+                top: '42%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)'
               }}
             >
-              {/* Concentric Warm Flame Aura directly centered with the burning flames */}
+              <div className="w-16 h-16 rounded-full bg-amber-500/10 border border-amber-400/35 flex items-center justify-center shadow-[0_0_25px_rgba(245,158,11,0.25)]">
+                <span className="font-serif text-3xl font-bold text-amber-200 sanskrit-font select-none">ॐ</span>
+              </div>
+              <span className="text-[10px] text-amber-300 font-serif mt-1 tracking-widest uppercase font-semibold">गर्भगृह • Sanctum</span>
+            </div>
+
+            {/* Fixed Sacred Pradakshina Orbit Track (Concentric circle centered with Sanctum and Aarti trajectory) */}
+            <div
+              aria-hidden="true"
+              className={`absolute pointer-events-none rounded-full border border-dashed border-amber-500/35 shadow-[0_0_20px_rgba(245,158,11,0.12)] z-0 transition-opacity duration-500 ${
+                isAartiActive ? 'opacity-100' : 'opacity-40'
+              }`}
+              style={{
+                width: 152, // 2 * radiusX (76 * 2)
+                height: 76, // 2 * radiusY (38 * 2)
+                top: '42%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)'
+              }}
+            >
+              {/* Auspicious Cardinal Marker Points on the fixed outer ring */}
+              <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-amber-400/80 shadow-[0_0_6px_rgba(245,158,11,0.8)]" />
+              <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-amber-400/80 shadow-[0_0_6px_rgba(245,158,11,0.8)]" />
+              <div className="absolute top-1/2 -left-1 -translate-y-1/2 w-2 h-2 rounded-full bg-amber-400/80 shadow-[0_0_6px_rgba(245,158,11,0.8)]" />
+              <div className="absolute top-1/2 -right-1 -translate-y-1/2 w-2 h-2 rounded-full bg-amber-400/80 shadow-[0_0_6px_rgba(245,158,11,0.8)]" />
+            </div>
+
+            {/* Aarti Lamp moving in slow graceful clockwise orbit, locked onto the orbit track */}
+            <div
+              className="absolute z-10 transition-transform duration-75 flex flex-col items-center pointer-events-none"
+              style={{
+                top: '42%',
+                left: '50%',
+                transform: `translate3d(calc(-50% + ${aartiPos.x}px), calc(-50% + ${aartiPos.y}px), 0)`
+              }}
+            >
+              {/* Flame Aura: concentric and positioned directly behind the burning flame tips */}
               <div
                 aria-hidden="true"
-                className="absolute -top-3 left-1/2 -translate-x-1/2 pointer-events-none rounded-full animate-diya-aura"
+                className="absolute -top-2 left-1/2 -translate-x-1/2 w-28 h-16 rounded-full pointer-events-none animate-diya-aura z-0"
                 style={{
-                  width: 100,
-                  height: 54,
-                  background: 'radial-gradient(ellipse at 50% 55%, rgba(245, 158, 11, 0.4) 0%, rgba(217, 119, 6, 0.15) 50%, transparent 75%)',
-                  filter: 'blur(3px)'
+                  background: 'radial-gradient(ellipse at 50% 50%, rgba(245, 158, 11, 0.5) 0%, rgba(217, 119, 6, 0.25) 45%, rgba(180, 83, 9, 0.08) 65%, transparent 80%)',
+                  filter: 'blur(4px)'
                 }}
               />
 
-              <div className="relative z-10">
+              <div className="relative z-10 flex flex-col items-center">
                 {/* Five-wick Pancha Pradeep Aarti Lamp representation */}
                 <div className="flex items-end justify-center -space-x-1.5 mb-[-2px]">
                   <Diya size="sm" showAura={false} />
                   <Diya size="md" showAura={false} />
                   <Diya size="sm" showAura={false} />
                 </div>
+                {/* Traditional Brass Aarti Thali (Plate) with Fixed Concentric Rim */}
+                <div className="w-24 h-2.5 bg-gradient-to-r from-amber-700 via-amber-300 to-amber-800 rounded-full mx-auto shadow-md border-t border-amber-200/60 ring-1 ring-amber-500/40" />
+                <div className="w-20 h-1.5 bg-gradient-to-b from-amber-600 via-amber-700 to-amber-900 rounded-b-lg shadow-inner" />
                 {/* Traditional Brass Aarti Handle */}
-                <div className="w-12 h-2 bg-gradient-to-r from-amber-700 via-amber-400 to-amber-800 rounded-full mx-auto shadow-sm" />
-                <div className="w-1.5 h-6 bg-gradient-to-b from-amber-600 to-amber-900 mx-auto rounded-b" />
+                <div className="w-2 h-7 bg-gradient-to-b from-amber-600 via-amber-800 to-amber-950 mx-auto rounded-b shadow-sm" />
               </div>
             </div>
 
             {/* Status Indicator */}
-            <div className="absolute bottom-4 inset-x-6 flex items-center justify-between text-xs font-serif text-stone-400 border-t border-amber-900/15 pt-2">
+            <div className="absolute bottom-4 inset-x-6 flex items-center justify-between text-xs font-serif text-stone-400 border-t border-amber-900/15 pt-2 z-10">
               <span>Aarti Cycle: <strong className="text-amber-300">{aartiRounds} Pradakshinas</strong></span>
               <span className="text-[11px] text-amber-400">
                 {isAartiActive ? 'Clockwise Devotional Rotation' : 'Resting in Sacred Stillness'}
